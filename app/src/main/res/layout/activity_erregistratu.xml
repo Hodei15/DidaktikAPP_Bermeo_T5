@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#58718B"
+    tools:context=".Activity.Erregistratu_Activity">
+
+    <Button
+        android:id="@+id/btn_erregistratu"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="70dp"
+        android:backgroundTint="#092635"
+        android:text="ERREGISTRATU"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_erregistro_pass_ber" />
+
+    <EditText
+        android:id="@+id/txt_erregistro_pass_ber"
+        android:layout_width="200sp"
+        android:layout_height="51dp"
+        android:layout_marginTop="30dp"
+        android:hint="Pasahitza errepikatu"
+        android:inputType="textPassword"
+        android:textColorHint="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_erregistro_pass" />
+
+    <EditText
+        android:id="@+id/txt_erregistro_pass"
+        android:layout_width="200sp"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:hint="Pasahitza"
+        android:inputType="textPassword"
+        android:textColorHint="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_erregistro_mail" />
+
+    <EditText
+        android:id="@+id/txt_erregistro_mail"
+        android:layout_width="200sp"
+        android:layout_height="49dp"
+        android:layout_marginTop="30dp"
+        android:hint="E-mail posta"
+        android:textColorHint="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_erregistro_erabiltzaile" />
+
+    <TextView
+        android:id="@+id/lbl_erregistratu"
+        android:layout_width="211dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="60dp"
+        android:text="ERREGISTRATU"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txt_erregistro_erabiltzaile"
+        android:layout_width="200sp"
+        android:layout_height="48sp"
+        android:layout_marginTop="60dp"
+        android:hint="Izena"
+        android:textColorHint="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_erregistratu" />
+
+    <TextView
+        android:id="@+id/lbl_login_nav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Kontu bat daukat. "
+        android:textColor="#092635"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_erregistratu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

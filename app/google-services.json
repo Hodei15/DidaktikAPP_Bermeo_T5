@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1046198540935",
+    "project_id": "didaktikapp-6e86c",
+    "storage_bucket": "didaktikapp-6e86c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1046198540935:android:ed2a5fcec74484039a7622",
+        "android_client_info": {
+          "package_name": "com.example.didaktikapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKMpPWjkZoVQWG4dMNsSNGjlz-DNwuxYA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

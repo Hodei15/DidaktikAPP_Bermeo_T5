@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">DidaktikAPP</string>
+    <string name="Login_editxt_email_hint">mail@gmail.com</string>
+    <string name="Login_editxt_pasahitza_hint">Zure pasahitza</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textua_Gune_1">Bideoan bonitoaren kontserba prozesua ikusi dezakegu, eta nola honetatik
+        ateratzen diren produktu ezberdinetarako kontserba ezberdinak, hala nola
+        bentreska, zatia eta miga-rentzako. Hala ere, bonitoa ez da kontserbatzen den
+        arrain bakarra.\n\n
+        Sardinak, adibidez, kontserban sartzeko burua eta hegalak kentzen dizkiete ondo
+        garbitzen dituzte eta gero lata batean sartzen dituzte bata bestearen alboan.
+        Azkenik, oliba olioa sartzen diote eta hermetikoki ixten dute kontserbatzeko.\n\n
+        Antxoen kasuan berriz, prozesua apurtxo bat ezberdina da, kasu honetan xerretan
+        kontserbatzen delako, beraz antxoak xerretan sartzen dira latan eta gero oliba
+        olioa botatzen diete. Nabaria da Antxoak kolore marroia izaten dutela kontserban.\n\n
+        Itsas labanen kasuan hauek oso ondo garbitu behar dira, barruan izan ahal duten
+        area eta gainontzeko hondakinak kentzeko, baita hauek babeste dituen mazkorra
+        kendu ere. Hau egin ostean labana kontserbatzeko prest dago. Kontserban
+        sartzean bata bestearen alboan ipintzen dira eta kolore zurixka bat dute.\n\n
+        Muskuiluen kasuan hauei oskola kentzen zaie, ondo garbitzen eta prestatzen dira
+        eta gero kontserban sartzen dira. Hauek kolore laranja dute, eta pieza osoa
+        ipintzen da kontserban.
+        </string>
+    <string name="textua_Gune_3">Saregileen lana duela 100 urte baino gehiagotik dagoen lanbidea da. Lan
+        tradizional familiarra zen, eta ametatik alabetara transmititzen zen haren
+        ikaskuntza. Garai batean, emakume horien lana oso garrantzitsua zen arrantzaren
+        munduan, saregileen lana ezinbestekoa zelako arrantzako ontzientzat. Kostaldean,
+        itsasontziak ahalik eta denbora gutxien galdu behar zuten portuan, beraz,
+        saregileak erne egon behar ziren edozein gorabeherari aurre egiteko, gertatzen
+        zen ordua edozein izanda ere. Portuan lan egiten zuten eta edozein eguraldi egiten
+        zuela ere, hau da, euripean edo eguzkipean egiten zuten lan.
+        Lan hori oso irregularra zen denboran, antxoaren edo berdelen arrantza garaian
+        pilatu egiten zen lana. Itsasontziak itsasora itzultzen zirenean, berriz, saregileen
+        lana behera egiten zuen. Antxoa eta berdel garaietan, goizean goiz patroien
+        deiaren zain egoten ziren, jakiteko ea arrantza gauak korronteek eragindako
+        hausturarik eragin zuen sareetan, helizean lotzearen ondoriozko hausturarik, edo
+        beste arrazoiengatik eragindako hausturak. Neguan, flota portuan lotuta zegoen
+        bitartean, seregileak sare berriak egiten zituzten.
+        Sare bat konpontzeko trebetasun handia behar da. Edozein akatsek arrantza
+        aparailua aldatzea ekar dezake, haren eraginkortasuna murrizteko arriskuarekin.
+        </string>
+</resources>
