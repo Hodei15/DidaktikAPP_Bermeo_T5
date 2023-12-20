@@ -79,12 +79,12 @@ public class Audio_Fragment_Gune_3 extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-        Play = (ImageView) view.findViewById(R.id.img_Audio_2play);
-        barraAudio = view.findViewById(R.id.id_audioBarra_G2);
-        player = MediaPlayer.create(getActivity(), R.raw.saregileeak);
+        Play = (ImageView) view.findViewById(R.id.img_Audio_3play);
+        barraAudio = view.findViewById(R.id.id_audioBarra_G3);
+        player = MediaPlayer.create(getActivity(), R.raw.audio_kontserbak);
         barraAudio.setMax(player.getDuration());
         prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        textua = view.findViewById(R.id.testua_Gune_2);
+        textua = view.findViewById(R.id.testua_Gune_3);
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -125,7 +125,6 @@ public class Audio_Fragment_Gune_3 extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 player.start();
-
             }
         });
     }
