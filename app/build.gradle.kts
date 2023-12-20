@@ -35,7 +35,8 @@ android {
 
 dependencies {
 
-
+    //Mapa
+    implementation ("org.osmdroid:osmdroid-android:6.1.17")
 
     //ROOM
         //falta el def si se revisa en documentacion pero no hace falta ponerlo
@@ -65,4 +66,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     // Add this in addition to your other dependencies
     implementation ("androidx.activity:activity:1.9.0-alpha01")
+
 }
