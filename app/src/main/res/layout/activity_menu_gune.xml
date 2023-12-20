@@ -11,12 +11,12 @@
         android:id="@+id/btn_LoginAtzera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="228dp"
+        android:layout_marginTop="348dp"
         android:backgroundTint="#092635"
         android:text="Button"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_gune_3" />
 
@@ -24,13 +24,13 @@
         android:id="@+id/lbl_menu_gune"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="16dp"
         android:text="Menu Guneak"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +38,7 @@
         android:id="@+id/btn_gune_1"
         android:layout_width="241dp"
         android:layout_height="51dp"
-        android:layout_marginTop="164dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#092635"
         android:text="Kontserba Fabrika"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,11 +60,25 @@
         android:id="@+id/btn_gune_3"
         android:layout_width="241dp"
         android:layout_height="51dp"
-        android:layout_marginTop="188dp"
+        android:layout_marginTop="144dp"
         android:backgroundTint="#092635"
         android:text="Saregileen Murala"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_gune_1" />
+
+    <org.osmdroid.views.MapView
+        android:id="@+id/mapaGPS"
+        android:layout_width="404sp"
+        android:layout_height="332sp"
+        android:layout_marginBottom="72sp"
+        android:clickable="true"
+        android:contentDescription="@string/mapa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"></org.osmdroid.views.MapView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
