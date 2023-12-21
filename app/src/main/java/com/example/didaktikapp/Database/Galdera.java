@@ -4,18 +4,16 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
-
+@Entity(
+        tableName = "galderak",
+        foreignKeys = @ForeignKey(
+                entity = Jarduera.class,
+                parentColumns = "id",
+                childColumns = "id_jarduera",
+                onDelete = ForeignKey.CASCADE
+        )
+)
 public class Galdera {
-    @Entity(
-            tableName = "galderak",
-            foreignKeys = @ForeignKey(
-                    entity = Jarduera.class,
-                    parentColumns = "id",
-                    childColumns = "id_jarduera",
-                    onDelete = ForeignKey.CASCADE
-            )
-    )
-    public class Galderak {
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "id")
         public int id;
@@ -25,5 +23,4 @@ public class Galdera {
 
         @ColumnInfo(name = "id_jarduera")
         public int id_jarduera; //  Jardueraren FK da
-    }
 }

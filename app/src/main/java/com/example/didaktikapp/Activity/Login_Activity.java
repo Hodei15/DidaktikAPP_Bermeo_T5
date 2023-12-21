@@ -12,9 +12,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.didaktikapp.Controler.Metodoak;
 import com.example.didaktikapp.Database.Dao.ErabiltzaileDao;
+import com.example.didaktikapp.Database.Dao.GuneaDao;
 import com.example.didaktikapp.Database.Datubasea;
 import com.example.didaktikapp.Database.Erabiltzaile;
+import com.example.didaktikapp.Database.Gunea;
+import com.example.didaktikapp.Controler.Metodoak;
 import com.example.didaktikapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,6 +39,8 @@ public class Login_Activity extends AppCompatActivity {
     private Button btn_anonimo;
     private String email;
     private String pass;
+    private Datubasea database;
+    private List<Gunea> guneak;
 
     //SharedPreferences
     SharedPreferences sharedpreferences;
@@ -46,8 +52,8 @@ public class Login_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        database = Datubasea.getDatabase(getApplicationContext());
 
-        Datubasea database = Datubasea.getDatabase(getApplicationContext());
         ErabiltzaileDao erabiltzaileDao = database.erabiltzaileDao();
 
         Erabiltzaile nuevoUsuario = new Erabiltzaile();
@@ -131,6 +137,9 @@ public class Login_Activity extends AppCompatActivity {
                             editor.putString(PASSWORD_KEY, pasahitza);
                             editor.apply();
 
+                            guneak = Metodoak.guneakBete(database);
+
+
                             startActivity(intent);
                             finish();
 
@@ -147,5 +156,6 @@ public class Login_Activity extends AppCompatActivity {
                     }
         });
     }
+
 
 }

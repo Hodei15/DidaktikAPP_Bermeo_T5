@@ -15,4 +15,5 @@ public interface GuneaDao {
 
     @Query("SELECT * FROM guneak")
     List<Gunea> getAllGuneak();
+
 }

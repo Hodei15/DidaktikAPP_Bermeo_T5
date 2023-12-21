@@ -7,10 +7,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.didaktikapp.Database.Dao.ErabiltzaileDao;
+import com.example.didaktikapp.Database.Dao.GuneaDao;
 
-@Database(entities = {Erabiltzaile.class, Puntuazioa.class, Jarduera.class}, version = 2)
+@Database(entities = {Erabiltzaile.class, Puntuazioa.class, Jarduera.class, Gunea.class, Galdera.class, Erantzuna.class}, version = 3)
 public abstract class Datubasea extends RoomDatabase {
     public abstract ErabiltzaileDao erabiltzaileDao();
+    public abstract GuneaDao guneaDao();
     // Agrega Dao para las otras entidades aquí
 
     private static volatile Datubasea INSTANCE;

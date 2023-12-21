@@ -15,10 +15,10 @@ public interface ErabiltzaileDao {
     @Insert
     void insertErabiltzaile(Erabiltzaile erabiltzaile);
 
-    @Query("SELECT * FROM erabiltzaile")
+    @Query("SELECT * FROM erabiltzaileak")
     List<Erabiltzaile> getAllErabiltzaileak();
 
-    @Query("SELECT * FROM erabiltzaile WHERE id = :userId")
+    @Query("SELECT * FROM erabiltzaileak WHERE id = :userId")
     Erabiltzaile getErabiltzaileById(int userId);
 
     @Update
