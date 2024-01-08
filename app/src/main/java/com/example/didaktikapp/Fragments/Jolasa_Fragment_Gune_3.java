@@ -1,13 +1,21 @@
 package com.example.didaktikapp.Fragments;
 
+import static android.service.controls.ControlsProviderService.TAG;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 
+import com.example.didaktikapp.Model.Argazki;
+import com.example.didaktikapp.Model.DibujoView;
 import com.example.didaktikapp.R;
 
 /**
@@ -55,6 +63,7 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -62,5 +71,46 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_jolasa_gune_3, container, false);
+    }
+    ImageView mural;
+    double argazkiZabalera;
+    double argazkiAltuera;
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
+        mural = (ImageView) view.findViewById(R.id.Murala);
+
+        ViewTreeObserver viewTreeObserver = mural.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int[] locationOnScreen = new int[2];
+                mural.getLocationOnScreen(locationOnScreen);
+                argazkiZabalera = mural.getWidth();
+                argazkiAltuera = mural.getHeight();
+                Log.d(TAG,"Finish X: "+ argazkiAltuera);
+                Log.d(TAG,"Finish y: "+ argazkiZabalera);
+            }
+        });
+        mural.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                float clicX = event.getX();
+                float clicY = event.getY();
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+
+                        Log.d(TAG,"Finish X: "+ clicX);
+                        Log.d(TAG,"Finish Y: "+ clicY);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        break;
+                }
+                return true;
+            }
+        });
+
     }
 }

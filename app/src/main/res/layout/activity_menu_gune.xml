@@ -63,7 +63,7 @@
         android:layout_marginTop="144dp"
         android:backgroundTint="#092635"
         android:text="Saregileen Murala"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_gune_1" />

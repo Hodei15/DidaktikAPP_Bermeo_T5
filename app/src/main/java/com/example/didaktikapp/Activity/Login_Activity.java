@@ -76,8 +76,8 @@ public class Login_Activity extends AppCompatActivity {
         txt_login_erabiltzaile = findViewById(R.id.txt_login_erabiltzaile);
         txt_login_pasahitza = findViewById(R.id.txt_login_pasahitza);
         //Balioak jarri
-        /*txt_login_erabiltzaile.setText(email);
-        txt_login_pasahitza.setText(pass);*/
+        txt_login_erabiltzaile.setText(email);
+        txt_login_pasahitza.setText(pass);
 
         //botoiak
         btn_sartu = findViewById(R.id.btn_sartu);
