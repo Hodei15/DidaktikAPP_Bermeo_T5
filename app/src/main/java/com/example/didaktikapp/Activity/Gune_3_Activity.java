@@ -10,12 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.didaktikapp.Fragments.Argazkiak_Fragment_Gune_2;
-import com.example.didaktikapp.Fragments.Audio_Fragment_Gune_1;
 import com.example.didaktikapp.Fragments.Audio_Fragment_Gune_3;
-import com.example.didaktikapp.Fragments.Bideo_Fragment_Gune_1;
-import com.example.didaktikapp.Fragments.Bideo_Fragment_Gune_2;
-import com.example.didaktikapp.Fragments.Jolasa_Fragment_Gune_1;
 import com.example.didaktikapp.Fragments.Jolasa_Fragment_Gune_3;
 import com.example.didaktikapp.R;
 

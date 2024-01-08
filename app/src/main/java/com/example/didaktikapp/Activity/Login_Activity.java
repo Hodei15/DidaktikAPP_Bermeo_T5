@@ -137,7 +137,7 @@ public class Login_Activity extends AppCompatActivity {
                             editor.putString(PASSWORD_KEY, pasahitza);
                             editor.apply();
 
-                            guneak = Metodoak.guneakBete(database);
+//                            guneak = Metodoak.guneakBete(database);
 
 
                             startActivity(intent);
