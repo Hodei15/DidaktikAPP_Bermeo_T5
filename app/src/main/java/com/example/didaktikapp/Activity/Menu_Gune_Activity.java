@@ -83,13 +83,8 @@ public class Menu_Gune_Activity extends AppCompatActivity {
             mapa.getOverlays().add(startMarker);
         }
 
-
-
-
-
-
         /*
-//marker onclick
+        //marker onclick
         startMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker, MapView mapView) {
@@ -98,7 +93,6 @@ public class Menu_Gune_Activity extends AppCompatActivity {
                 return false;
             }
         });
-
 */
 
 

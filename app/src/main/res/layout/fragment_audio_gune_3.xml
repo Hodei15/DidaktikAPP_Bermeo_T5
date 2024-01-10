@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#58718B"
+    android:backgroundTint="#58718B"
+    tools:context=".Fragments.Audio_Fragment_Gune_3">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/testua_Gune_3"
+            android:layout_width="368dp"
+            android:layout_height="429dp"
+            android:layout_marginTop="124dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/textua_Gune_3"
+                android:textColor="@color/black" />
+        </ScrollView>
+
+        <SeekBar
+            android:id="@+id/id_audioBarra_G3"
+            android:layout_width="350dp"
+            android:layout_height="17dp"
+            android:layout_marginTop="44dp"
+            android:progressBackgroundTint="#00BCD4"
+            android:progressTint="@color/white"
+            android:thumbTint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testua_Gune_3" />
+
+        <ImageView
+            android:id="@+id/img_Audio_3play"
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/play"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/id_audioBarra_G3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
