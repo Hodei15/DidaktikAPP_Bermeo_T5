@@ -37,6 +37,7 @@ public class Menu_Gune_Activity extends AppCompatActivity {
     private Datubasea database;
     private List<Gunea> guneak;
 
+
     IMapController controlMapa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +62,10 @@ public class Menu_Gune_Activity extends AppCompatActivity {
         database = Datubasea.getDatabase(getApplicationContext());
         GuneaDao kontserbaGune = database.guneaDao();
         guneak = kontserbaGune.getAllGuneak();
-        System.out.println(guneak.get(2).izena);
-        System.out.println(guneak.get(2).id);
-        System.out.println(guneak.get(2).lat);
-        System.out.println(guneak.get(2).lon);
+
+
         for (int i = 0;i<guneak.size();i++){
+            final int markerIndex = i;
             //marker
             Marker startMarker = new Marker(mapa);
             GeoPoint marker = new GeoPoint(guneak.get(i).lat, guneak.get(i).lon);
@@ -78,22 +78,49 @@ public class Menu_Gune_Activity extends AppCompatActivity {
             Drawable dr = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, (int) (15f * getResources().getDisplayMetrics().density), (int) (15 * getResources().getDisplayMetrics().density), true));
             startMarker.setIcon(dr);
             mapa.getOverlays().add(startMarker);
+            // Indexatu marker
+            startMarker.setRelatedObject(markerIndex);
+            //marker onclick
+            startMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker, MapView mapView) {
 
+                    int clickedMarkerIndex = (int) marker.getRelatedObject();
+
+                    // Abre la actividad correspondiente según el identificador único
+                    Intent intent;
+                    switch (clickedMarkerIndex) {
+                        case 0:
+                            intent = new Intent(Menu_Gune_Activity.this, Gune_1_Activity.class);
+                            break;
+                        case 1:
+                            intent = new Intent(Menu_Gune_Activity.this, Gune_2_Activity.class);
+                            break;
+                        case 2:
+                            intent = new Intent(Menu_Gune_Activity.this, Gune_3_Activity.class);
+                            break;
+                        case 3:
+                            intent = new Intent(Menu_Gune_Activity.this, Gune_4_Activity.class);
+                            break;
+                        case 4:
+                            intent = new Intent(Menu_Gune_Activity.this, Gune_5_Activity.class);
+                            break;
+
+                        default:
+                            intent = new Intent(Menu_Gune_Activity.this, MainActivity.class);
+                            break;
+                    }
+                    startActivity(intent);
+                    return false;
+                }
+            });
             //markadoreak gehitu mapara
             mapa.getOverlays().add(startMarker);
         }
 
-        /*
-        //marker onclick
-        startMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker, MapView mapView) {
-                Intent i = new Intent(Menu_Gune_Activity.this, Gune_1_Activity.class);
-                startActivity(i);
-                return false;
-            }
-        });
-*/
+
+
+
 
 
         btn_gune_1.setOnClickListener(new View.OnClickListener() {
