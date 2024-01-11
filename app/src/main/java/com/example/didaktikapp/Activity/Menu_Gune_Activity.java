@@ -121,8 +121,6 @@ public class Menu_Gune_Activity extends AppCompatActivity {
 
 
 
-
-
         btn_gune_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
