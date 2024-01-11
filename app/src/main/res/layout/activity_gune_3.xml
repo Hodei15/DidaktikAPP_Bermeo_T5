@@ -11,16 +11,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="90dp"
-            android:layout_marginEnd="300dp"
+        <TextView
+            android:id="@+id/lbl_Saregile"
+            android:layout_width="231dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="40dp"
+            android:text="Saregileen Murala"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/home" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/g3_boton_home"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="80dp"
+            android:backgroundTint="#00FFFFFF"
+            android:foreground="@drawable/home"
+            android:text="."
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
