@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.didaktikapp.Fragments.Audio_Fragment_Gune_3;
 import com.example.didaktikapp.Fragments.Jolasa_Fragment_Gune_3;
@@ -22,6 +23,11 @@ public class Gune_3_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_gune_3);
         Button btn_atzera =findViewById(R.id.btn_atzera);
         Button btn_aurrera = findViewById(R.id.btn_aurrera);
+        Button g3_boton_home = findViewById(R.id.g3_boton_home);
+        TextView lbl_Saregile = findViewById(R.id.lbl_Saregile);
+
+        g3_boton_home.bringToFront();
+        lbl_Saregile.bringToFront();
 
 
         btn_atzera.setOnClickListener(new View.OnClickListener() {

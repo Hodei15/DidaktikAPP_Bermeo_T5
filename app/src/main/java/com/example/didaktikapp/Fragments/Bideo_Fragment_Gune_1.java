@@ -77,6 +77,7 @@ public class Bideo_Fragment_Gune_1 extends Fragment {
 
         // Videoa lortu
         kontserbaVideo = view.findViewById(R.id.KontsVideo);
+        /*
         if (kontserbaVideo != null) {
             // URI konfiguratu gure bideorako
             String videoPath = "android.resource://" + getActivity().getPackageName() + "/" + R.raw.kontserbak;
@@ -93,6 +94,8 @@ public class Bideo_Fragment_Gune_1 extends Fragment {
                 kontserbaVideo.start();
             }
         }
+
+         */
         kontserbaVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {

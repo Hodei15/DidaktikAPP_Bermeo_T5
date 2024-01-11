@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,12 +42,14 @@ public class Login_Activity extends AppCompatActivity {
     private String pass;
     private Datubasea database;
     private List<Gunea> guneak;
+    int lehenAldia = 0;
 
     //SharedPreferences
     SharedPreferences sharedpreferences;
     public static final String SHARED_PREFS = "shared_prefs";
     public static final String EMAIL_KEY = "email_key";
     public static final String PASSWORD_KEY = "password_key";
+    public static final String LEHEN_ALDIA = "lehenAldia";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,10 @@ public class Login_Activity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         email = sharedpreferences.getString(EMAIL_KEY, null);
         pass = sharedpreferences.getString(PASSWORD_KEY, null);
+
+        if(sharedpreferences.getInt(LEHEN_ALDIA, 0)==0) {
+            lehenAldia = sharedpreferences.getInt(LEHEN_ALDIA, -1);
+        }
 
         //EditText deklarazio
         txt_login_erabiltzaile = findViewById(R.id.txt_login_erabiltzaile);
@@ -133,11 +140,14 @@ public class Login_Activity extends AppCompatActivity {
                             //Datuak SharedPreferences-ean gordetzen ditugu
                             SharedPreferences.Editor editor = sharedpreferences.edit();
 
+                            if(lehenAldia==1) {
+                                guneak = Metodoak.guneakBete(database);
+                                editor.putInt(LEHEN_ALDIA, -1);
+                            }
+
                             editor.putString(EMAIL_KEY, erabiltzaile);
                             editor.putString(PASSWORD_KEY, pasahitza);
                             editor.apply();
-                            //guneak = Metodoak.guneakBete(database);
-
 
                             startActivity(intent);
                             finish();
