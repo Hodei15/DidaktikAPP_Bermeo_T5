@@ -37,7 +37,6 @@ public class Login_Activity extends AppCompatActivity {
     private EditText txt_login_pasahitza;
     private Button btn_sartu;
     private TextView lbl_erregistratu_nav;
-    private Button btn_anonimo;
     private String email;
     private String pass;
     private Datubasea database;
@@ -58,13 +57,6 @@ public class Login_Activity extends AppCompatActivity {
         database = Datubasea.getDatabase(getApplicationContext());
 
         ErabiltzaileDao erabiltzaileDao = database.erabiltzaileDao();
-
-        Erabiltzaile nuevoUsuario = new Erabiltzaile();
-        nuevoUsuario.nombre = "John";
-        nuevoUsuario.apellido = "Doe";
-        nuevoUsuario.email = "john.doe@example.com";
-
-        erabiltzaileDao.insertErabiltzaile(nuevoUsuario);
 
         List<Erabiltzaile> usuarios = erabiltzaileDao.getAllErabiltzaileak();
 
@@ -140,9 +132,9 @@ public class Login_Activity extends AppCompatActivity {
                             //Datuak SharedPreferences-ean gordetzen ditugu
                             SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                            if(lehenAldia==1) {
+                            if(lehenAldia!=0) {
                                 guneak = Metodoak.guneakBete(database);
-                                editor.putInt(LEHEN_ALDIA, -1);
+                                editor.putInt(LEHEN_ALDIA, 0);
                             }
 
                             editor.putString(EMAIL_KEY, erabiltzaile);

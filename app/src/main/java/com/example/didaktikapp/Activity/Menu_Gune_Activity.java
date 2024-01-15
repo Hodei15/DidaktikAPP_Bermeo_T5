@@ -33,6 +33,7 @@ public class Menu_Gune_Activity extends AppCompatActivity {
     Button btn_gune_1;
     Button btn_gune_2;
     Button btn_gune_3;
+    Button btn_saioItxi;
     MapView mapa;
     private Datubasea database;
     private List<Gunea> guneak;
@@ -47,6 +48,7 @@ public class Menu_Gune_Activity extends AppCompatActivity {
         btn_gune_1 = findViewById(R.id.btn_gune_1);
         btn_gune_2 = findViewById(R.id.btn_gune_2);
         btn_gune_3 = findViewById(R.id.btn_gune_3);
+        btn_saioItxi = findViewById(R.id.btn_saioItxi);
         mapa = findViewById(R.id.mapaGPS);
         mapa.setTileSource(TileSourceFactory.MAPNIK);
 
@@ -144,7 +146,13 @@ public class Menu_Gune_Activity extends AppCompatActivity {
             }
         });
 
-
+        btn_saioItxi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Menu_Gune_Activity.this, Login_Activity.class);
+                startActivity(i);
+            }
+        });
 
     }
 }
