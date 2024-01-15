@@ -4,6 +4,7 @@ import static android.service.controls.ControlsProviderService.TAG;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -13,10 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.example.didaktikapp.Model.Argazki;
-import com.example.didaktikapp.Model.DibujoView;
+import com.example.didaktikapp.Model.EsperaImagen;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.example.didaktikapp.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,10 +86,35 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
     ImageView mural;
     double argazkiZabalera;
     double argazkiAltuera;
+
+    ArrayList<String> galderak;
+    ArrayList<String> koordenadak;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    int galdera_index;
+    TextView lbl_galdera_jolasa_3;
+    private FirebaseAuth mAuth;
+    double hasiera_x;
+    double hasiera_y;
+    ImageView img_tick_jolasa3;
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         mural = (ImageView) view.findViewById(R.id.Murala);
+
+        lbl_galdera_jolasa_3 = view.findViewById(R.id.lbl_galdera_jolasa_3);
+        img_tick_jolasa3 = view.findViewById(R.id.img_tick_jolasa3);
+        mAuth = FirebaseAuth.getInstance();
+        db.collection("guneak").document("gune_3").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                galderak = (ArrayList<String>) document.get("galderak");
+                koordenadak = (ArrayList<String>) document.get("koordenadak");
+                lbl_galdera_jolasa_3.setText(galderak.get(0));
+                galdera_index = 0;
+             }
+        });
 
         ViewTreeObserver viewTreeObserver = mural.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -99,13 +135,33 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
                 float clicY = event.getY();
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-
-                        Log.d(TAG,"Finish X: "+ clicX);
-                        Log.d(TAG,"Finish Y: "+ clicY);
+                        hasiera_x = clicX;
+                        hasiera_y = clicY;
+                        Log.d(TAG,"Coordenada X clicada: "+hasiera_x);
+                        Log.d(TAG,"Coordenada Y cliacada: "+hasiera_y);
+                        Log.d(TAG,"Coordenada X esperada: "+koordenadak.get(galdera_index).split("/")[0]);
+                        Log.d(TAG,"Coordenada Y esperada: "+koordenadak.get(galdera_index).split("/")[1]);
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
                     case MotionEvent.ACTION_UP:
+                        if(hasiera_x>= Double.parseDouble(koordenadak.get(galdera_index).split("/")[0]) - 50 && hasiera_x<= Double.parseDouble(koordenadak.get(galdera_index).split("/")[0]) + 50 && hasiera_y>= Double.parseDouble(koordenadak.get(galdera_index).split("/")[1]) - 50 && hasiera_y<= Double.parseDouble(koordenadak.get(galdera_index).split("/")[1]) + 50){
+                            Log.d(TAG,"Coordenada clicada X: "+koordenadak.get(galdera_index).split("/")[0]);
+                            Log.d(TAG,"Coordenada clicada Y: "+koordenadak.get(galdera_index).split("/")[1]);
+                            img_tick_jolasa3.setImageResource(R.drawable.tick);
+                            EsperaImagen espera = new EsperaImagen(img_tick_jolasa3);
+                            img_tick_jolasa3.setVisibility(View.VISIBLE);
+                            if(galdera_index<galderak.size()-1) {
+                                galdera_index++;
+                                lbl_galdera_jolasa_3.setText(galderak.get(galdera_index));
+                            }else{
+                                lbl_galdera_jolasa_3.setText("Oso ondo!");
+                            }
+                        }else{
+                            img_tick_jolasa3.setImageResource(R.drawable.cruz);
+                            EsperaImagen espera = new EsperaImagen(img_tick_jolasa3);
+                            img_tick_jolasa3.setVisibility(View.VISIBLE);
+                        }
                         break;
                 }
                 return true;

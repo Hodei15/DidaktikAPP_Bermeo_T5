@@ -52,6 +52,8 @@ public class Gune_1_Activity extends AppCompatActivity {
                 Fragment fragment_nuevo=null;
                 if (fragment instanceof Bideo_Fragment_Gune_1){
                     //Falta por programar
+                    Intent i = new Intent(Gune_1_Activity.this, Menu_Gune_Activity.class);
+                    startActivity(i);
                 }else if(fragment instanceof Audio_Fragment_Gune_1) {
                     fragment_nuevo = new Bideo_Fragment_Gune_1();
                 }else if(fragment instanceof Jolasa_Fragment_Gune_1){

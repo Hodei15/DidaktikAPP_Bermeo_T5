@@ -74,8 +74,13 @@ public class Gune_2_Activity extends AppCompatActivity {
                     startActivity(i);
                     //Falta por programar
                 }
-                fragmentTransaction.replace(R.id.frag_container, fragment_nuevo);
-                fragmentTransaction.commit();
+                if(fragment_nuevo!=null){
+                    fragmentTransaction.replace(R.id.frag_container, fragment_nuevo);
+                    fragmentTransaction.commit();
+                }else{
+                    fragmentTransaction.replace(R.id.frag_container, new Bideo_Fragment_Gune_2());
+                    fragmentTransaction.commit();
+                }
             }
         });
     }
