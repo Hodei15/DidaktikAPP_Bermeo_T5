@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_gune_3" />
+        app:layout_constraintTop_toBottomOf="@+id/mapaGPS" />
 
     <TextView
         android:id="@+id/lbl_menu_gune"
@@ -33,42 +33,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_gune_1"
-        android:layout_width="241dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#092635"
-        android:text="Kontserba Fabrika"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_menu_gune" />
-
-    <Button
-        android:id="@+id/btn_gune_2"
-        android:layout_width="241dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="68dp"
-        android:backgroundTint="#092635"
-        android:text="Arrain saltzaileen eskulturak"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_gune_1" />
-
-    <Button
-        android:id="@+id/btn_gune_3"
-        android:layout_width="241dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="144dp"
-        android:backgroundTint="#092635"
-        android:text="Saregileen Murala"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_gune_1" />
 
     <org.osmdroid.views.MapView
         android:id="@+id/mapaGPS"

@@ -21,6 +21,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.didaktikapp.Database.Dao.GuneaDao;
 import com.example.didaktikapp.Database.Datubasea;
@@ -39,9 +40,6 @@ import java.util.List;
 
 public class Menu_Gune_Activity extends AppCompatActivity {
 
-    Button btn_gune_1;
-    Button btn_gune_2;
-    Button btn_gune_3;
     Button btn_saioItxi;
     TextView prueba;
     MapView mapa;
@@ -50,7 +48,6 @@ public class Menu_Gune_Activity extends AppCompatActivity {
     private LocationManager locationManager;
     private LocationListener locationListener;
     private static final int CODIGO_DE_PERMISOS = 1;
-
     IMapController controlMapa;
 
     @Override
@@ -58,20 +55,16 @@ public class Menu_Gune_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_gune);
 
-
-        btn_gune_1 = findViewById(R.id.btn_gune_1);
-        btn_gune_2 = findViewById(R.id.btn_gune_2);
-        btn_gune_3 = findViewById(R.id.btn_gune_3);
         btn_saioItxi = findViewById(R.id.btn_saioItxi);
         prueba = findViewById(R.id.prueba);
 
-        // Verifica permisos antes de inicializar el LocationManager
+        // Baimenak eman diren ala ez baieztatu
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            // Permisos ya concedidos. Inicializa el LocationManager y solicita actualizaciones de ubicación.
+            // Baimenak emanda hasieratu
             initLocationManager();
         } else {
-            // Permisos no concedidos. Solicita permisos.
+            // Baimenak ez daude, ezkatu baimena
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, CODIGO_DE_PERMISOS);
         }
 
@@ -88,7 +81,28 @@ public class Menu_Gune_Activity extends AppCompatActivity {
         //Zooma jarri mapan
         mapa.setBuiltInZoomControls(true);
         mapa.setMultiTouchControls(true);
-
+        /*
+        //ElorrietaMarker
+        Marker ElorrietaMarker = new Marker(mapa);
+        GeoPoint markerElorrieta = new GeoPoint(43.28368, -2.96498);
+        ElorrietaMarker.setPosition(markerElorrieta);
+        ElorrietaMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        //marker imagen
+        Drawable de = ResourcesCompat.getDrawable(getResources(), R.drawable.marker, null);
+        Bitmap bitmapElorrieta = ((BitmapDrawable) de).getBitmap();
+        Drawable dre = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmapElorrieta, (int) (15f * getResources().getDisplayMetrics().density), (int) (15 * getResources().getDisplayMetrics().density), true));
+        ElorrietaMarker.setIcon(dre);
+        ElorrietaMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+             @Override
+             public boolean onMarkerClick(Marker marker, MapView mapView) {
+                 Intent intent;
+                 intent = new Intent(Menu_Gune_Activity.this, MainActivity.class);
+                 startActivity(intent);
+                 return false;
+             }
+        });
+        mapa.getOverlays().add(ElorrietaMarker);
+*/
 
         //Guneen koordenadak lortu
         database = Datubasea.getDatabase(getApplicationContext());
@@ -112,6 +126,7 @@ public class Menu_Gune_Activity extends AppCompatActivity {
             mapa.getOverlays().add(startMarker);
             // Indexatu marker
             startMarker.setRelatedObject(markerIndex);
+            mapa.getOverlays().add(startMarker);
 
             //marker onclick
             startMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
@@ -120,7 +135,7 @@ public class Menu_Gune_Activity extends AppCompatActivity {
 
                     int clickedMarkerIndex = (int) marker.getRelatedObject();
 
-                    // Abre la actividad correspondiente según el identificador único
+                    // Gunea zabaldu markadorearen arabera
                     Intent intent;
                     switch (clickedMarkerIndex) {
                         case 0:
@@ -150,30 +165,6 @@ public class Menu_Gune_Activity extends AppCompatActivity {
             //markadoreak gehitu mapara
             mapa.getOverlays().add(startMarker);
 
-
-            btn_gune_1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(Menu_Gune_Activity.this, Gune_1_Activity.class);
-                    startActivity(i);
-                }
-            });
-
-            btn_gune_2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(Menu_Gune_Activity.this, Gune_2_Activity.class);
-                    startActivity(i);
-                }
-            });
-            btn_gune_3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(Menu_Gune_Activity.this, Gune_3_Activity.class);
-                    startActivity(i);
-                }
-            });
-
             btn_saioItxi.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -185,14 +176,27 @@ public class Menu_Gune_Activity extends AppCompatActivity {
 
         }
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        detenerActualizacionesDeUbicacion();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1500, 1.0f, locationListener);
+        }
+    }
 
-    private void initLocationManager() {
+    public void initLocationManager() {
         // Inicializa el LocationManager y el LocationListener
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                // Aquí obtienes la nueva ubicación cuando cambia
+                // Ubikazio berria lortu aldatzerakoan
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
 
@@ -205,13 +209,68 @@ public class Menu_Gune_Activity extends AppCompatActivity {
                 // Puedes actualizar el mapa o hacer lo que necesites con las nuevas coordenadas
                 GeoPoint currentLocation = new GeoPoint(latitude, longitude);
                 controlMapa.setCenter(currentLocation);
+                /*
+                float distancia = location.distanceTo(new Location(LocationManager.GPS_PROVIDER) {{
+                    setLatitude(43.28368);
+                    setLongitude(-2.96498);
+                }});
+                float margenDistancia = 50.0f;
+                // Si la distancia es menor que el umbral, muestra la notificación
+                if (distancia < margenDistancia) {
+                    Intent intent;
+                    intent = new Intent(Menu_Gune_Activity.this, Login_Activity.class);
+                    startActivity(intent);
+                    Toast.makeText(Menu_Gune_Activity.this, "Has llegado a tu destino", Toast.LENGTH_SHORT).show();
+                }*/
+                int j;
+                // Comprobar distancia a los marcadores generados dinámicamente
+                for (j = 0; j < guneak.size(); j++) {
+                    final int markerIndex = j;
+                    float distanciaMarker = location.distanceTo(new Location(LocationManager.GPS_PROVIDER) {{
+                        setLatitude(guneak.get(markerIndex).lat);
+                        setLongitude(guneak.get(markerIndex).lon);
+                    }});
+                    float margenDistanciaMarker = 50.0f;
+                    if (distanciaMarker < margenDistanciaMarker) {
+                        // Llegaste al marcador i
+                        Intent intent;
+                        switch (j) {
+                            case 0:
+                                intent = new Intent(Menu_Gune_Activity.this, Gune_1_Activity.class);
+                                break;
+                            case 1:
+                                intent = new Intent(Menu_Gune_Activity.this, Gune_2_Activity.class);
+                                break;
+                            case 2:
+                                intent = new Intent(Menu_Gune_Activity.this, Gune_3_Activity.class);
+                                break;
+                            case 3:
+                                intent = new Intent(Menu_Gune_Activity.this, Gune_4_Activity.class);
+                                break;
+                            case 4:
+                                intent = new Intent(Menu_Gune_Activity.this, Gune_5_Activity.class);
+                                break;
+                            case 5:
+                                intent = new Intent(Menu_Gune_Activity.this, Gune_1_Activity.class);
+                                break;
+
+
+                            default:
+                                intent = new Intent(Menu_Gune_Activity.this, MainActivity.class);
+                                break;
+                        }
+                        startActivity(intent);
+                        Toast.makeText(Menu_Gune_Activity.this, "Has llegado a tu destino" + guneak.get(j).izena, Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
+
         };
 
-        // Solicita actualizaciones de ubicación
+        //Baimenak eskatu
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1500, 1.0f, locationListener);
         }
 
     }
@@ -219,7 +278,7 @@ public class Menu_Gune_Activity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CODIGO_DE_PERMISOS) {
-            // Verifica si el usuario concedió los permisos
+            // Baimenak eman dira ala ez
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permiso concedido
                 initLocationManager();
@@ -228,6 +287,11 @@ public class Menu_Gune_Activity extends AppCompatActivity {
                 Intent i = new Intent(Menu_Gune_Activity.this, Login_Activity.class);
                 startActivity(i);
             }
+        }
+    }
+    private void detenerActualizacionesDeUbicacion() {
+        if (locationManager != null && locationListener != null) {
+            locationManager.removeUpdates(locationListener);
         }
     }
 }

@@ -14,11 +14,13 @@ public class Metodoak {
         Gunea Saregileen_murala = new Gunea(3, "Saregileen murala",43.42010,-2.72422);
         Gunea portua = new Gunea(4, "Portua",43.41737,-2.71997);
         Gunea xixili = new Gunea(5, "Xixili",43.42060,-2.71280);
+        Gunea elorrieta = new Gunea(6, "Elorrieta",43.28368,-2.96498);
         kontserbaGune.insertGunea(kontserbak);
         kontserbaGune.insertGunea(arrain_saltzaileak);
         kontserbaGune.insertGunea(Saregileen_murala);
         kontserbaGune.insertGunea(portua);
         kontserbaGune.insertGunea(xixili);
+        kontserbaGune.insertGunea(elorrieta);
 
         List<Gunea> guneak = kontserbaGune.getAllGuneak();
 
