@@ -28,7 +28,14 @@ public class Gune_3_Activity extends AppCompatActivity {
 
         g3_boton_home.bringToFront();
         lbl_Saregile.bringToFront();
+        g3_boton_home.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Gune_3_Activity.this, Menu_Gune_Activity.class);
 
+                startActivity(intent);
+            }
+        });
 
         btn_atzera.setOnClickListener(new View.OnClickListener() {
             @Override

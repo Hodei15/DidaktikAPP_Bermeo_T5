@@ -1,14 +1,23 @@
 package com.example.didaktikapp.Fragments;
 
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.SeekBar;
 
 import com.example.didaktikapp.R;
+
+import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,5 +71,92 @@ public class Audio_Fragment_Gune_5 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_audio_gune_5, container, false);
+    }
+    private MediaPlayer player;
+    private SeekBar barraAudio;
+    private int audioarenposizioa = 0;
+    private Runnable runnable;
+    private Handler handler = new Handler();;
+    private boolean playing = false;
+    SharedPreferences prefs;
+    private ScrollView textua;
+    private ImageView Play;
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
+        Play = (ImageView) view.findViewById(R.id.img_Audio_5play);
+        barraAudio = view.findViewById(R.id.id_audioBarra_G5);
+        player = MediaPlayer.create(getActivity(), R.raw.xixili);
+        barraAudio.setMax(player.getDuration());
+        prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        textua = view.findViewById(R.id.testua_Gune_5);
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (player != null) {
+                    int mCurrentPosition = player.getCurrentPosition();
+                    barraAudio.setProgress(mCurrentPosition);
+                }
+                handler.postDelayed(this, 100);
+            }
+        };
+        handler.postDelayed(runnable, 100);
+        Play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!playing) {
+                    Play.setImageResource(R.drawable.pausa);
+                    start();
+                }else{
+                    Play.setImageResource(R.drawable.play);
+                    pause();
+                }
+            }
+        });
+        barraAudio.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    player.seekTo(progress);
+
+                }
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                player.pause();
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                player.start();
+            }
+        });
+    }
+    //audioa hasieratzeko metodoa
+    private void start() {
+        if (!player.isPlaying() && !playing) {
+            player.seekTo(audioarenposizioa);
+            player.start();
+            playing = true;
+
+        }
+        //audioa geratu den lekuan hasieratzen da
+        else if (playing){
+            int position = prefs.getInt("mediaPosition",0);
+            player.seekTo(position);
+        }
+    }
+    //audioa gelditzeko metodoa
+    private void pause(){
+        if(player.isPlaying()){
+            audioarenposizioa = player.getCurrentPosition();
+            player.stop();
+            playing = false;
+        }
+        try {
+            player.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

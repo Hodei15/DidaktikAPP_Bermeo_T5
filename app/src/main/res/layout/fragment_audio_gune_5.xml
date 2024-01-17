@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".Fragments.Audio_Fragment_Gune_5">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/back"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="#58718B"
+        android:backgroundTint="#58718B">
+
+
+        <ScrollView
+            android:id="@+id/testua_Gune_5"
+            android:layout_width="383dp"
+            android:layout_height="264dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.522">
+
+            <TextView
+                android:id="@+id/txt_gune_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/textua_Gune_5"
+                android:textColor="@color/white" />
+        </ScrollView>
+
+        <SeekBar
+            android:id="@+id/id_audioBarra_G5"
+            android:layout_width="350dp"
+            android:layout_height="17dp"
+            android:layout_marginTop="44dp"
+            android:progressBackgroundTint="#00BCD4"
+            android:progressTint="@color/white"
+            android:thumbTint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testua_Gune_5" />
+
+        <ImageView
+            android:id="@+id/img_Audio_5play"
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/play"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/id_audioBarra_G5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
