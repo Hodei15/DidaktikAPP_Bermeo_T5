@@ -1,13 +1,18 @@
 package com.example.didaktikapp.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.example.didaktikapp.Activity.Gune_1_Activity;
+import com.example.didaktikapp.Activity.Menu_Gune_Activity;
 import com.example.didaktikapp.R;
 
 /**
@@ -62,5 +67,111 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_jolasa_gune_5, container, false);
+    }
+    private ImageView Arrantza_Ontzia_C1;
+    private ImageView Arrantza_Ontzia_C2;
+    private ImageView Garraio_Ontzia_C1;
+    private ImageView Garraio_Ontzia_C2;
+    private ImageView Bela_Ontzia_C1;
+    private ImageView Bela_Ontzia_C2;
+    private ImageView Bale_Ontzia_C1;
+    private ImageView Bale_Ontzia_C2;
+    private ImageView Txalupa_C1;
+    private ImageView Txalupa_C2;
+    private ImageView Arraun_Ontzia_C1;
+    private ImageView Arraun_Ontzia_C2;
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Arrantza_Ontzia_C1 = view.findViewById(R.id.Arrantza_Ontzia_C1);
+        Arrantza_Ontzia_C2 = view.findViewById(R.id.Arrantza_Ontzia_C2);
+        Garraio_Ontzia_C1 = view.findViewById(R.id.Garraio_Ontzia_C1);
+        Garraio_Ontzia_C2 = view.findViewById(R.id.Garraio_Ontzia_C2);
+        Bela_Ontzia_C1 = view.findViewById(R.id.Bela_Ontzia_C1);
+        Bela_Ontzia_C2 = view.findViewById(R.id.Bela_Ontzia_C2);
+        Bale_Ontzia_C1 = view.findViewById(R.id.Bale_Ontzia_C1);
+        Bale_Ontzia_C2 = view.findViewById(R.id.Bale_Ontzia_C2);
+        Txalupa_C1 = view.findViewById(R.id.Txalupa_C1);
+        Txalupa_C2 = view.findViewById(R.id.Txalupa_C2);
+        Arraun_Ontzia_C1 = view.findViewById(R.id.Arraun_Ontzia_C1);
+        Arraun_Ontzia_C2 = view.findViewById(R.id.Arraun_Ontzia_C2);
+        int tamañoX = Arrantza_Ontzia_C1.getDrawable().getIntrinsicWidth();
+        int tamañoY = Arrantza_Ontzia_C1.getDrawable().getIntrinsicHeight();
+        Arrantza_Ontzia_C1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Arrantza_Ontzia_C1.setImageResource(R.drawable.arrantza_ontzia);
+                ViewGroup.LayoutParams layoutParams = Arrantza_Ontzia_C1.getLayoutParams();
+                layoutParams.width = tamañoX;
+                layoutParams.height = tamañoY;
+                Arrantza_Ontzia_C1.setLayoutParams(layoutParams);
+            }
+        });
+        Arrantza_Ontzia_C2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Arrantza_Ontzia_C2.setImageResource(R.drawable.arrantza_ontzia);
+            }
+        });
+        Garraio_Ontzia_C1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Garraio_Ontzia_C1.setImageResource(R.drawable.garraio_ontzia);
+            }
+        });
+        Garraio_Ontzia_C2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Garraio_Ontzia_C2.setImageResource(R.drawable.garraio_ontzia);
+            }
+        });
+        Bela_Ontzia_C1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Bela_Ontzia_C1.setImageResource(R.drawable.belaontzia);
+            }
+        });
+        Bela_Ontzia_C2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Bela_Ontzia_C2.setImageResource(R.drawable.belaontzia);
+            }
+        });
+        Bale_Ontzia_C1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Bale_Ontzia_C1.setImageResource(R.drawable.baleontzia);
+            }
+        });
+        Bale_Ontzia_C2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Bale_Ontzia_C2.setImageResource(R.drawable.baleontzia);
+            }
+        });
+        Txalupa_C1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Txalupa_C1.setImageResource(R.drawable.txalupa);
+            }
+        });
+        Txalupa_C2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Txalupa_C2.setImageResource(R.drawable.txalupa);
+            }
+        });
+        Arraun_Ontzia_C1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Arraun_Ontzia_C1.setImageResource(R.drawable.arraun_ontzia);
+            }
+        });
+        Arraun_Ontzia_C2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Arraun_Ontzia_C2.setImageResource(R.drawable.arraun_ontzia);
+            }
+        });
     }
 }

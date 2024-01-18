@@ -1,14 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#58718B"
     tools:context=".Fragments.Jolasa_Fragment_Gune_5">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/Arrantza_Ontzia_C2"
+            android:layout_width="118dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="136dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/carta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Txalupa_C1" />
+
+        <ImageView
+            android:id="@+id/Garraio_Ontzia_C2"
+            android:layout_width="118dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="264dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/carta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Bela_Ontzia_C1" />
+
+        <ImageView
+            android:id="@+id/Txalupa_C2"
+            android:layout_width="118dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="264dp"
+            android:layout_marginTop="120dp"
+            android:src="@drawable/carta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/Bela_Ontzia_C2"
+            android:layout_width="118dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="136dp"
+            android:layout_marginTop="120dp"
+            android:src="@drawable/carta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/Bale_Ontzia_C2"
+            android:layout_width="118dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/carta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Arrantza_Ontzia_C1" />
+
+        <ImageView
+            android:id="@+id/Garraio_Ontzia_C1"
+            android:layout_width="118dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="136dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/carta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Bela_Ontzia_C2" />
+
+        <ImageView
+            android:id="@+id/Arraun_Ontzia_C1"
+            android:layout_width="118dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="264dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/carta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Txalupa_C2" />
+
+        <ImageView
+            android:id="@+id/Arraun_Ontzia_C2"
+            android:layout_width="118dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/carta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Bale_Ontzia_C2" />
+
+        <ImageView
+            android:id="@+id/Bela_Ontzia_C1"
+            android:layout_width="118dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="264dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/carta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Arraun_Ontzia_C1" />
+
+        <ImageView
+            android:id="@+id/Txalupa_C1"
+            android:layout_width="118dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="136dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/carta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Garraio_Ontzia_C1" />
+
+        <ImageView
+            android:id="@+id/Arrantza_Ontzia_C1"
+            android:layout_width="118dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="120dp"
+            android:src="@drawable/carta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/Bale_Ontzia_C1"
+            android:layout_width="118dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/carta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Arraun_Ontzia_C2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

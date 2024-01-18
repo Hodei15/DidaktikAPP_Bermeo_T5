@@ -5,8 +5,10 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.didaktikapp.R;
 
@@ -62,5 +64,142 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_jolasa_gune_4, container, false);
+    }
+    private ImageView cabeza;
+    private ImageView pierna_DER;
+    private ImageView pierna_IZQ;
+    private ImageView brazo_DER;
+    private ImageView brazo_IZQ;
+    private ImageView torso;
+    private float xDelta, yDelta;
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        cabeza = view.findViewById(R.id.cabeza);
+        pierna_DER = view.findViewById(R.id.pierna_DER);
+        pierna_IZQ = view.findViewById(R.id.pierna_IZQ);
+        brazo_DER = view.findViewById(R.id.brazo_DER);
+        brazo_IZQ = view.findViewById(R.id.brazo_IZQ);
+        torso = view.findViewById(R.id.torso);
+        cabeza.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                final int x = (int) event.getRawX();
+                final int y = (int) event.getRawY();
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Guardar la posición inicial al tocar la imagen
+                        xDelta = x - cabeza.getX();
+                        yDelta = y - cabeza.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        // Mover la imagen según la posición del dedo
+                        cabeza.setX(x - xDelta);
+                        cabeza.setY(y - yDelta);
+                        break;
+                }
+                return true;
+            }
+        });
+        pierna_DER.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                final int x = (int) event.getRawX();
+                final int y = (int) event.getRawY();
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Guardar la posición inicial al tocar la imagen
+                        xDelta = x - pierna_DER.getX();
+                        yDelta = y - pierna_DER.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        // Mover la imagen según la posición del dedo
+                        pierna_DER.setX(x - xDelta);
+                        pierna_DER.setY(y - yDelta);
+                        break;
+                }
+                return true;
+            }
+        });
+        pierna_IZQ.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                final int x = (int) event.getRawX();
+                final int y = (int) event.getRawY();
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Guardar la posición inicial al tocar la imagen
+                        xDelta = x - pierna_IZQ.getX();
+                        yDelta = y - pierna_IZQ.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        // Mover la imagen según la posición del dedo
+                        pierna_IZQ.setX(x - xDelta);
+                        pierna_IZQ.setY(y - yDelta);
+                        break;
+                }
+                return true;
+            }
+        });
+        brazo_DER.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                final int x = (int) event.getRawX();
+                final int y = (int) event.getRawY();
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Guardar la posición inicial al tocar la imagen
+                        xDelta = x - brazo_DER.getX();
+                        yDelta = y - brazo_DER.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        // Mover la imagen según la posición del dedo
+                        brazo_DER.setX(x - xDelta);
+                        brazo_DER.setY(y - yDelta);
+                        break;
+                }
+                return true;
+            }
+        });
+        brazo_IZQ.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                final int x = (int) event.getRawX();
+                final int y = (int) event.getRawY();
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Guardar la posición inicial al tocar la imagen
+                        xDelta = x - brazo_IZQ.getX();
+                        yDelta = y - brazo_IZQ.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        // Mover la imagen según la posición del dedo
+                        brazo_IZQ.setX(x - xDelta);
+                        brazo_IZQ.setY(y - yDelta);
+                        break;
+                }
+                return true;
+            }
+        });
+        torso.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                final int x = (int) event.getRawX();
+                final int y = (int) event.getRawY();
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Guardar la posición inicial al tocar la imagen
+                        xDelta = x - torso.getX();
+                        yDelta = y - torso.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        // Mover la imagen según la posición del dedo
+                        torso.setX(x - xDelta);
+                        torso.setY(y - yDelta);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 }
