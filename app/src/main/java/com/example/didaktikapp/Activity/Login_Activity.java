@@ -18,8 +18,11 @@ import com.example.didaktikapp.Database.Dao.ErabiltzaileDao;
 import com.example.didaktikapp.Database.Dao.GuneaDao;
 import com.example.didaktikapp.Database.Datubasea;
 import com.example.didaktikapp.Database.Erabiltzaile;
+import com.example.didaktikapp.Database.Erantzuna;
+import com.example.didaktikapp.Database.Galdera;
 import com.example.didaktikapp.Database.Gunea;
 import com.example.didaktikapp.Controler.Metodoak;
+import com.example.didaktikapp.Database.Jarduera;
 import com.example.didaktikapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,6 +44,10 @@ public class Login_Activity extends AppCompatActivity {
     private String pass;
     private Datubasea database;
     private List<Gunea> guneak;
+    private List<Jarduera> jardueak;
+    private List<Galdera> galderak;
+    private List<Erantzuna> erantzunak;
+    private Erabiltzaile erabiltzailea;
     int lehenAldia = 0;
 
     //SharedPreferences
@@ -90,6 +97,7 @@ public class Login_Activity extends AppCompatActivity {
                     String erabiltzaile = txt_login_erabiltzaile.getText().toString().trim();
                     String pasahitza = txt_login_pasahitza.getText().toString().trim();
 
+
                     if (erabiltzaile.isEmpty()) {
                         String sartuEposta = getResources().getString(R.string.Login_editxt_email_hint);
                         txt_login_erabiltzaile.setError(sartuEposta);
@@ -134,6 +142,9 @@ public class Login_Activity extends AppCompatActivity {
 
                             if(lehenAldia!=0) {
                                 guneak = Metodoak.guneakBete(database);
+                                jardueak = Metodoak.jardueraBete(database);
+                                galderak = Metodoak.GalderakBete(database);
+
                                 editor.putInt(LEHEN_ALDIA, 0);
                             }
 

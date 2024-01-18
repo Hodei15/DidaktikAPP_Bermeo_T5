@@ -22,6 +22,12 @@ import androidx.room.PrimaryKey;
         }
 )
 public class Erantzuna {
+        public Erantzuna(int id, String erantzuna, int id_galdera, int id_erabiltzaile) {
+                this.id = id;
+                this.erantzuna = erantzuna;
+                this.id_galdera = id_galdera;
+                this.id_erabiltzaile = id_erabiltzaile;
+        }
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "id")
         public int id;

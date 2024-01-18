@@ -4,8 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
-@Entity(
-        tableName = "galderak",
+@Entity(tableName = "galderak",
         foreignKeys = @ForeignKey(
                 entity = Jarduera.class,
                 parentColumns = "id",
@@ -14,6 +13,12 @@ import androidx.room.PrimaryKey;
         )
 )
 public class Galdera {
+        public Galdera(int id, String galdera, int id_jarduera){
+                this.id = id;
+                this.galdera = galdera;
+                this.id_jarduera = id_jarduera;
+        }
+
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "id")
         public int id;
