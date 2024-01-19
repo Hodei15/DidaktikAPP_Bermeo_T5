@@ -1,15 +1,21 @@
 package com.example.didaktikapp.Controler;
 
+import com.example.didaktikapp.Database.Dao.ErabiltzaileDao;
 import com.example.didaktikapp.Database.Dao.ErantzunaDao;
 import com.example.didaktikapp.Database.Dao.GalderaDao;
 import com.example.didaktikapp.Database.Dao.GuneaDao;
 import com.example.didaktikapp.Database.Dao.JardueraDao;
 import com.example.didaktikapp.Database.Datubasea;
+import com.example.didaktikapp.Database.Erabiltzaile;
 import com.example.didaktikapp.Database.Erantzuna;
 import com.example.didaktikapp.Database.Galdera;
 import com.example.didaktikapp.Database.Gunea;
 import com.example.didaktikapp.Database.Jarduera;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.time.chrono.Era;
 import java.util.List;
 
 public class Metodoak {
@@ -81,5 +87,24 @@ public class Metodoak {
 
         List<Erantzuna> erantzunak = erantzunaKontroladore.getAllErantzunak();
         return erantzunak;
+    }
+
+    public static void erabiltzaileKargatu(Datubasea database,String email){
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        ErabiltzaileDao erabiltzaileKontroladore = database.erabiltzaileDao();
+        db.collection("erabiltzaileak").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Erabiltzaile erabiltzaile = documentSnapshot.toObject(Erabiltzaile.class);
+                erabiltzaileKontroladore.insertErabiltzaile(erabiltzaile);
+            }
+        });
+    }
+
+    public static Erabiltzaile erabiltzaileaLortu(Datubasea database, String email){
+        ErabiltzaileDao erabiltzaileKontroladore = database.erabiltzaileDao();
+        Erabiltzaile erabiltzailea = erabiltzaileKontroladore.getErabiltzaileByEmail(email);
+        return erabiltzailea;
     }
 }

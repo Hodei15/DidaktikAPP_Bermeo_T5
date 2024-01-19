@@ -66,5 +66,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     // Add this in addition to your other dependencies
     implementation ("androidx.activity:activity:1.9.0-alpha01")
+    implementation ("com.google.code.gson:gson:2.8.5")
 
 }

@@ -6,26 +6,35 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.didaktikapp.Database.Erabiltzaile;
 import com.example.didaktikapp.Fragments.Argazkiak_Fragment_Gune_2;
 import com.example.didaktikapp.Fragments.Bideo_Fragment_Gune_2;
 import com.example.didaktikapp.R;
+import com.google.gson.Gson;
 
 public class Gune_2_Activity extends AppCompatActivity {
     Button btn_home_gune2;
     TextView lbl_arrain;
+    SharedPreferences  sharedPreferences = getPreferences(MODE_PRIVATE);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gune_2);
+
         Button btn_atzera =findViewById(R.id.btn_atzera);
         Button btn_aurrera = findViewById(R.id.btn_aurrera);
         btn_home_gune2 = findViewById(R.id.g2_boton_home);
         lbl_arrain = findViewById(R.id.lbl_arrain);
+
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("erabiltzailea", "");
+        Erabiltzaile erabiltzaile = gson.fromJson(json, Erabiltzaile.class);
 
         btn_home_gune2.bringToFront();
         lbl_arrain.bringToFront();

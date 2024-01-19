@@ -29,8 +29,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
+
 import android.content.Context;
 
+import java.time.chrono.Era;
 import java.util.List;
 
 public class Login_Activity extends AppCompatActivity {
@@ -56,6 +59,8 @@ public class Login_Activity extends AppCompatActivity {
     public static final String EMAIL_KEY = "email_key";
     public static final String PASSWORD_KEY = "password_key";
     public static final String LEHEN_ALDIA = "lehenAldia";
+
+    final Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,9 +129,9 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     //METODOS
-    private void saioaHasi(String erabiltzaile, String pasahitza) {
+    private void saioaHasi(String erabiltzaile_string, String pasahitza) {
 
-        mAuth.signInWithEmailAndPassword(erabiltzaile, pasahitza)
+        mAuth.signInWithEmailAndPassword(erabiltzaile_string, pasahitza)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -141,15 +146,23 @@ public class Login_Activity extends AppCompatActivity {
                             SharedPreferences.Editor editor = sharedpreferences.edit();
 
                             if(lehenAldia!=0) {
+                                editor.putInt(LEHEN_ALDIA, 0);
                                 guneak = Metodoak.guneakBete(database);
                                 jardueak = Metodoak.jardueraBete(database);
                                 galderak = Metodoak.GalderakBete(database);
-
-                                editor.putInt(LEHEN_ALDIA, 0);
                             }
 
-                            editor.putString(EMAIL_KEY, erabiltzaile);
+                            if(Metodoak.erabiltzaileaLortu(database,erabiltzaile_string)==null){
+                                Metodoak.erabiltzaileKargatu(database,erabiltzaile_string);
+                            }
+
+                            editor.putString(EMAIL_KEY, erabiltzaile_string);
                             editor.putString(PASSWORD_KEY, pasahitza);
+
+                            Erabiltzaile erabiltzaile = Metodoak.erabiltzaileaLortu(database,erabiltzaile_string);
+                            String json = gson.toJson(erabiltzaile);
+                            editor.putString("erabiltzaile", json);
+
                             editor.apply();
 
                             startActivity(intent);

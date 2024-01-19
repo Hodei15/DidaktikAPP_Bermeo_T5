@@ -21,6 +21,9 @@ public interface ErabiltzaileDao {
     @Query("SELECT * FROM erabiltzaileak WHERE id = :userId")
     Erabiltzaile getErabiltzaileById(int userId);
 
+    @Query("SELECT * FROM erabiltzaileak WHERE email = :email")
+    Erabiltzaile getErabiltzaileByEmail(String email);
+
     @Update
     void updateErabiltzaile(Erabiltzaile erabiltzaile);
 

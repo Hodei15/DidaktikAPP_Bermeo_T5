@@ -56,7 +56,7 @@ public class Menu_Gune_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_menu_gune);
 
         btn_saioItxi = findViewById(R.id.btn_saioItxi);
-        prueba = findViewById(R.id.prueba);
+
 
         // Baimenak eman diren ala ez baieztatu
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&

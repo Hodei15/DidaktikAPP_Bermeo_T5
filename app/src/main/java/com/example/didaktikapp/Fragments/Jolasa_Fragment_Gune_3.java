@@ -96,6 +96,11 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
     double hasiera_x;
     double hasiera_y;
     ImageView img_tick_jolasa3;
+    ImageView img_borobil_1;
+    ImageView img_borobil_2;
+    ImageView img_borobil_3;
+    ImageView img_borobil_4;
+    ImageView img_borobil_5;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
@@ -104,6 +109,13 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
 
         lbl_galdera_jolasa_3 = view.findViewById(R.id.lbl_galdera_jolasa_3);
         img_tick_jolasa3 = view.findViewById(R.id.img_tick_jolasa3);
+        img_borobil_1 = view.findViewById(R.id.img_borobil_1);
+        img_borobil_2 = view.findViewById(R.id.img_borobil_2);
+        img_borobil_3 = view.findViewById(R.id.img_borobil_3);
+        img_borobil_4 = view.findViewById(R.id.img_borobil_4);
+        img_borobil_5 = view.findViewById(R.id.img_borobil_5);
+
+
         mAuth = FirebaseAuth.getInstance();
         db.collection("guneak").document("gune_3").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -113,7 +125,7 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
                 koordenadak = (ArrayList<String>) document.get("koordenadak");
                 lbl_galdera_jolasa_3.setText(galderak.get(0));
                 galdera_index = 0;
-             }
+            }
         });
 
         ViewTreeObserver viewTreeObserver = mural.getViewTreeObserver();
@@ -137,20 +149,33 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
                     case MotionEvent.ACTION_DOWN:
                         hasiera_x = clicX;
                         hasiera_y = clicY;
-                        Log.d(TAG,"Coordenada X clicada: "+hasiera_x);
-                        Log.d(TAG,"Coordenada Y cliacada: "+hasiera_y);
-                        Log.d(TAG,"Coordenada X esperada: "+koordenadak.get(galdera_index).split("/")[0]);
-                        Log.d(TAG,"Coordenada Y esperada: "+koordenadak.get(galdera_index).split("/")[1]);
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
                     case MotionEvent.ACTION_UP:
                         if(hasiera_x>= Double.parseDouble(koordenadak.get(galdera_index).split("/")[0]) - 50 && hasiera_x<= Double.parseDouble(koordenadak.get(galdera_index).split("/")[0]) + 50 && hasiera_y>= Double.parseDouble(koordenadak.get(galdera_index).split("/")[1]) - 50 && hasiera_y<= Double.parseDouble(koordenadak.get(galdera_index).split("/")[1]) + 50){
-                            Log.d(TAG,"Coordenada clicada X: "+koordenadak.get(galdera_index).split("/")[0]);
-                            Log.d(TAG,"Coordenada clicada Y: "+koordenadak.get(galdera_index).split("/")[1]);
                             img_tick_jolasa3.setImageResource(R.drawable.tick);
                             EsperaImagen espera = new EsperaImagen(img_tick_jolasa3);
                             img_tick_jolasa3.setVisibility(View.VISIBLE);
+
+                            switch (galdera_index){
+                                case 0:
+                                    img_borobil_1.setVisibility(View.VISIBLE);
+                                    break;
+                                case 1:
+                                    img_borobil_2.setVisibility(View.VISIBLE);
+                                    break;
+                                case 2:
+                                    img_borobil_3.setVisibility(View.VISIBLE);
+                                    break;
+                                case 3:
+                                    img_borobil_4.setVisibility(View.VISIBLE);
+                                    break;
+                                case 4:
+                                    img_borobil_5.setVisibility(View.VISIBLE);
+                                    break;
+                            }
+
                             if(galdera_index<galderak.size()-1) {
                                 galdera_index++;
                                 lbl_galdera_jolasa_3.setText(galderak.get(galdera_index));

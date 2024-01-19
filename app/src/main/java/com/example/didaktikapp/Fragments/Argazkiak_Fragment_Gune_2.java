@@ -1,6 +1,10 @@
 package com.example.didaktikapp.Fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,7 +18,9 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.didaktikapp.Activity.Erregistratu_Activity;
+import com.example.didaktikapp.Database.Erabiltzaile;
 import com.example.didaktikapp.R;
+import com.google.gson.Gson;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,7 +82,6 @@ public class Argazkiak_Fragment_Gune_2 extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-
         btn_gorde_erantzuna = view.findViewById(R.id.btn_gorde_erantzuna);
         Activity a = getActivity();
 
