@@ -1,5 +1,8 @@
 package com.example.didaktikapp.Fragments;
 
+import static java.lang.Math.abs;
+
+import android.graphics.Rect;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.didaktikapp.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,13 +70,21 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_jolasa_gune_4, container, false);
     }
+
     private ImageView cabeza;
     private ImageView pierna_DER;
     private ImageView pierna_IZQ;
     private ImageView brazo_DER;
     private ImageView brazo_IZQ;
     private ImageView torso;
+    private ImageView cabeza_Ondo;
+    private ImageView pierna_DER_Ondo;
+    private ImageView pierna_IZQ_Ondo;
+    private ImageView brazo_DER_Ondo;
+    private ImageView brazo_IZQ_Ondo;
+    private ImageView torso_Ondo;
     private float xDelta, yDelta;
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -81,21 +94,43 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
         brazo_DER = view.findViewById(R.id.brazo_DER);
         brazo_IZQ = view.findViewById(R.id.brazo_IZQ);
         torso = view.findViewById(R.id.torso);
+        cabeza_Ondo = view.findViewById(R.id.cabeza_Ondo);
+        pierna_DER_Ondo = view.findViewById(R.id.pierna_DER_Ondo);
+        pierna_IZQ_Ondo = view.findViewById(R.id.pierna_IZQ_Ondo);
+        brazo_DER_Ondo = view.findViewById(R.id.brazo_DER_Ondo);
+        brazo_IZQ_Ondo = view.findViewById(R.id.brazo_IZQ_Ondo);
+        torso_Ondo = view.findViewById(R.id.torso_Ondo);
+        boolean cabezaDrag = false;
+        boolean brazoIZQDrag = false;
+        boolean brazoDERDrag = false;
+        boolean piernaIZQDrag = false;
+        boolean piernaDERDrag = false;
+        boolean torsoDrag = false;
+
+
+/*
         cabeza.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                final int x = (int) event.getRawX();
-                final int y = (int) event.getRawY();
+                // ... (otros códigos)
+
                 switch (event.getAction() & MotionEvent.ACTION_MASK) {
                     case MotionEvent.ACTION_DOWN:
-                        // Guardar la posición inicial al tocar la imagen
-                        xDelta = x - cabeza.getX();
-                        yDelta = y - cabeza.getY();
+                        // ... (otros códigos)
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        // Mover la imagen según la posición del dedo
-                        cabeza.setX(x - xDelta);
-                        cabeza.setY(y - yDelta);
+                        // Mover la imagen solo si el arrastre está habilitado
+                        if (cabezaDrag) {
+                            cabeza.setX(x - xDelta);
+                            cabeza.setY(y - yDelta);
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        // Al soltar la imagen, verifica si está sobre la imagen "Cabeza_Ondo"
+                        if (isViewOverlapping(cabeza, cabeza_Ondo)) {
+                            // La cabeza está sobre "Cabeza_Ondo", deshabilita el arrastre
+                            cabezaDrag = false;
+                        }
                         break;
                 }
                 return true;
@@ -201,5 +236,17 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
                 return true;
             }
         });
+
+    }
+    private boolean isViewOverlapping(View firstView, View secondView) {
+        Rect rectFirstView = new Rect();
+        firstView.getHitRect(rectFirstView);
+
+        Rect rectSecondView = new Rect();
+        secondView.getHitRect(rectSecondView);
+
+        return Rect.intersects(rectFirstView, rectSecondView);
+    }
+*/
     }
 }
