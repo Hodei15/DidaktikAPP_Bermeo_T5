@@ -21,6 +21,7 @@ public class Gune_3_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gune_3);
+
         Button btn_atzera =findViewById(R.id.btn_atzera);
         Button btn_aurrera = findViewById(R.id.btn_aurrera);
         Button g3_boton_home = findViewById(R.id.g3_boton_home);

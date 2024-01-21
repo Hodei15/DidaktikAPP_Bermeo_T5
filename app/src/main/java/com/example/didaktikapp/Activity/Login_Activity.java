@@ -163,6 +163,7 @@ public class Login_Activity extends AppCompatActivity {
                             String json = gson.toJson(erabiltzaile);
                             editor.putString("erabiltzaile", json);
 
+
                             editor.apply();
 
                             startActivity(intent);

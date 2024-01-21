@@ -29,13 +29,14 @@
             android:id="@+id/g2_boton_home"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="270dp"
             android:backgroundTint="#00FFFFFF"
             android:foreground="@drawable/home"
             android:text="."
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/lbl_arrain" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -65,23 +66,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-            <Button
-                android:id="@+id/btn_atzera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1sp"
+            <ImageView
+                android:id="@+id/img_atzera"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_weight="1"
-                android:backgroundTint="#092635"
-                android:text="Atzera" />
+                app:srcCompat="@drawable/atzera" />
 
-            <Button
-                android:id="@+id/btn_aurrera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1sp"
+            <ImageView
+                android:id="@+id/img_aurrera"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_weight="1"
-                android:backgroundTint="#092635"
-                android:text="Aurrera" />
+                app:srcCompat="@drawable/aurrera" />
 
         </LinearLayout>
 
