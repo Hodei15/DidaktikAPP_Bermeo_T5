@@ -44,7 +44,7 @@ public class Gune_5_Activity extends AppCompatActivity {
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 Fragment fragment = fm.findFragmentById(R.id.frag_container);
 
-                Fragment fragment_nuevo=null;
+                Fragment fragment_nuevo= new Audio_Fragment_Gune_5();
                 if (fragment instanceof Audio_Fragment_Gune_5){
                     //Falta por programar
                 }else if(fragment instanceof Jolasa_Fragment_Gune_5) {
@@ -63,7 +63,7 @@ public class Gune_5_Activity extends AppCompatActivity {
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 Fragment fragment = fm.findFragmentById(R.id.frag_container);
 
-                Fragment fragment_nuevo=null;
+                Fragment fragment_nuevo= new Audio_Fragment_Gune_5();
                 if (fragment instanceof Audio_Fragment_Gune_5){
                     fragment_nuevo = new Jolasa_Fragment_Gune_5();
                 }else if(fragment instanceof Jolasa_Fragment_Gune_5){

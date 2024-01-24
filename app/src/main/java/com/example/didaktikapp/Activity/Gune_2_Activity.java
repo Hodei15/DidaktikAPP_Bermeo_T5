@@ -63,7 +63,7 @@ public class Gune_2_Activity extends AppCompatActivity {
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 Fragment fragment = fm.findFragmentById(R.id.frag_container);
 
-                Fragment fragment_nuevo=null;
+                Fragment fragment_nuevo= new Argazkiak_Fragment_Gune_2();
                 if (fragment instanceof Argazkiak_Fragment_Gune_2){
                     //Falta por programar
                 }else if(fragment instanceof Bideo_Fragment_Gune_2) {
@@ -82,7 +82,7 @@ public class Gune_2_Activity extends AppCompatActivity {
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 Fragment fragment = fm.findFragmentById(R.id.frag_container);
 
-                Fragment fragment_nuevo=null;
+                Fragment fragment_nuevo= new Argazkiak_Fragment_Gune_2();
                 if (fragment instanceof Argazkiak_Fragment_Gune_2){
                     fragment_nuevo = new Bideo_Fragment_Gune_2();
                 }else if(fragment instanceof Bideo_Fragment_Gune_2){

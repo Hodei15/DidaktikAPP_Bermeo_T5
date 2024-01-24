@@ -46,7 +46,7 @@ public class Gune_3_Activity extends AppCompatActivity {
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 Fragment fragment = fm.findFragmentById(R.id.frag_container);
 
-                Fragment fragment_nuevo=null;
+                Fragment fragment_nuevo= new Audio_Fragment_Gune_3();
                 if (fragment instanceof Audio_Fragment_Gune_3){
                     //Falta por programar
                     Intent i = new Intent(Gune_3_Activity.this, Menu_Gune_Activity.class);
@@ -67,7 +67,7 @@ public class Gune_3_Activity extends AppCompatActivity {
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 Fragment fragment = fm.findFragmentById(R.id.frag_container);
 
-                Fragment fragment_nuevo=null;
+                Fragment fragment_nuevo= new Audio_Fragment_Gune_3();
                 if (fragment instanceof Audio_Fragment_Gune_3){
                     fragment_nuevo = new Jolasa_Fragment_Gune_3();
                 }else if(fragment instanceof Jolasa_Fragment_Gune_3){
