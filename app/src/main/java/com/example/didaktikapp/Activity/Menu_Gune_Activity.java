@@ -201,7 +201,7 @@ public class Menu_Gune_Activity extends AppCompatActivity {
                 double longitude = location.getLongitude();
 
 
-                prueba.setText("latitude:" +latitude+ ", longitude: "+longitude);
+                //prueba.setText("latitude:" +latitude+ ", longitude: "+longitude);
 
                 System.out.println(latitude);
                 System.out.println(longitude);

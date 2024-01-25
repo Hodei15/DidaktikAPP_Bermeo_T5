@@ -9,15 +9,16 @@ public class Argazki {
     protected int bikote;
     float width;
     float height;
-    int x;
-    int y;
+    float x;
+    float y;
     boolean lotuta;
+    boolean drag;
     private ViewTreeObserver viewTreeObserver;
 
     public Argazki(){
     }
 
-    public Argazki(ImageView img, int bikote, float height, float width,int x, int y){
+    public Argazki(ImageView img, int bikote, float height, float width,float x, float y){
         this.img=img;
         this.bikote=bikote;
         this.height=height;
@@ -25,6 +26,7 @@ public class Argazki {
         this.x = x;
         this.y = y;
         this.lotuta = false;
+        this.drag = false;
     }
 
     public ImageView getImg() {
@@ -67,19 +69,19 @@ public class Argazki {
         this.height = height;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(float y) {
         this.y = y;
     }
 
@@ -89,5 +91,13 @@ public class Argazki {
 
     public void setLotuta(boolean lotuta) {
         this.lotuta = lotuta;
+    }
+
+    public boolean isDrag() {
+        return drag;
+    }
+
+    public void setDrag(boolean drag) {
+        this.drag = drag;
     }
 }

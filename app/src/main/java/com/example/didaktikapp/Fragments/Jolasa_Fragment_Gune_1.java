@@ -79,6 +79,7 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
         //ikaslearen puntuaketa kalkulatzeko atributuak
         puntuazioa = 1000;
         puntuazioaErakutsi = view.findViewById(R.id.txt_puntuazioa_1);
+
         //atributuak deklaratu
         dibujoView = view.findViewById(R.id.dibujoView);
         ImageView img_correcto = view.findViewById(R.id.img_correcto);
@@ -90,7 +91,7 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
             @Override
             public void run() {
                 if (puntuazioa > 0) {
-                    puntuazioa -= 1000;
+                    puntuazioa -= 50;
                     puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
                     handler.postDelayed(this, 1000);
                 } else {
@@ -117,21 +118,22 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
         List<Argazki> lata_argazkiak = new ArrayList<Argazki>();
 
         //Arrainak kargatu
-        arrain_argazkiak=Metodoak.agazkiakKargatu(arrain_argazkiak,1,arrain_1);
-        arrain_argazkiak=Metodoak.agazkiakKargatu(arrain_argazkiak,2,arrain_2);
-        arrain_argazkiak=Metodoak.agazkiakKargatu(arrain_argazkiak,3,arrain_3);
-        arrain_argazkiak=Metodoak.agazkiakKargatu(arrain_argazkiak,4,arrain_4);
-        arrain_argazkiak=Metodoak.agazkiakKargatu(arrain_argazkiak,5,arrain_5);
+        arrain_argazkiak=agazkiakKargatu(arrain_argazkiak,1,arrain_1);
+        arrain_argazkiak=agazkiakKargatu(arrain_argazkiak,2,arrain_2);
+        arrain_argazkiak=agazkiakKargatu(arrain_argazkiak,3,arrain_3);
+        arrain_argazkiak=agazkiakKargatu(arrain_argazkiak,4,arrain_4);
+        arrain_argazkiak=agazkiakKargatu(arrain_argazkiak,5,arrain_5);
 
         //Latak kargatu
-        lata_argazkiak=Metodoak.agazkiakKargatu(lata_argazkiak,1,lata_1);
-        lata_argazkiak=Metodoak.agazkiakKargatu(lata_argazkiak,2,lata_2);
-        lata_argazkiak=Metodoak.agazkiakKargatu(lata_argazkiak,3,lata_3);
-        lata_argazkiak=Metodoak.agazkiakKargatu(lata_argazkiak,4,lata_4);
-        lata_argazkiak=Metodoak.agazkiakKargatu(lata_argazkiak,5,lata_5);
+        lata_argazkiak=agazkiakKargatu(lata_argazkiak,1,lata_1);
+        lata_argazkiak=agazkiakKargatu(lata_argazkiak,2,lata_2);
+        lata_argazkiak=agazkiakKargatu(lata_argazkiak,3,lata_3);
+        lata_argazkiak=agazkiakKargatu(lata_argazkiak,4,lata_4);
+        lata_argazkiak=agazkiakKargatu(lata_argazkiak,5,lata_5);
 
         dibujoView.setArrainak(arrain_argazkiak);
         dibujoView.setLatak(lata_argazkiak);
+
 
         return view;
     }
@@ -151,5 +153,19 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
         dibujoView.limpiarDibujo();
     }
 
+    private List<Argazki> agazkiakKargatu(List<Argazki> argazkiak,int bikote, ImageView argazki){
+
+        ViewTreeObserver viewTreeObserver = argazki.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int[] locationOnScreen = new int[2];
+                argazki.getLocationOnScreen(locationOnScreen);
+                Argazki argazki_obj = new Argazki(argazki,bikote,argazki.getHeight(),argazki.getWidth(),locationOnScreen[0],locationOnScreen[1]);
+                argazkiak.add(argazki_obj);
+            }
+        });
+        return argazkiak;
+    }
 
 }

@@ -111,18 +111,4 @@ public class Metodoak {
         Erabiltzaile erabiltzailea = erabiltzaileKontroladore.getErabiltzaileByEmail(email);
         return erabiltzailea;
     }
-    public static List<Argazki> agazkiakKargatu(List<Argazki> argazkiak, int bikote, ImageView argazki){
-
-        ViewTreeObserver viewTreeObserver = argazki.getViewTreeObserver();
-        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                int[] locationOnScreen = new int[2];
-                argazki.getLocationOnScreen(locationOnScreen);
-                Argazki argazki_obj = new Argazki(argazki,bikote,argazki.getHeight(),argazki.getWidth(),locationOnScreen[0],locationOnScreen[1]);
-                argazkiak.add(argazki_obj);
-            }
-        });
-        return argazkiak;
-    }
 }
