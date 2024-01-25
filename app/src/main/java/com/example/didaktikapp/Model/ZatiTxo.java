@@ -1,6 +1,6 @@
 package com.example.didaktikapp.Model;
 
-// DibujoView.java
+// ZatiTxo.java
 import static android.service.controls.ControlsProviderService.TAG;
 
 import android.content.Context;
@@ -22,16 +22,16 @@ import com.example.didaktikapp.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DibujoView extends View {
+public class ZatiTxo extends View {
     private Paint paint = new Paint();
     private List<Path> paths = new ArrayList<>();
     private Path currentPath;
     private float startX, startY;
-    private List<Argazki> arrainak;
-    private List<Argazki> latak;
+    private List<Argazki> gorputza;
+    private List<Argazki> gorputzaOndo;
     private ImageView img_correcto;
 
-    public DibujoView(Context context, AttributeSet attrs) {
+    public ZatiTxo(Context context, AttributeSet attrs) {
         super(context, attrs);
         int colore = ContextCompat.getColor(context, R.color.azul_dibujo);
         paint.setColor(colore);
@@ -52,20 +52,19 @@ public class DibujoView extends View {
         float finishX = event.getX();
         float finishY = event.getY();
         boolean valido = false;
-        switch (event.getAction()) {
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
+                // Guardar la posición inicial al tocar la imagen
                 startX = finishX;
                 startY = finishY;
-                Log.d(TAG,"Start Y: "+ startY);
-                for(int i=0;i<arrainak.size() && !valido;i++) {
-                    boolean a = startX >= arrainak.get(i).getX();
-                    boolean b = startX <= (arrainak.get(i).getX() + arrainak.get(i).getWidth());
-                    boolean c1 = startY >= arrainak.get(i).getY() - arrainak.get(i).getHeight();
-                    boolean c2 = startY >= (arrainak.get(i).getY() - (arrainak.get(i).getHeight() * 2)) ;
-                    boolean d = startY <= (arrainak.get(i).getHeight() + arrainak.get(i).getY());
-                    boolean e = !arrainak.get(i).isLotuta();
-
-                    if (startX >= arrainak.get(i).getX() && startX <= (arrainak.get(i).getX() + arrainak.get(i).getWidth()) && startY >= (arrainak.get(i).getY() - (arrainak.get(i).getHeight() * 2)) && startY <= (arrainak.get(i).getHeight() + arrainak.get(i).getY()) && !arrainak.get(i).isLotuta()) {
+                for(int i=0;i<gorputza.size() && !valido;i++) {
+                    boolean a = startX >= gorputza.get(i).getX();
+                    boolean b = startX <= (gorputza.get(i).getX() + gorputza.get(i).getWidth());
+                    boolean c1 = startY >= gorputza.get(i).getY() - gorputza.get(i).getHeight();
+                    boolean c2 = startY >= (gorputza.get(i).getY() - (gorputza.get(i).getHeight() * 2));
+                    boolean d = startY <= (gorputza.get(i).getHeight() + gorputza.get(i).getY());
+                    boolean e = !gorputza.get(i).isLotuta();
+                    if (startX >= gorputza.get(i).getX() && startX <= (gorputza.get(i).getX() + gorputza.get(i).getWidth()) && startY >= (gorputza.get(i).getY() - (gorputza.get(i).getHeight() * 2)) && startY <= (gorputza.get(i).getHeight() + gorputza.get(i).getY()) && !gorputza.get(i).isLotuta()) {
                         valido = true;
                         currentPath = new Path();
                         paths.add(currentPath);
@@ -74,8 +73,8 @@ public class DibujoView extends View {
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                for(int i=0;i<arrainak.size() && !valido;i++){
-                    if (startX >= arrainak.get(i).getX() && startX <= (arrainak.get(i).getX() + arrainak.get(i).getWidth()) && startY >= (arrainak.get(i).getY() - (arrainak.get(i).getHeight() * 2)) && startY <= (arrainak.get(i).getHeight() + arrainak.get(i).getY()) && !arrainak.get(i).isLotuta()) {
+                for(int i=0;i<gorputza.size() && !valido;i++) {
+                    if (startX >= gorputza.get(i).getX() && startX <= (gorputza.get(i).getX() + gorputza.get(i).getWidth()) && startY >= (gorputza.get(i).getY() - (gorputza.get(i).getHeight() * 2)) && startY <= (gorputza.get(i).getHeight() + gorputza.get(i).getY()) && !gorputza.get(i).isLotuta()) {
                         valido = true;
                         currentPath.reset();
                         currentPath.moveTo(startX, startY);
@@ -85,61 +84,58 @@ public class DibujoView extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 boolean dentro = false;
-                int arrain_bikote=-1;
-                int lata_bikote=-1;
-                int index_arrain=-1;
-                int index_lata=-1;
-
-                for(int i=0;i<arrainak.size() && !valido;i++){
-                    if (startX >= arrainak.get(i).getX() && startX <= (arrainak.get(i).getX() + arrainak.get(i).getWidth()) && startY >= (arrainak.get(i).getY() - (arrainak.get(i).getHeight() * 2)) && startY <= (arrainak.get(i).getHeight() + arrainak.get(i).getY()) && !arrainak.get(i).isLotuta()) {
+                int gorputza_bikote=-1;
+                int gorputzaOndo_bikote=-1;
+                int index_gorputza=-1;
+                int index_gorputzaOndo=-1;
+                for(int i=0;i<gorputza.size() && !valido;i++){
+                    if (startX >= gorputza.get(i).getX() && startX <= (gorputza.get(i).getX() + gorputza.get(i).getWidth()) && startY >= (gorputza.get(i).getY() - (gorputza.get(i).getHeight() * 2)) && startY <= (gorputza.get(i).getHeight() + gorputza.get(i).getY()) && !gorputza.get(i).isLotuta()) {
                         valido = true;
                         currentPath.reset();
                         currentPath.moveTo(startX, startY);
                         currentPath.lineTo(finishX, finishY);
-                        arrain_bikote = arrainak.get(i).getBikote();
-                        index_arrain = i;
+                        gorputza_bikote = gorputza.get(i).getBikote();
+                        index_gorputza = i;
                     }
                 }
                 if(valido) {
-                    for (int i = 0; i < latak.size() && !dentro; i++) {
+                    for (int i = 0; i < gorputzaOndo.size() && !dentro; i++) {
 
 
-                        if (finishX >= latak.get(i).getX() && finishX <= (latak.get(i).getX() + latak.get(i).getWidth()) && finishY >= (latak.get(i).getY() - (latak.get(i).getHeight() * 2)) && finishY <= (latak.get(i).getHeight() + latak.get(i).getY()) && !latak.get(i).isLotuta()) {
+                        if (finishX >= gorputzaOndo.get(i).getX() && finishX <= (gorputzaOndo.get(i).getX() + gorputzaOndo.get(i).getWidth()) && finishY >= (gorputzaOndo.get(i).getY() - (gorputzaOndo.get(i).getHeight() * 2)) && finishY <= (gorputzaOndo.get(i).getHeight() + gorputzaOndo.get(i).getY()) && !gorputzaOndo.get(i).isLotuta()) {
                             dentro = true;
                             currentPath.reset();
                             currentPath.moveTo(startX, startY);
                             currentPath.lineTo(finishX, finishY);
-                            lata_bikote = latak.get(i).getBikote();
-                            index_lata = i;
+                            gorputzaOndo_bikote = gorputzaOndo.get(i).getBikote();
+                            index_gorputzaOndo = i;
                         }
                     }
-
                     if (!dentro) {
                         try {
                             this.paths.remove(paths.size() - 1);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                         }
-                    }else if(dentro && arrain_bikote!=lata_bikote){
+                    } else if (dentro && gorputza_bikote != gorputzaOndo_bikote) {
                         try {
                             this.paths.remove(paths.size() - 1);
                             this.img_correcto.setImageResource(R.drawable.cruz);
                             EsperaImagen espera = new EsperaImagen(this.img_correcto);
                             this.img_correcto.setVisibility(View.VISIBLE);
-                        }catch(Exception e){
+                        } catch (Exception e) {
 
                         }
-                    }else{
-                        try{
-                            arrainak.get(index_arrain).setLotuta(true);
-                            latak.get(index_lata).setLotuta(true);
+                    } else {
+                        try {
+                            gorputza.get(index_gorputza).setLotuta(true);
+                            gorputzaOndo.get(index_gorputzaOndo).setLotuta(true);
                             this.img_correcto.setImageResource(R.drawable.tick);
                             EsperaImagen espera = new EsperaImagen(this.img_correcto);
                             this.img_correcto.setVisibility(View.VISIBLE);
-                        }catch (Exception e) {
+                        } catch (Exception e) {
                         }
                     }
                 }
-
                 break;
             default:
                 return false;
@@ -150,6 +146,8 @@ public class DibujoView extends View {
         return true;
     }
 
+
+
     public void limpiarDibujo() {
         paths.clear();
         invalidate();
@@ -158,20 +156,20 @@ public class DibujoView extends View {
     public void onTouchEvent(int actionDown, Button btnPrueba) {
     }
 
-    public List<Argazki> getArrainak() {
-        return arrainak;
+    public List<Argazki> getGorputza() {
+        return gorputza;
     }
 
-    public void setArrainak(List<Argazki> arrainak) {
-        this.arrainak = arrainak;
+    public void setGorputza(List<Argazki> gorputza) {
+        this.gorputza = gorputza;
     }
 
-    public List<Argazki> getLatak() {
-        return latak;
+    public List<Argazki> getGorputzaOndo() {
+        return gorputzaOndo;
     }
 
-    public void setLatak(List<Argazki> latak) {
-        this.latak = latak;
+    public void setGorputzaOndo(List<Argazki> gorputzaOndo) {
+        this.gorputzaOndo = gorputzaOndo;
     }
 
     public ImageView getImg_correcto() {

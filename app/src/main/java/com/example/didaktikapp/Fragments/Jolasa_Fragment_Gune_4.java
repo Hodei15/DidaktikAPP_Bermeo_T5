@@ -3,6 +3,7 @@ package com.example.didaktikapp.Fragments;
 import static java.lang.Math.abs;
 
 import android.graphics.Rect;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,9 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.didaktikapp.Controler.Metodoak;
+import com.example.didaktikapp.Model.Argazki;
+import com.example.didaktikapp.Model.ZatiTxo;
 import com.example.didaktikapp.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,13 +69,6 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_jolasa_gune_4, container, false);
-    }
-
     private ImageView cabeza;
     private ImageView pierna_DER;
     private ImageView pierna_IZQ;
@@ -83,23 +81,50 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
     private ImageView brazo_DER_Ondo;
     private ImageView brazo_IZQ_Ondo;
     private ImageView torso_Ondo;
+    private ZatiTxo zatiTxo;
+
     private float xDelta, yDelta;
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_jolasa_gune_4, container, false);
+
+
         cabeza = view.findViewById(R.id.cabeza);
         pierna_DER = view.findViewById(R.id.pierna_DER);
         pierna_IZQ = view.findViewById(R.id.pierna_IZQ);
         brazo_DER = view.findViewById(R.id.brazo_DER);
         brazo_IZQ = view.findViewById(R.id.brazo_IZQ);
         torso = view.findViewById(R.id.torso);
+
         cabeza_Ondo = view.findViewById(R.id.cabeza_Ondo);
         pierna_DER_Ondo = view.findViewById(R.id.pierna_DER_Ondo);
         pierna_IZQ_Ondo = view.findViewById(R.id.pierna_IZQ_Ondo);
         brazo_DER_Ondo = view.findViewById(R.id.brazo_DER_Ondo);
         brazo_IZQ_Ondo = view.findViewById(R.id.brazo_IZQ_Ondo);
         torso_Ondo = view.findViewById(R.id.torso_Ondo);
+
+        List<Argazki> gorputza = new ArrayList<Argazki>();
+        List<Argazki> goruptzaOndo = new ArrayList<Argazki>();
+
+        gorputza = Metodoak.agazkiakKargatu(gorputza,1, cabeza);
+        gorputza = Metodoak.agazkiakKargatu(gorputza,2, pierna_DER);
+        gorputza = Metodoak.agazkiakKargatu(gorputza,3, pierna_IZQ);
+        gorputza = Metodoak.agazkiakKargatu(gorputza,4, brazo_DER);
+        gorputza = Metodoak.agazkiakKargatu(gorputza,5, brazo_IZQ);
+        gorputza = Metodoak.agazkiakKargatu(gorputza,6, torso);
+
+        goruptzaOndo = Metodoak.agazkiakKargatu(goruptzaOndo, 1, cabeza);
+        goruptzaOndo = Metodoak.agazkiakKargatu(goruptzaOndo, 2, pierna_DER);
+        goruptzaOndo = Metodoak.agazkiakKargatu(goruptzaOndo, 3, pierna_IZQ);
+        goruptzaOndo = Metodoak.agazkiakKargatu(goruptzaOndo, 4, brazo_DER);
+        goruptzaOndo = Metodoak.agazkiakKargatu(goruptzaOndo, 5, brazo_IZQ);
+        goruptzaOndo = Metodoak.agazkiakKargatu(goruptzaOndo, 6, torso);
+
+        zatiTxo.setGorputza(gorputza);
+        zatiTxo.setGorputzaOndo(goruptzaOndo);
+
+
         boolean cabezaDrag = false;
         boolean brazoIZQDrag = false;
         boolean brazoDERDrag = false;
@@ -107,16 +132,18 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
         boolean piernaDERDrag = false;
         boolean torsoDrag = false;
 
+        zatiTxo = view.findViewById(R.id.zatiTxo);
+        ImageView img_correcto = view.findViewById(R.id.img_correcto);
+        zatiTxo.setImg_correcto(img_correcto);
 
+        return view;
+        }
 /*
         cabeza.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                // ... (otros códigos)
-
                 switch (event.getAction() & MotionEvent.ACTION_MASK) {
                     case MotionEvent.ACTION_DOWN:
-                        // ... (otros códigos)
                         break;
                     case MotionEvent.ACTION_MOVE:
                         // Mover la imagen solo si el arrastre está habilitado
@@ -135,7 +162,7 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
                 }
                 return true;
             }
-        });
+        });*//*
         pierna_DER.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -248,5 +275,5 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
         return Rect.intersects(rectFirstView, rectSecondView);
     }
 */
-    }
+
 }

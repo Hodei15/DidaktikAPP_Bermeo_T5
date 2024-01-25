@@ -1,5 +1,8 @@
 package com.example.didaktikapp.Controler;
 
+import android.view.ViewTreeObserver;
+import android.widget.ImageView;
+
 import com.example.didaktikapp.Database.Dao.ErabiltzaileDao;
 import com.example.didaktikapp.Database.Dao.ErantzunaDao;
 import com.example.didaktikapp.Database.Dao.GalderaDao;
@@ -11,6 +14,7 @@ import com.example.didaktikapp.Database.Erantzuna;
 import com.example.didaktikapp.Database.Galdera;
 import com.example.didaktikapp.Database.Gunea;
 import com.example.didaktikapp.Database.Jarduera;
+import com.example.didaktikapp.Model.Argazki;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -106,5 +110,19 @@ public class Metodoak {
         ErabiltzaileDao erabiltzaileKontroladore = database.erabiltzaileDao();
         Erabiltzaile erabiltzailea = erabiltzaileKontroladore.getErabiltzaileByEmail(email);
         return erabiltzailea;
+    }
+    public static List<Argazki> agazkiakKargatu(List<Argazki> argazkiak, int bikote, ImageView argazki){
+
+        ViewTreeObserver viewTreeObserver = argazki.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int[] locationOnScreen = new int[2];
+                argazki.getLocationOnScreen(locationOnScreen);
+                Argazki argazki_obj = new Argazki(argazki,bikote,argazki.getHeight(),argazki.getWidth(),locationOnScreen[0],locationOnScreen[1]);
+                argazkiak.add(argazki_obj);
+            }
+        });
+        return argazkiak;
     }
 }
