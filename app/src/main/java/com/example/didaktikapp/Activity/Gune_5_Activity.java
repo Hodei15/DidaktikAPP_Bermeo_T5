@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.didaktikapp.Fragments.Audio_Fragment_Gune_5;
@@ -21,8 +22,8 @@ public class Gune_5_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gune_5);
-        Button btn_atzera =findViewById(R.id.btn_atzera);
-        Button btn_aurrera = findViewById(R.id.btn_aurrera);
+        ImageView img_atzera =findViewById(R.id.img_atzera3);
+        ImageView img_aurrera = findViewById(R.id.img_aurrera3);
         Button g5_boton_home = findViewById(R.id.g2_boton_home);
         TextView lbl_itsasontzi = findViewById(R.id.lbl_itsasontziak);
 
@@ -36,7 +37,7 @@ public class Gune_5_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        btn_atzera.setOnClickListener(new View.OnClickListener() {
+        img_atzera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Fragment Manager
@@ -55,7 +56,7 @@ public class Gune_5_Activity extends AppCompatActivity {
             }
         });
 
-        btn_aurrera.setOnClickListener(new View.OnClickListener() {
+        img_aurrera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Fragment Manager

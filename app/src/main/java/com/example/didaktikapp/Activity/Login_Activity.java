@@ -52,6 +52,7 @@ public class Login_Activity extends AppCompatActivity {
     private List<Erantzuna> erantzunak;
     private Erabiltzaile erabiltzailea;
     int lehenAldia = 0;
+    private Button erantzunak_erakutsi;
 
     //SharedPreferences
     SharedPreferences sharedpreferences;
@@ -93,6 +94,7 @@ public class Login_Activity extends AppCompatActivity {
         //botoiak
         btn_sartu = findViewById(R.id.btn_sartu);
         lbl_erregistratu_nav = findViewById(R.id.lbl_erregistratu_nav);
+        erantzunak_erakutsi = findViewById(R.id.btn_Irakaslea);
 
         //BOTONES (eventos)
         //login
@@ -115,8 +117,14 @@ public class Login_Activity extends AppCompatActivity {
 
                 }
         });
-
-
+        //irakaslea ikusi dezan erantzunak
+        erantzunak_erakutsi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login_Activity.this, Erantzunak_Activity.class);
+                startActivity(intent);
+            }
+        });
         //erregistratu nabegazio
         lbl_erregistratu_nav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +135,6 @@ public class Login_Activity extends AppCompatActivity {
             }
         });
     }
-
     //METODOS
     private void saioaHasi(String erabiltzaile_string, String pasahitza) {
 

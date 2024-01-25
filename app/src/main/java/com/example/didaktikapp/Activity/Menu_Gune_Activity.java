@@ -16,7 +16,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
@@ -35,7 +34,6 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 
-import java.io.File;
 import java.util.List;
 
 public class Menu_Gune_Activity extends AppCompatActivity {
@@ -155,7 +153,7 @@ public class Menu_Gune_Activity extends AppCompatActivity {
                             break;
 
                         default:
-                            intent = new Intent(Menu_Gune_Activity.this, MainActivity.class);
+                            intent = new Intent(Menu_Gune_Activity.this, Main_Activity.class);
                             break;
                     }
                     startActivity(intent);
@@ -256,7 +254,7 @@ public class Menu_Gune_Activity extends AppCompatActivity {
 
 
                             default:
-                                intent = new Intent(Menu_Gune_Activity.this, MainActivity.class);
+                                intent = new Intent(Menu_Gune_Activity.this, Main_Activity.class);
                                 break;
                         }
                         startActivity(intent);

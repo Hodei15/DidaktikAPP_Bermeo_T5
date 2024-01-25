@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.didaktikapp.Fragments.Audio_Fragment_Gune_3;
@@ -22,8 +23,8 @@ public class Gune_3_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gune_3);
 
-        Button btn_atzera =findViewById(R.id.btn_atzera);
-        Button btn_aurrera = findViewById(R.id.btn_aurrera);
+        ImageView img_atzera =findViewById(R.id.img_atzera3);
+        ImageView img_aurrera = findViewById(R.id.img_aurrera3);
         Button g3_boton_home = findViewById(R.id.g3_boton_home);
         TextView lbl_Saregile = findViewById(R.id.lbl_Saregile);
 
@@ -38,7 +39,7 @@ public class Gune_3_Activity extends AppCompatActivity {
             }
         });
 
-        btn_atzera.setOnClickListener(new View.OnClickListener() {
+        img_atzera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Fragment Manager
@@ -59,7 +60,7 @@ public class Gune_3_Activity extends AppCompatActivity {
             }
         });
 
-        btn_aurrera.setOnClickListener(new View.OnClickListener() {
+        img_aurrera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Fragment Manager

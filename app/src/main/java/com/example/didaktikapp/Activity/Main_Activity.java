@@ -8,7 +8,7 @@ import android.os.Handler;
 
 import com.example.didaktikapp.R;
 
-public class MainActivity extends AppCompatActivity {
+public class Main_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // Sortu intent bat login hasteko
-                Intent intent = new Intent(MainActivity.this, Login_Activity.class);
+                Intent intent = new Intent(Main_Activity.this, Login_Activity.class);
                 startActivity(intent);
                 finish(); // Honek MainActivity ixten du, erabiltzaileak Atzera botoia erabiliz bertara itzultzea nahi ez baduzu.
             }
