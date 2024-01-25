@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -101,12 +102,17 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
     ImageView img_borobil_3;
     ImageView img_borobil_4;
     ImageView img_borobil_5;
-
+    private int puntuazioa;
+    private TextView puntuazioaErakutsi;
+    private Handler handler = new Handler();
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
+        //ikaslearen puntuaketa kalkulatzeko atributuak
+        puntuazioa = 1000;
+        puntuazioaErakutsi = view.findViewById(R.id.txt_puntuazioa_3);
+        //atributuak deklaratu
         mural = (ImageView) view.findViewById(R.id.Murala);
-
         lbl_galdera_jolasa_3 = view.findViewById(R.id.lbl_galdera_jolasa_3);
         img_tick_jolasa3 = view.findViewById(R.id.img_tick_jolasa3);
         img_borobil_1 = view.findViewById(R.id.img_borobil_1);
@@ -114,7 +120,6 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
         img_borobil_3 = view.findViewById(R.id.img_borobil_3);
         img_borobil_4 = view.findViewById(R.id.img_borobil_4);
         img_borobil_5 = view.findViewById(R.id.img_borobil_5);
-
 
         mAuth = FirebaseAuth.getInstance();
         db.collection("guneak").document("gune_3").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -192,6 +197,18 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
                 return true;
             }
         });
-
+        //puntuaketari segunduro 10 puntu kentzeko metodoa
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (puntuazioa > 0) {
+                    puntuazioa -= 1000;
+                    puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
+                    handler.postDelayed(this, 1000);
+                } else {
+                    puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
+                }
+            }
+        }, 1000);
     }
 }

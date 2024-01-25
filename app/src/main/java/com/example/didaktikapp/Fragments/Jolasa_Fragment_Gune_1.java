@@ -1,19 +1,16 @@
 package com.example.didaktikapp.Fragments;
 
-import static android.content.ContentValues.TAG;
-
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
+import android.os.Handler;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.didaktikapp.Model.Argazki;
 import com.example.didaktikapp.Model.DibujoView;
@@ -70,14 +67,36 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
     }
 
     private DibujoView dibujoView;
+    private int puntuazioa;
+    private TextView puntuazioaErakutsi;
+    private Handler handler = new Handler();
+    private boolean todasImagenesJuntadas = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_jolasa_gune_1, container, false);
-
+        //ikaslearen puntuaketa kalkulatzeko atributuak
+        puntuazioa = 1000;
+        puntuazioaErakutsi = view.findViewById(R.id.txt_puntuazioa_1);
+        //atributuak deklaratu
         dibujoView = view.findViewById(R.id.dibujoView);
         ImageView img_correcto = view.findViewById(R.id.img_correcto);
         dibujoView.setImg_correcto(img_correcto);
+        puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
+
+        //puntuaketari segunduro 10 puntu kentzeko metodoa
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (puntuazioa > 0) {
+                    puntuazioa -= 1000;
+                    puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
+                    handler.postDelayed(this, 1000);
+                } else {
+                    puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
+                }
+            }
+        }, 1000);
 
         //Argazkiak lortzen ditugu
         ImageView arrain_1 = view.findViewById(R.id.img_arrain_bikote_1);
@@ -143,5 +162,6 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
     private void limpiarDibujo() {
         dibujoView.limpiarDibujo();
     }
+
 
 }

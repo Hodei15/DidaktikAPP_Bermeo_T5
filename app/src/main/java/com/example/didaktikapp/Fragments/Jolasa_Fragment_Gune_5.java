@@ -1,19 +1,33 @@
 package com.example.didaktikapp.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.didaktikapp.Activity.Gune_1_Activity;
 import com.example.didaktikapp.Activity.Menu_Gune_Activity;
+import com.example.didaktikapp.Model.Argazki;
+import com.example.didaktikapp.Model.Argazkiak_Ontziak;
 import com.example.didaktikapp.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,9 +94,24 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
     private ImageView Txalupa_C2;
     private ImageView Arraun_Ontzia_C1;
     private ImageView Arraun_Ontzia_C2;
+    ImageView carta;
+    ImageView itsasontzia_Arrantza;
+    ImageView itsasontzia_Garraioa;
+    ImageView itsasontzia_Bela;
+    ImageView itsasontzia_Bale;
+    ImageView itsasontzia_Txalupa;
+    ImageView itsasontzia_Arraun;
+    private int puntuazioa;
+    private TextView puntuazioaErakutsi;
+    private Handler handler = new Handler();
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //ikaslearen puntuaketa kalkulatzeko atributuak
+        puntuazioa = 1000;
+        puntuazioaErakutsi = view.findViewById(R.id.txt_puntuazioa_5);
+
+        //Irudiak deklaratu
         Arrantza_Ontzia_C1 = view.findViewById(R.id.Arrantza_Ontzia_C1);
         Arrantza_Ontzia_C2 = view.findViewById(R.id.Arrantza_Ontzia_C2);
         Garraio_Ontzia_C1 = view.findViewById(R.id.Garraio_Ontzia_C1);
@@ -95,83 +124,77 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
         Txalupa_C2 = view.findViewById(R.id.Txalupa_C2);
         Arraun_Ontzia_C1 = view.findViewById(R.id.Arraun_Ontzia_C1);
         Arraun_Ontzia_C2 = view.findViewById(R.id.Arraun_Ontzia_C2);
-        int tamañoX = Arrantza_Ontzia_C1.getDrawable().getIntrinsicWidth();
-        int tamañoY = Arrantza_Ontzia_C1.getDrawable().getIntrinsicHeight();
+
+        carta.setImageResource(R.drawable.carta);
+        itsasontzia_Arrantza.setImageResource(R.drawable.arrantza_ontzia);
+        itsasontzia_Garraioa.setImageResource(R.drawable.garraio_ontzia);
+        itsasontzia_Bela.setImageResource(R.drawable.belaontzia);
+        itsasontzia_Bale.setImageResource(R.drawable.baleontzia);
+        itsasontzia_Txalupa.setImageResource(R.drawable.txalupa);
+        itsasontzia_Arraun.setImageResource(R.drawable.arraun_ontzia);
+
+        //Itsasontzien argazkiak gordetzen ditugu
+        List<Argazkiak_Ontziak> itsasontziak_argazkiak = new ArrayList<Argazkiak_Ontziak>();
+
+        //Itsasontziak Kargatu
+        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,1, carta, itsasontzia_Arrantza,Arrantza_Ontzia_C1);
+        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,1, carta, itsasontzia_Arrantza,Arrantza_Ontzia_C2);
+        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,2, carta, itsasontzia_Garraioa,Garraio_Ontzia_C1);
+        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,2, carta, itsasontzia_Garraioa,Garraio_Ontzia_C2);
+        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,3, carta, itsasontzia_Bela,Bela_Ontzia_C1);
+        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,3, carta, itsasontzia_Bela,Bela_Ontzia_C2);
+        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,4, carta, itsasontzia_Bale,Bale_Ontzia_C1);
+        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,4, carta, itsasontzia_Bale,Bale_Ontzia_C2);
+        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,5, carta, itsasontzia_Txalupa,Txalupa_C1);
+        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,5, carta, itsasontzia_Txalupa,Txalupa_C2);
+        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,6, carta, itsasontzia_Arraun,Arraun_Ontzia_C1);
+        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,6, carta, itsasontzia_Arraun,Arraun_Ontzia_C2);
+
         Arrantza_Ontzia_C1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Arrantza_Ontzia_C1.setImageResource(R.drawable.arrantza_ontzia);
-                ViewGroup.LayoutParams layoutParams = Arrantza_Ontzia_C1.getLayoutParams();
-                layoutParams.width = tamañoX;
-                layoutParams.height = tamañoY;
-                Arrantza_Ontzia_C1.setLayoutParams(layoutParams);
+                //aukeraBalidatu();
             }
         });
-        Arrantza_Ontzia_C2.setOnClickListener(new View.OnClickListener(){
+
+        //puntuaketari segunduro 10 puntu kentzeko metodoa
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
-                Arrantza_Ontzia_C2.setImageResource(R.drawable.arrantza_ontzia);
+            public void run() {
+                puntuazioa -= 10;
+                puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
+                handler.postDelayed(this, 1000);
             }
-        });
-        Garraio_Ontzia_C1.setOnClickListener(new View.OnClickListener(){
+        }, 1000);
+
+    }
+
+    public List<Argazkiak_Ontziak> aukeraBalidatu(List<Argazkiak_Ontziak> itsasontziak_argazkiak, int bikote, ImageView carta, ImageView ontziak, ImageView erakutsi){
+
+        ViewTreeObserver viewTreeObserver = carta.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
-            public void onClick(View v) {
-                Garraio_Ontzia_C1.setImageResource(R.drawable.garraio_ontzia);
+            public void onGlobalLayout() {
+                int[] locationOnScreen = new int[2];
+                carta.getLocationOnScreen(locationOnScreen);
+                ontziak.getLocationOnScreen(locationOnScreen);
+                erakutsi.getLocationOnScreen(locationOnScreen);
+                Argazkiak_Ontziak argazki_obj = new Argazkiak_Ontziak(carta,ontziak,erakutsi,bikote,carta.getHeight(),carta.getWidth(),locationOnScreen[0],locationOnScreen[1]);
+                for(int i = 0; i>itsasontziak_argazkiak.size(); i++) {
+                    int index = i;
+                    argazki_obj.getErakutsi().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (itsasontziak_argazkiak.get(index).isGorantz()) {
+                                itsasontziak_argazkiak.get(index).setGorantz(true);
+                                itsasontziak_argazkiak.get(index).setErakutsi(itsasontziak_argazkiak.get(index).getItsasontzia());
+                            }
+                        }
+                    });
+                }
+                itsasontziak_argazkiak.add(argazki_obj);
             }
         });
-        Garraio_Ontzia_C2.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Garraio_Ontzia_C2.setImageResource(R.drawable.garraio_ontzia);
-            }
-        });
-        Bela_Ontzia_C1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Bela_Ontzia_C1.setImageResource(R.drawable.belaontzia);
-            }
-        });
-        Bela_Ontzia_C2.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Bela_Ontzia_C2.setImageResource(R.drawable.belaontzia);
-            }
-        });
-        Bale_Ontzia_C1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Bale_Ontzia_C1.setImageResource(R.drawable.baleontzia);
-            }
-        });
-        Bale_Ontzia_C2.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Bale_Ontzia_C2.setImageResource(R.drawable.baleontzia);
-            }
-        });
-        Txalupa_C1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Txalupa_C1.setImageResource(R.drawable.txalupa);
-            }
-        });
-        Txalupa_C2.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Txalupa_C2.setImageResource(R.drawable.txalupa);
-            }
-        });
-        Arraun_Ontzia_C1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Arraun_Ontzia_C1.setImageResource(R.drawable.arraun_ontzia);
-            }
-        });
-        Arraun_Ontzia_C2.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Arraun_Ontzia_C2.setImageResource(R.drawable.arraun_ontzia);
-            }
-        });
+        return itsasontziak_argazkiak;
     }
 }

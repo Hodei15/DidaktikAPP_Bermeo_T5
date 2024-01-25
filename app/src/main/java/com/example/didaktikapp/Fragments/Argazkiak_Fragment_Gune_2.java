@@ -75,9 +75,6 @@ public class Argazkiak_Fragment_Gune_2 extends Fragment {
         return inflater.inflate(R.layout.fragment_argazkiak_gune_2, container, false);
 
     }
-    private ImageView Eskultura1;
-    private ImageView Eskultura2;
-    private ScrollView textua;
     Button btn_gorde_erantzuna;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){

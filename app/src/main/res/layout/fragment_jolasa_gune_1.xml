@@ -21,6 +21,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:layout_editor_absoluteY="0dp" />
 
+        <TextView
+            android:id="@+id/txt_puntuazioa_1"
+            android:layout_width="68dp"
+            android:layout_height="17dp"
+            android:layout_marginStart="332dp"
+            android:layout_marginTop="112dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/img_arrain_1"
             android:layout_width="275px"

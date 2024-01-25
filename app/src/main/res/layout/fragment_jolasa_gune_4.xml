@@ -12,6 +12,14 @@
         android:background="#58718B"
         android:backgroundTint="#58718B">
 
+        <TextView
+            android:id="@+id/txt_puntuazioa_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/brazo_IZQ"
             android:layout_width="wrap_content"

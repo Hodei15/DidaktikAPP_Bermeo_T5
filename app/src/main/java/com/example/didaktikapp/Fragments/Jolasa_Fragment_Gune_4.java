@@ -7,11 +7,13 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.didaktikapp.R;
 
@@ -84,10 +86,18 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
     private ImageView brazo_IZQ_Ondo;
     private ImageView torso_Ondo;
     private float xDelta, yDelta;
+    private int puntuazioa;
+    private TextView puntuazioaErakutsi;
+    private Handler handler = new Handler();
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //ikaslearen puntuaketa kalkulatzeko atributuak
+        puntuazioa = 1000;
+        puntuazioaErakutsi = view.findViewById(R.id.txt_puntuazioa_4);
+
+        //irudiak deklaratu
         cabeza = view.findViewById(R.id.cabeza);
         pierna_DER = view.findViewById(R.id.pierna_DER);
         pierna_IZQ = view.findViewById(R.id.pierna_IZQ);
@@ -248,5 +258,14 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
         return Rect.intersects(rectFirstView, rectSecondView);
     }
 */
+        //puntuaketari segunduro 10 puntu kentzeko metodoa
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                puntuazioa -= 10;
+                puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
+                handler.postDelayed(this, 1000);
+            }
+        }, 1000);
     }
 }
