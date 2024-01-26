@@ -24,6 +24,7 @@ import com.example.didaktikapp.Activity.Gune_1_Activity;
 import com.example.didaktikapp.Activity.Menu_Gune_Activity;
 import com.example.didaktikapp.Model.Argazki;
 import com.example.didaktikapp.Model.Argazkiak_Ontziak;
+import com.example.didaktikapp.Model.EsperaImagen;
 import com.example.didaktikapp.R;
 
 import java.util.ArrayList;
@@ -76,37 +77,33 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_jolasa_gune_5, container, false);
-    }
     private ImageView Arrantza_Ontzia_C1;
     private ImageView Arrantza_Ontzia_C2;
+    private int drArrantzaOntzia = R.drawable.arrantza_ontzia;
     private ImageView Garraio_Ontzia_C1;
     private ImageView Garraio_Ontzia_C2;
+    private int drGarraioOntzia = R.drawable.garraio_ontzia;
     private ImageView Bela_Ontzia_C1;
     private ImageView Bela_Ontzia_C2;
+    private int drBelaOntzia = R.drawable.belaontzia;
     private ImageView Bale_Ontzia_C1;
     private ImageView Bale_Ontzia_C2;
+    private int drBaleOntzia = R.drawable.baleontzia;
     private ImageView Txalupa_C1;
     private ImageView Txalupa_C2;
+    private int drTxalupa = R.drawable.txalupa;
     private ImageView Arraun_Ontzia_C1;
     private ImageView Arraun_Ontzia_C2;
-    ImageView carta;
-    ImageView itsasontzia_Arrantza;
-    ImageView itsasontzia_Garraioa;
-    ImageView itsasontzia_Bela;
-    ImageView itsasontzia_Bale;
-    ImageView itsasontzia_Txalupa;
-    ImageView itsasontzia_Arraun;
+    private int drArraunOntzia = R.drawable.arraun_ontzia;
+    private int carta=R.drawable.carta;
     private int puntuazioa;
     private TextView puntuazioaErakutsi;
     private Handler handler = new Handler();
+
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_jolasa_gune_5, container, false);
         //ikaslearen puntuaketa kalkulatzeko atributuak
         puntuazioa = 1000;
         puntuazioaErakutsi = view.findViewById(R.id.txt_puntuazioa_5);
@@ -125,30 +122,23 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
         Arraun_Ontzia_C1 = view.findViewById(R.id.Arraun_Ontzia_C1);
         Arraun_Ontzia_C2 = view.findViewById(R.id.Arraun_Ontzia_C2);
 
-        carta.setImageResource(R.drawable.carta);
-        itsasontzia_Arrantza.setImageResource(R.drawable.arrantza_ontzia);
-        itsasontzia_Garraioa.setImageResource(R.drawable.garraio_ontzia);
-        itsasontzia_Bela.setImageResource(R.drawable.belaontzia);
-        itsasontzia_Bale.setImageResource(R.drawable.baleontzia);
-        itsasontzia_Txalupa.setImageResource(R.drawable.txalupa);
-        itsasontzia_Arraun.setImageResource(R.drawable.arraun_ontzia);
 
         //Itsasontzien argazkiak gordetzen ditugu
         List<Argazkiak_Ontziak> itsasontziak_argazkiak = new ArrayList<Argazkiak_Ontziak>();
 
         //Itsasontziak Kargatu
-        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,1, carta, itsasontzia_Arrantza,Arrantza_Ontzia_C1);
-        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,1, carta, itsasontzia_Arrantza,Arrantza_Ontzia_C2);
-        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,2, carta, itsasontzia_Garraioa,Garraio_Ontzia_C1);
-        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,2, carta, itsasontzia_Garraioa,Garraio_Ontzia_C2);
-        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,3, carta, itsasontzia_Bela,Bela_Ontzia_C1);
-        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,3, carta, itsasontzia_Bela,Bela_Ontzia_C2);
-        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,4, carta, itsasontzia_Bale,Bale_Ontzia_C1);
-        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,4, carta, itsasontzia_Bale,Bale_Ontzia_C2);
-        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,5, carta, itsasontzia_Txalupa,Txalupa_C1);
-        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,5, carta, itsasontzia_Txalupa,Txalupa_C2);
-        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,6, carta, itsasontzia_Arraun,Arraun_Ontzia_C1);
-        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,6, carta, itsasontzia_Arraun,Arraun_Ontzia_C2);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,1, carta, drArrantzaOntzia,Arrantza_Ontzia_C1);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,1, carta, drArrantzaOntzia,Arrantza_Ontzia_C2);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,2, carta, drGarraioOntzia,Garraio_Ontzia_C1);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,2, carta, drGarraioOntzia,Garraio_Ontzia_C2);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,3, carta, drBelaOntzia,Bela_Ontzia_C1);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,3, carta, drBelaOntzia,Bela_Ontzia_C2);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,4, carta, drBaleOntzia,Bale_Ontzia_C1);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,4, carta, drBaleOntzia,Bale_Ontzia_C2);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,5, carta, drTxalupa,Txalupa_C1);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,5, carta, drTxalupa,Txalupa_C2);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,6, carta, drArraunOntzia,Arraun_Ontzia_C1);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,6, carta, drArraunOntzia,Arraun_Ontzia_C2);
 
         Arrantza_Ontzia_C1.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -166,33 +156,38 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
                 handler.postDelayed(this, 1000);
             }
         }, 1000);
-
+        // Inflate the layout for this fragment
+        return view;
     }
 
-    public List<Argazkiak_Ontziak> argazkiaKargatu(List<Argazkiak_Ontziak> itsasontziak_argazkiak, int bikote, ImageView carta, ImageView ontziak, ImageView erakutsi){
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
 
-        ViewTreeObserver viewTreeObserver = carta.getViewTreeObserver();
+    public List<Argazkiak_Ontziak> argazkiaKargatu(List<Argazkiak_Ontziak> itsasontziak_argazkiak, int bikote, int carta, int ontziak, ImageView erakutsi){
+
+        ViewTreeObserver viewTreeObserver = erakutsi.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                int[] locationOnScreen = new int[2];
-                carta.getLocationOnScreen(locationOnScreen);
-                ontziak.getLocationOnScreen(locationOnScreen);
-                erakutsi.getLocationOnScreen(locationOnScreen);
-                Argazkiak_Ontziak argazki_obj = new Argazkiak_Ontziak(carta,ontziak,erakutsi,bikote,carta.getHeight(),carta.getWidth(),locationOnScreen[0],locationOnScreen[1]);
-                for(int i = 0; i>itsasontziak_argazkiak.size(); i++) {
-                    int index = i;
+                if(itsasontziak_argazkiak.size()<12) {
+                    int[] locationOnScreen = new int[2];
+                    erakutsi.getLocationOnScreen(locationOnScreen);
+                    Argazkiak_Ontziak argazki_obj = new Argazkiak_Ontziak(carta, ontziak, erakutsi, bikote, erakutsi.getHeight(), erakutsi.getWidth(), locationOnScreen[0], locationOnScreen[1]);
                     argazki_obj.getErakutsi().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (itsasontziak_argazkiak.get(index).isGorantz()) {
-                                itsasontziak_argazkiak.get(index).setGorantz(true);
-                                itsasontziak_argazkiak.get(index).setErakutsi(itsasontziak_argazkiak.get(index).getItsasontzia());
+                            if (!argazki_obj.isGorantz()) {
+                                argazki_obj.setGorantz(true);
+                                argazki_obj.getErakutsi().setImageResource(argazki_obj.getItsasontzia());
+
+                                aukeraBalidatu(itsasontziak_argazkiak);
                             }
                         }
                     });
+                    itsasontziak_argazkiak.add(argazki_obj);
                 }
-                itsasontziak_argazkiak.add(argazki_obj);
             }
         });
         return itsasontziak_argazkiak;
@@ -203,7 +198,7 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
         int index_1 = -1;
         int index_2 = -1;
 
-        for (int j=0;j<itsasontziak_argazkiak.size();j++){
+        for (int j=0;j<itsasontziak_argazkiak.size() && index_2==-1;j++){
             if(itsasontziak_argazkiak.get(j).isGorantz() && !itsasontziak_argazkiak.get(j).isLotuta() && index_1==-1){
                 index_1 = j;
             }else if (itsasontziak_argazkiak.get(j).isGorantz() && !itsasontziak_argazkiak.get(j).isLotuta() && index_1!=-1){
@@ -211,14 +206,15 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
             }
         }
 
-        if(itsasontziak_argazkiak.get(index_1).getBikote()==itsasontziak_argazkiak.get(index_2).getBikote()){
+        if(index_1!=-1 && index_2!=-1 && itsasontziak_argazkiak.get(index_1).getBikote()==itsasontziak_argazkiak.get(index_2).getBikote()){
             itsasontziak_argazkiak.get(index_1).setLotuta(true);
             itsasontziak_argazkiak.get(index_2).setLotuta(true);
-        }else{
+        }else if(index_1!=-1 && index_2!=-1 && itsasontziak_argazkiak.get(index_1).getBikote()!=itsasontziak_argazkiak.get(index_2).getBikote()){
             itsasontziak_argazkiak.get(index_1).setGorantz(false);
             itsasontziak_argazkiak.get(index_2).setGorantz(false);
             //Falta asignar la imagen de la carta
-            //itsasontziak_argazkiak.get(index_1).getErakutsi().setImageResource(itsasontziak_argazkiak.get(index_1).getImgCarta());
+            itsasontziak_argazkiak.get(index_1).getErakutsi().setImageResource(itsasontziak_argazkiak.get(index_1).getImgCarta());
+            itsasontziak_argazkiak.get(index_2).getErakutsi().setImageResource(itsasontziak_argazkiak.get(index_2).getImgCarta());
         }
 
         //Jolasa amaitu bada balidatzen du

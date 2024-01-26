@@ -4,8 +4,8 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 public class Argazkiak_Ontziak {
-    protected ImageView imgCarta;
-    protected ImageView itsasontzia;
+    protected int imgCarta;
+    protected int itsasontzia;
     protected ImageView erakutsi;
     protected int bikote;
     float width;
@@ -19,7 +19,7 @@ public class Argazkiak_Ontziak {
     public Argazkiak_Ontziak(){
     }
 
-    public Argazkiak_Ontziak(ImageView imgCarta,ImageView itsasontzia,ImageView erakutsi, int bikote, float height, float width,int x, int y){
+    public Argazkiak_Ontziak(int imgCarta,int itsasontzia,ImageView erakutsi, int bikote, float height, float width,int x, int y){
         this.imgCarta=imgCarta;
         this.itsasontzia=itsasontzia;
         this.erakutsi=erakutsi;
@@ -32,16 +32,16 @@ public class Argazkiak_Ontziak {
         this.gorantz = false;
     }
 
-    public ImageView getImgCarta() {
+    public int getImgCarta() {
         return imgCarta;
     }
-    public void setImg(ImageView imgCarta) {
+    public void setImg(int imgCarta) {
         this.imgCarta = imgCarta;
     }
-    public ImageView getItsasontzia() {
+    public int getItsasontzia() {
         return itsasontzia;
     }
-    public void setItsasontzia(ImageView itsasontzia) {
+    public void setItsasontzia(int itsasontzia) {
         this.itsasontzia = itsasontzia;
     }
 
@@ -57,7 +57,7 @@ public class Argazkiak_Ontziak {
         return viewTreeObserver;
     }
 
-    public void setImgCarta(ImageView imgCarta) {
+    public void setImgCarta(int imgCarta) {
         this.imgCarta = imgCarta;
     }
 
@@ -112,11 +112,12 @@ public class Argazkiak_Ontziak {
     public void setLotuta(boolean lotuta) {
         this.lotuta = lotuta;
     }
+
     public boolean isGorantz() {
-        return lotuta;
+        return gorantz;
     }
 
     public void setGorantz(boolean gorantz) {
-        this.lotuta = lotuta;
+        this.gorantz = gorantz;
     }
 }

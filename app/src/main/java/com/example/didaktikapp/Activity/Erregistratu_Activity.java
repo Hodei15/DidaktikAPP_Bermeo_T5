@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.didaktikapp.Database.Erabiltzaile;
 import com.example.didaktikapp.R;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,16 +23,21 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Erregistratu_Activity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private EditText txt_erregistro_erabiltzaile;
     private EditText txt_erregistro_mail;
     private EditText txt_erregistro_pass;
     private EditText txt_erregistro_pass_ber;
     private Button btn_erregistratu;
     private TextView lbl_login_nav;
+    private  TextView txt_klasea;
+    private  TextView txt_abizen;
 
     //SharedPreferences
     SharedPreferences sharedpreferences;
@@ -56,6 +62,9 @@ public class Erregistratu_Activity extends AppCompatActivity {
         txt_erregistro_mail = findViewById(R.id.txt_erregistro_mail);
         txt_erregistro_pass = findViewById(R.id.txt_erregistro_pass);
         txt_erregistro_pass_ber = findViewById(R.id.txt_erregistro_pass_ber);
+        txt_klasea = findViewById(R.id.txt_klasea);
+        txt_abizen = findViewById(R.id.txt_abizen);
+
 
         //Botoiak
         btn_erregistratu = findViewById(R.id.btn_erregistratu);
@@ -95,6 +104,14 @@ public class Erregistratu_Activity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
 
+                            Erabiltzaile erabiltzaile_objetu = new Erabiltzaile();
+                            erabiltzaile_objetu.setNombre(txt_erregistro_erabiltzaile.getText().toString());
+                            erabiltzaile_objetu.setApellido(txt_abizen.getText().toString());
+                            erabiltzaile_objetu.setEmail(txt_erregistro_mail.getText().toString());
+                            erabiltzaile_objetu.setKlasea(txt_klasea.getText().toString());
+
+                            db.collection("erabiltzaileak").document(erabiltzaile).set(erabiltzaile_objetu);
+
                             //Datuak SharedPreferences-ean gordetzen ditugu
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString(EMAIL_KEY, erabiltzaile);
@@ -104,7 +121,7 @@ public class Erregistratu_Activity extends AppCompatActivity {
                             Toast.makeText(Erregistratu_Activity.this, "Erabiltzailea erregistratu da.",
                                     Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(Erregistratu_Activity.this, Menu_Gune_Activity.class);
+                            Intent intent = new Intent(Erregistratu_Activity.this, Login_Activity.class);
                             startActivity(intent);
                             finish();
                         }else {

@@ -24,6 +24,10 @@ public interface ErabiltzaileDao {
     @Query("SELECT * FROM erabiltzaileak WHERE email = :email")
     Erabiltzaile getErabiltzaileByEmail(String email);
 
+
+    @Query("SELECT COUNT(*) FROM erabiltzaileak")
+    int getErabiltzaileCount();
+
     @Update
     void updateErabiltzaile(Erabiltzaile erabiltzaile);
 

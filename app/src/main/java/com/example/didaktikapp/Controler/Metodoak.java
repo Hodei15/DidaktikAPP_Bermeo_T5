@@ -30,6 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.List;
 
 public class Metodoak {
+    static int kantitatea =0;
     public static List<Gunea> guneakBete (Datubasea database){
         GuneaDao kontserbaGune = database.guneaDao();
         Gunea kontserbak = new Gunea(1, "Kontserbak",43.42105,-2.73617);
@@ -101,13 +102,16 @@ public class Metodoak {
     }
 
     public static void erabiltzaileKargatu(Datubasea database,String email){
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         ErabiltzaileDao erabiltzaileKontroladore = database.erabiltzaileDao();
         db.collection("erabiltzaileak").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Erabiltzaile erabiltzaile = documentSnapshot.toObject(Erabiltzaile.class);
+
+                int katitate_erabiltzaile = erabiltzaileKontroladore.getErabiltzaileCount();
+                erabiltzaile.setId(katitate_erabiltzaile+1);
                 erabiltzaileKontroladore.insertErabiltzaile(erabiltzaile);
             }
         });
@@ -159,4 +163,5 @@ public class Metodoak {
                     }
                 });
     }
+
 }
