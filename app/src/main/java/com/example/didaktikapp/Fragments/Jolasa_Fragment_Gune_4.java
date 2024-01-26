@@ -88,6 +88,8 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
     private TextView puntuazioaErakutsi;
     private Handler handler = new Handler();
     private ZatiTxo zatiTxo;
+    List<Argazki> gorputza;
+    List<Argazki> goruptzaOndo;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -117,24 +119,24 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
         brazo_IZQ_Ondo = view.findViewById(R.id.brazo_IZQ_Ondo);
         torso_Ondo = view.findViewById(R.id.torso_Ondo);
 
-        List<Argazki> gorputza = new ArrayList<Argazki>();
-        List<Argazki> goruptzaOndo = new ArrayList<Argazki>();
+        gorputza = new ArrayList<Argazki>(6);
+        goruptzaOndo = new ArrayList<Argazki>(6);
+
+
         gorputza.clear();
+        agazkiakKargatu(gorputza,1, cabeza);
+        agazkiakKargatu(gorputza,2, pierna_DER);
+        agazkiakKargatu(gorputza,3, pierna_IZQ);
+        agazkiakKargatu(gorputza,4, brazo_DER);
+        agazkiakKargatu(gorputza,5, brazo_IZQ);
+        agazkiakKargatu(gorputza,6, torso);
         goruptzaOndo.clear();
-
-        gorputza = agazkiakKargatu(gorputza,1, cabeza);
-        gorputza = agazkiakKargatu(gorputza,2, pierna_DER);
-        gorputza = agazkiakKargatu(gorputza,3, pierna_IZQ);
-        gorputza = agazkiakKargatu(gorputza,4, brazo_DER);
-        gorputza = agazkiakKargatu(gorputza,5, brazo_IZQ);
-        gorputza = agazkiakKargatu(gorputza,6, torso);
-
-        goruptzaOndo = agazkiakKargatu(goruptzaOndo, 1, cabeza_Ondo);
-        goruptzaOndo = agazkiakKargatu(goruptzaOndo, 2, pierna_DER_Ondo);
-        goruptzaOndo = agazkiakKargatu(goruptzaOndo, 3, pierna_IZQ_Ondo);
-        goruptzaOndo = agazkiakKargatu(goruptzaOndo, 4, brazo_DER_Ondo);
-        goruptzaOndo = agazkiakKargatu(goruptzaOndo, 5, brazo_IZQ_Ondo);
-        goruptzaOndo = agazkiakKargatu(goruptzaOndo, 6, torso_Ondo);
+        agazkiakKargatu(goruptzaOndo, 1, cabeza_Ondo);
+        agazkiakKargatu(goruptzaOndo, 2, pierna_DER_Ondo);
+        agazkiakKargatu(goruptzaOndo, 3, pierna_IZQ_Ondo);
+        agazkiakKargatu(goruptzaOndo, 4, brazo_DER_Ondo);
+        agazkiakKargatu(goruptzaOndo, 5, brazo_IZQ_Ondo);
+        agazkiakKargatu(goruptzaOndo, 6, torso_Ondo);
 
         zatiTxo = view.findViewById(R.id.zatiTxo);
         ImageView img_correcto = view.findViewById(R.id.img_correcto);
@@ -158,18 +160,20 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
         return view;
     }
 
-    private List<Argazki> agazkiakKargatu(List<Argazki> argazkiak,int bikote, ImageView argazki){
+    private void agazkiakKargatu(List<Argazki> argazkiak,int bikote, ImageView argazki){
 
-        ViewTreeObserver viewTreeObserver = argazki.getViewTreeObserver();
-        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                int[] locationOnScreen = new int[2];
-                argazki.getLocationOnScreen(locationOnScreen);
-                Argazki argazki_obj = new Argazki(argazki,bikote,argazki.getHeight(),argazki.getWidth(),locationOnScreen[0],locationOnScreen[1]);
-                argazkiak.add(argazki_obj);
-            }
-        });
-        return argazkiak;
-    }
+            ViewTreeObserver viewTreeObserver = argazki.getViewTreeObserver();
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+
+                    if(argazkiak.size()<6) {
+                        int[] locationOnScreen = new int[2];
+                        argazki.getLocationOnScreen(locationOnScreen);
+                        Argazki argazki_obj = new Argazki(argazki, bikote, argazki.getHeight(), argazki.getWidth(), locationOnScreen[0], locationOnScreen[1]);
+                        argazkiak.add(argazki_obj);
+                    }
+                }
+            });
+        }
 }
