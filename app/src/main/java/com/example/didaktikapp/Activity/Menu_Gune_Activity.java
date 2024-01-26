@@ -8,6 +8,7 @@ import androidx.core.content.res.ResourcesCompat;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -52,6 +53,8 @@ public class Menu_Gune_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_gune);
+        //Errotazioa blokeatzen du
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         btn_saioItxi = findViewById(R.id.btn_saioItxi);
 

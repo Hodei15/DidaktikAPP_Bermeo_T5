@@ -66,18 +66,18 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
             <ImageView
-                android:id="@+id/img_aurrera4"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/aurrera" />
-
-            <ImageView
                 android:id="@+id/img_atzera4"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/atzera" />
+
+            <ImageView
+                android:id="@+id/img_aurrera4"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/aurrera" />
 
         </LinearLayout>
 

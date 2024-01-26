@@ -105,6 +105,7 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
     private int puntuazioa;
     private TextView puntuazioaErakutsi;
     private Handler handler = new Handler();
+    boolean jolasa_amaituta = false;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
@@ -178,6 +179,7 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
                                     break;
                                 case 4:
                                     img_borobil_5.setVisibility(View.VISIBLE);
+                                    jolasa_amaituta = true;
                                     break;
                             }
 
@@ -201,12 +203,10 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (puntuazioa > 0) {
-                    puntuazioa -= 1000;
-                    puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
+                if (puntuazioa > 0 && !jolasa_amaituta) {
+                    puntuazioa -= 10;
+                    puntuazioaErakutsi.setText("Puntuazioa: "+String.valueOf(puntuazioa));
                     handler.postDelayed(this, 1000);
-                } else {
-                    puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
                 }
             }
         }, 1000);

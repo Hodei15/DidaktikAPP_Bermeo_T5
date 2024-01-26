@@ -8,47 +8,57 @@
     tools:context=".Activity.Erantzunak_Activity">
 
     <EditText
-        android:id="@+id/EditTXT_Izena"
+        android:id="@+id/txt_izena"
         android:layout_width="331dp"
         android:layout_height="67dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="64dp"
         android:ems="10"
         android:inputType="text"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/EditTXT_Abizena"
+        android:id="@+id/txt_abizena"
         android:layout_width="331dp"
         android:layout_height="67dp"
         android:layout_marginTop="68dp"
-        android:layout_marginEnd="64dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Name"
+        android:text="Abizena"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditTXT_Izena" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_izena" />
 
     <EditText
         android:id="@+id/editTextText3"
         android:layout_width="331dp"
         android:layout_height="67dp"
         android:layout_marginTop="68dp"
-        android:layout_marginEnd="64dp"
         android:ems="10"
         android:inputType="text"
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditTXT_Abizena" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_abizena" />
 
     <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="342dp"
-        android:layout_height="96dp"
+        android:id="@+id/spinner_galderak"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         android:layout_marginTop="60dp"
-        android:layout_marginEnd="52dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
+
+    <Button
+        android:id="@+id/btn_bilatu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Bilatu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_galderak" />
 </androidx.constraintlayout.widget.ConstraintLayout>

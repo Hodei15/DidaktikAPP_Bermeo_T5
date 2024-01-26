@@ -86,20 +86,6 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
         dibujoView.setImg_correcto(img_correcto);
         puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
 
-        //puntuaketari segunduro 10 puntu kentzeko metodoa
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (puntuazioa > 0) {
-                    puntuazioa -= 50;
-                    puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
-                    handler.postDelayed(this, 1000);
-                } else {
-                    puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
-                }
-            }
-        }, 1000);
-
         //Argazkiak lortzen ditugu
         ImageView arrain_1 = view.findViewById(R.id.img_arrain_bikote_1);
         ImageView arrain_2 = view.findViewById(R.id.img_arrain_bikote_2);
@@ -134,6 +120,17 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
         dibujoView.setArrainak(arrain_argazkiak);
         dibujoView.setLatak(lata_argazkiak);
 
+        //puntuaketari segunduro 10 puntu kentzeko metodoa
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (puntuazioa > 0 && !dibujoView.isJolasa_amaituta()) {
+                    puntuazioa -= 10;
+                    puntuazioaErakutsi.setText("Puntuazioa: "+String.valueOf(puntuazioa));
+                    handler.postDelayed(this, 1000);
+                }
+            }
+        }, 1000);
 
         return view;
     }

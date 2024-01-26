@@ -1,7 +1,10 @@
 package com.example.didaktikapp.Controler;
 
-import android.view.ViewTreeObserver;
-import android.widget.ImageView;
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.example.didaktikapp.Database.Dao.ErabiltzaileDao;
 import com.example.didaktikapp.Database.Dao.ErantzunaDao;
@@ -15,11 +18,15 @@ import com.example.didaktikapp.Database.Galdera;
 import com.example.didaktikapp.Database.Gunea;
 import com.example.didaktikapp.Database.Jarduera;
 import com.example.didaktikapp.Model.Argazki;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
-import java.time.chrono.Era;
 import java.util.List;
 
 public class Metodoak {
@@ -76,7 +83,7 @@ public class Metodoak {
 
         return jarduerak;
     }
-    public static List<Erantzuna> erantunaBete(Datubasea database, int erabiltzile_id){
+    public static List<Erantzuna> erantzunaBete(Datubasea database, int erabiltzile_id){
         ErantzunaDao erantzunaKontroladore = database.erantzunaDao();
         Erantzuna Orratza = new Erantzuna(1, "Orratza", 1, erabiltzile_id);
         Erantzuna IparOrratza = new Erantzuna(2, "IparOrratza",2, erabiltzile_id);
@@ -110,5 +117,46 @@ public class Metodoak {
         ErabiltzaileDao erabiltzaileKontroladore = database.erabiltzaileDao();
         Erabiltzaile erabiltzailea = erabiltzaileKontroladore.getErabiltzaileByEmail(email);
         return erabiltzailea;
+    }
+
+    public static List<Erantzuna> erantzunakLortuFirebase(FirebaseFirestore db, List<Erantzuna> erantzunakBete) {
+        db.collection("erantzunak")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Erantzuna e1 = document.toObject(Erantzuna.class);
+                                erantzunakBete.add(e1);
+
+                            }
+                        } else {
+                            Log.d(TAG, "Errorea Erantzunak betetzen", task.getException());
+                        }
+                    }
+                });
+        return erantzunakBete;
+    }
+    private void erantzunaGorde(Datubasea database,String erantzuna_erabiltzaile, int id_erabiltzaile, int id_galdera, String mail) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //Room-etik lortzen du erantzun id +1
+        ErantzunaDao erantzunKontroladore = database.erantzunaDao();
+        int id_erantzuna = 1+ erantzunKontroladore.getErantzunCount();
+
+        Erantzuna e1 = new Erantzuna(id_erantzuna,erantzuna_erabiltzaile,id_galdera,id_erabiltzaile);
+        db.collection("erantzunak").document(mail).set(e1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Erantzunak Gorde dira");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "Errorea Erantzunak  ezin izan dira gorde");
+                    }
+                });
     }
 }

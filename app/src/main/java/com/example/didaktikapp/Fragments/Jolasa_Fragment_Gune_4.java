@@ -147,9 +147,9 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                while(!zatiTxo.isJolasa_amaituta()) {
+                if(!zatiTxo.isJolasa_amaituta() && puntuazioa>0){
                     puntuazioa -= 10;
-                    puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
+                    puntuazioaErakutsi.setText("Puntuazioa: "+String.valueOf(puntuazioa));
                     handler.postDelayed(this, 1000);
                 }
             }

@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="204dp"
-            android:layout_marginEnd="116dp"
+            android:layout_marginEnd="118dp"
             android:alpha="0.5"
             android:src="@drawable/txo_brazo_derecho"
             app:layout_constraintEnd_toEndOf="parent"

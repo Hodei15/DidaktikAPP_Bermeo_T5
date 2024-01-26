@@ -146,11 +146,14 @@ public class ZatiTxo extends View {
                             EsperaImagen espera = new EsperaImagen(this.img_correcto);
                             this.img_correcto.setVisibility(View.VISIBLE);
 
-                            boolean jolasa_amaituta = true;
-                            for(int i =0;i<gorputza.size() && !jolasa_amaituta;i++){
+                            boolean jolasa_amaituta_prob = true;
+                            for(int i =0;i<gorputza.size() && jolasa_amaituta_prob;i++){
                                 if(!gorputza.get(i).isLotuta()){
-                                    jolasa_amaituta = false;
+                                    jolasa_amaituta_prob = false;
                                 }
+                            }
+                            if(jolasa_amaituta_prob){
+                                this.jolasa_amaituta = true;
                             }
 
                         } catch (Exception e) {

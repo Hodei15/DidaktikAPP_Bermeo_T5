@@ -30,6 +30,7 @@ public class DibujoView extends View {
     private List<Argazki> arrainak;
     private List<Argazki> latak;
     private ImageView img_correcto;
+    private boolean jolasa_amaituta;
 
     public DibujoView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -37,6 +38,7 @@ public class DibujoView extends View {
         paint.setColor(colore);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(8);
+        this.jolasa_amaituta = false;
     }
 
     @Override
@@ -47,24 +49,20 @@ public class DibujoView extends View {
         }
     }
 
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float finishX = event.getX();
         float finishY = event.getY();
         boolean valido = false;
         switch (event.getAction()) {
+            //Action Down event
             case MotionEvent.ACTION_DOWN:
                 startX = finishX;
                 startY = finishY;
                 Log.d(TAG,"Start Y: "+ startY);
                 for(int i=0;i<arrainak.size() && !valido;i++) {
-                    boolean a = startX >= arrainak.get(i).getX();
-                    boolean b = startX <= (arrainak.get(i).getX() + arrainak.get(i).getWidth());
-                    boolean c1 = startY >= arrainak.get(i).getY() - arrainak.get(i).getHeight();
-                    boolean c2 = startY >= (arrainak.get(i).getY() - (arrainak.get(i).getHeight() * 2)) ;
-                    boolean d = startY <= (arrainak.get(i).getHeight() + arrainak.get(i).getY());
-                    boolean e = !arrainak.get(i).isLotuta();
-
+                    //Leku zuzen batean klikatu duela balidatzen du
                     if (startX >= arrainak.get(i).getX() && startX <= (arrainak.get(i).getX() + arrainak.get(i).getWidth()) && startY >= (arrainak.get(i).getY() - (arrainak.get(i).getHeight() * 2)) && startY <= (arrainak.get(i).getHeight() + arrainak.get(i).getY()) && !arrainak.get(i).isLotuta()) {
                         valido = true;
                         currentPath = new Path();
@@ -74,6 +72,7 @@ public class DibujoView extends View {
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
+                //Klikatutako lekutik mugitutako lekura lerro bat marrazten du
                 for(int i=0;i<arrainak.size() && !valido;i++){
                     if (startX >= arrainak.get(i).getX() && startX <= (arrainak.get(i).getX() + arrainak.get(i).getWidth()) && startY >= (arrainak.get(i).getY() - (arrainak.get(i).getHeight() * 2)) && startY <= (arrainak.get(i).getHeight() + arrainak.get(i).getY()) && !arrainak.get(i).isLotuta()) {
                         valido = true;
@@ -100,10 +99,9 @@ public class DibujoView extends View {
                         index_arrain = i;
                     }
                 }
+                //Kokatutako lekuaren bikote id lortzen du
                 if(valido) {
                     for (int i = 0; i < latak.size() && !dentro; i++) {
-
-
                         if (finishX >= latak.get(i).getX() && finishX <= (latak.get(i).getX() + latak.get(i).getWidth()) && finishY >= (latak.get(i).getY() - (latak.get(i).getHeight() * 2)) && finishY <= (latak.get(i).getHeight() + latak.get(i).getY()) && !latak.get(i).isLotuta()) {
                             dentro = true;
                             currentPath.reset();
@@ -113,7 +111,7 @@ public class DibujoView extends View {
                             index_lata = i;
                         }
                     }
-
+                    //Barruan badago balidazioa egiten du
                     if (!dentro) {
                         try {
                             this.paths.remove(paths.size() - 1);
@@ -135,6 +133,17 @@ public class DibujoView extends View {
                             this.img_correcto.setImageResource(R.drawable.tick);
                             EsperaImagen espera = new EsperaImagen(this.img_correcto);
                             this.img_correcto.setVisibility(View.VISIBLE);
+
+                            boolean jolasa_amaituta_prob = true;
+                            for(int i =0;i<arrainak.size() && jolasa_amaituta_prob;i++){
+                                if(!arrainak.get(i).isLotuta()){
+                                    jolasa_amaituta_prob = false;
+                                }
+                            }
+                            if(jolasa_amaituta_prob){
+                                this.jolasa_amaituta = true;
+                            }
+
                         }catch (Exception e) {
                         }
                     }
@@ -180,5 +189,13 @@ public class DibujoView extends View {
 
     public void setImg_correcto(ImageView img_correcto) {
         this.img_correcto = img_correcto;
+    }
+
+    public boolean isJolasa_amaituta() {
+        return jolasa_amaituta;
+    }
+
+    public void setJolasa_amaituta(boolean jolasa_amaituta) {
+        this.jolasa_amaituta = jolasa_amaituta;
     }
 }

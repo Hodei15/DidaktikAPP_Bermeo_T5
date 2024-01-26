@@ -137,18 +137,18 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
         List<Argazkiak_Ontziak> itsasontziak_argazkiak = new ArrayList<Argazkiak_Ontziak>();
 
         //Itsasontziak Kargatu
-        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,1, carta, itsasontzia_Arrantza,Arrantza_Ontzia_C1);
-        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,1, carta, itsasontzia_Arrantza,Arrantza_Ontzia_C2);
-        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,2, carta, itsasontzia_Garraioa,Garraio_Ontzia_C1);
-        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,2, carta, itsasontzia_Garraioa,Garraio_Ontzia_C2);
-        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,3, carta, itsasontzia_Bela,Bela_Ontzia_C1);
-        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,3, carta, itsasontzia_Bela,Bela_Ontzia_C2);
-        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,4, carta, itsasontzia_Bale,Bale_Ontzia_C1);
-        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,4, carta, itsasontzia_Bale,Bale_Ontzia_C2);
-        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,5, carta, itsasontzia_Txalupa,Txalupa_C1);
-        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,5, carta, itsasontzia_Txalupa,Txalupa_C2);
-        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,6, carta, itsasontzia_Arraun,Arraun_Ontzia_C1);
-        itsasontziak_argazkiak=aukeraBalidatu(itsasontziak_argazkiak,6, carta, itsasontzia_Arraun,Arraun_Ontzia_C2);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,1, carta, itsasontzia_Arrantza,Arrantza_Ontzia_C1);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,1, carta, itsasontzia_Arrantza,Arrantza_Ontzia_C2);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,2, carta, itsasontzia_Garraioa,Garraio_Ontzia_C1);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,2, carta, itsasontzia_Garraioa,Garraio_Ontzia_C2);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,3, carta, itsasontzia_Bela,Bela_Ontzia_C1);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,3, carta, itsasontzia_Bela,Bela_Ontzia_C2);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,4, carta, itsasontzia_Bale,Bale_Ontzia_C1);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,4, carta, itsasontzia_Bale,Bale_Ontzia_C2);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,5, carta, itsasontzia_Txalupa,Txalupa_C1);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,5, carta, itsasontzia_Txalupa,Txalupa_C2);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,6, carta, itsasontzia_Arraun,Arraun_Ontzia_C1);
+        itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,6, carta, itsasontzia_Arraun,Arraun_Ontzia_C2);
 
         Arrantza_Ontzia_C1.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -169,7 +169,7 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
 
     }
 
-    public List<Argazkiak_Ontziak> aukeraBalidatu(List<Argazkiak_Ontziak> itsasontziak_argazkiak, int bikote, ImageView carta, ImageView ontziak, ImageView erakutsi){
+    public List<Argazkiak_Ontziak> argazkiaKargatu(List<Argazkiak_Ontziak> itsasontziak_argazkiak, int bikote, ImageView carta, ImageView ontziak, ImageView erakutsi){
 
         ViewTreeObserver viewTreeObserver = carta.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -196,5 +196,37 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
             }
         });
         return itsasontziak_argazkiak;
+    }
+
+    public boolean aukeraBalidatu(List<Argazkiak_Ontziak> itsasontziak_argazkiak){
+        boolean jolasa_amaituta = true;
+        int index_1 = -1;
+        int index_2 = -1;
+
+        for (int j=0;j<itsasontziak_argazkiak.size();j++){
+            if(itsasontziak_argazkiak.get(j).isGorantz() && !itsasontziak_argazkiak.get(j).isLotuta() && index_1==-1){
+                index_1 = j;
+            }else if (itsasontziak_argazkiak.get(j).isGorantz() && !itsasontziak_argazkiak.get(j).isLotuta() && index_1!=-1){
+                index_2 = j;
+            }
+        }
+
+        if(itsasontziak_argazkiak.get(index_1).getBikote()==itsasontziak_argazkiak.get(index_2).getBikote()){
+            itsasontziak_argazkiak.get(index_1).setLotuta(true);
+            itsasontziak_argazkiak.get(index_2).setLotuta(true);
+        }else{
+            itsasontziak_argazkiak.get(index_1).setGorantz(false);
+            itsasontziak_argazkiak.get(index_2).setGorantz(false);
+            //Falta asignar la imagen de la carta
+            //itsasontziak_argazkiak.get(index_1).getErakutsi().setImageResource(itsasontziak_argazkiak.get(index_1).getImgCarta());
+        }
+
+        //Jolasa amaitu bada balidatzen du
+        for(int i=0;i<itsasontziak_argazkiak.size() && jolasa_amaituta;i++){
+            if(!itsasontziak_argazkiak.get(i).isLotuta()){
+                jolasa_amaituta = false;
+            }
+        }
+        return jolasa_amaituta;
     }
 }

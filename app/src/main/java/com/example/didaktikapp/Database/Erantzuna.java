@@ -32,6 +32,7 @@ public class Erantzuna {
                 this.id_erabiltzaile = id_erabiltzaile;
         }
 
+
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "id")
         public int id;
