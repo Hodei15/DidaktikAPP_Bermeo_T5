@@ -84,6 +84,7 @@ public class Metodoak {
 
         return jarduerak;
     }
+    /*
     public static List<Erantzuna> erantzunaBete(Datubasea database, int erabiltzile_id){
         ErantzunaDao erantzunaKontroladore = database.erantzunaDao();
         Erantzuna Orratza = new Erantzuna(1, "Orratza", 1, erabiltzile_id);
@@ -99,41 +100,102 @@ public class Metodoak {
 
         List<Erantzuna> erantzunak = erantzunaKontroladore.getAllErantzunak();
         return erantzunak;
-    }
+    }*/
 
-    public static void erabiltzaileKargatu(Datubasea database,String email){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    /**
+     * Erabiltzaile guztiak kargatzen dira firebasetik, roomera
+     * @param database Room datubasea
+     */
+    public static void erabiltzaileKargatu(FirebaseFirestore db,Datubasea database){
         ErabiltzaileDao erabiltzaileKontroladore = database.erabiltzaileDao();
-        db.collection("erabiltzaileak").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("erabiltzaileak").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Erabiltzaile erabiltzaile = documentSnapshot.toObject(Erabiltzaile.class);
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Erabiltzaile erabiltzaile = document.toObject(Erabiltzaile.class);
+                        int katitate_erabiltzaile = erabiltzaileKontroladore.getErabiltzaileCount();
+                        erabiltzaile.setId(katitate_erabiltzaile+1);
+                        int id=-1;
+                        id = erabiltzaileKontroladore.getErabiltzaileId(erabiltzaile.getEmail());
 
-                int katitate_erabiltzaile = erabiltzaileKontroladore.getErabiltzaileCount();
-                erabiltzaile.setId(katitate_erabiltzaile+1);
-                erabiltzaileKontroladore.insertErabiltzaile(erabiltzaile);
+                        if(id==-1 || id==0){
+                            erabiltzaileKontroladore.insertErabiltzaile(erabiltzaile);
+                        }
+                    }
+                    erantzunakLortuFirebase(database);
+                } else {
+                    Log.d(TAG, "Errorea Erantzunak betetzen", task.getException());
+                }
             }
         });
     }
 
+    /**
+     * Room datubasetik erabiltzailea lortzen du
+     * @param database Room datubasea
+     * @param email Erabiltzailearen email
+     * @return Erabiltzaile objetua
+     */
     public static Erabiltzaile erabiltzaileaLortu(Datubasea database, String email){
         ErabiltzaileDao erabiltzaileKontroladore = database.erabiltzaileDao();
         Erabiltzaile erabiltzailea = erabiltzaileKontroladore.getErabiltzaileByEmail(email);
         return erabiltzailea;
     }
 
-    public static List<Erantzuna> erantzunakLortuFirebase(FirebaseFirestore db, List<Erantzuna> erantzunakBete) {
-        db.collection("erantzunak")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    /**
+     * Firebasetik erantzunak lortzen eta gordetzen ditu room datubasean
+     * @param database Room datubasea
+     */
+    public static void erantzunakLortuFirebase(Datubasea database) {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        ErantzunaDao erantzunKontroler = database.erantzunaDao();
+        ErabiltzaileDao erabiltzaileKontroler = database.erabiltzaileDao();
+
+        db.collection("erantzunak").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                Erantzuna e1 = document.toObject(Erantzuna.class);
-                                erantzunakBete.add(e1);
+                                String email = document.get("email").toString();
+                                String erantzun_1 = document.get("galdera_1").toString();
+                                String erantzun_2 = document.get("galdera_2").toString();
+                                String erantzun_3 = document.get("galdera_3").toString();
+                                String erantzun_4 = document.get("galdera_4").toString();
+                                String erantzun_5 = document.get("galdera_5").toString();
+
+                                int erabiltzaile_id = erabiltzaileKontroler.getErabiltzaileId(email);
+
+                                int id_erantzuna = erantzunKontroler.getErantzunCount();
+
+                                if(!erantzun_1.equals("") && erantzunKontroler.getErantzunId(erabiltzaile_id,1)==0){
+                                    id_erantzuna++;
+                                    Erantzuna erantzun = new Erantzuna(id_erantzuna,erantzun_1,1,erabiltzaile_id);
+                                    erantzunKontroler.insertErantzuna(erantzun);
+                                }
+                                if(!erantzun_2.equals("") && erantzunKontroler.getErantzunId(erabiltzaile_id,2)==0){
+                                    id_erantzuna++;
+                                    Erantzuna erantzun = new Erantzuna(id_erantzuna,erantzun_2,2,erabiltzaile_id);
+                                    erantzunKontroler.insertErantzuna(erantzun);
+                                }
+                                if(!erantzun_3.equals("") && erantzunKontroler.getErantzunId(erabiltzaile_id,3)==0){
+                                    id_erantzuna++;
+                                    Erantzuna erantzun = new Erantzuna(id_erantzuna,erantzun_3,3,erabiltzaile_id);
+                                    erantzunKontroler.insertErantzuna(erantzun);
+                                }
+                                if(!erantzun_4.equals("") && erantzunKontroler.getErantzunId(erabiltzaile_id,4)==0){
+                                    id_erantzuna++;
+                                    Erantzuna erantzun = new Erantzuna(id_erantzuna,erantzun_4,4,erabiltzaile_id);
+                                    erantzunKontroler.insertErantzuna(erantzun);
+                                }
+                                if(!erantzun_5.equals("") && erantzunKontroler.getErantzunId(erabiltzaile_id,5)==0){
+                                    id_erantzuna++;
+                                    Erantzuna erantzun = new Erantzuna(id_erantzuna,erantzun_5,5,erabiltzaile_id);
+                                    erantzunKontroler.insertErantzuna(erantzun);
+                                }
+
 
                             }
                         } else {
@@ -141,8 +203,16 @@ public class Metodoak {
                         }
                     }
                 });
-        return erantzunakBete;
     }
+
+    /**
+     * Erabiltzailea sortutako erantzuna firebase eta room datubaseetan gordetzen ditu
+     * @param database Room datubase
+     * @param erantzuna_erabiltzaile erantzuna
+     * @param id_erabiltzaile erabiltzailearen id
+     * @param id_galdera galderaren id
+     * @param mail erabiltzailearen email
+     */
     private void erantzunaGorde(Datubasea database,String erantzuna_erabiltzaile, int id_erabiltzaile, int id_galdera, String mail) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         //Room-etik lortzen du erantzun id +1

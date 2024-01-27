@@ -77,10 +77,9 @@ public class ZatiTxo extends View {
                 for(int i=0;i<gorputza.size();i++) {
                     boolean a = startX >= gorputza.get(i).getX();
                     boolean b = startX <= (gorputza.get(i).getX() + gorputza.get(i).getWidth());
-                    boolean c1 = startY >= gorputza.get(i).getY() - gorputza.get(i).getHeight();
-                    boolean c2 = startY >= (gorputza.get(i).getY() - (gorputza.get(i).getHeight() * 2));
+                    boolean c = startY >= gorputza.get(i).getY();
                     boolean d = startY <= (gorputza.get(i).getHeight() + gorputza.get(i).getY());
-                    boolean e = gorputza.get(i).isLotuta();
+                    boolean e = !gorputza.get(i).isLotuta();
 
                     if (startX >= gorputza.get(i).getX() && startX <= (gorputza.get(i).getX() + gorputza.get(i).getWidth()) && startY >= gorputza.get(i).getY() && startY <= (gorputza.get(i).getHeight() + gorputza.get(i).getY()) && !gorputza.get(i).isLotuta()) {
                         gorputza.get(i).setDrag(true);
@@ -92,8 +91,6 @@ public class ZatiTxo extends View {
                     if (gorputza.get(i).isDrag()) {
                         gorputza.get(i).getImg().setX(gorputza.get(i).getX()-(startX-finishX));
                         gorputza.get(i).getImg().setY(gorputza.get(i).getY()-(startY-finishY));
-                        //gorputza.get(i).setX(gorputza.get(i).getX()-(startX-finishX));
-                        //gorputza.get(i).setY(gorputza.get(i).getY()-(startX-finishY));
                     }
                 }
                 break;
@@ -113,6 +110,8 @@ public class ZatiTxo extends View {
                         valido = true;
                         gorputza_bikote = gorputza.get(i).getBikote();
                         index_gorputza = i;
+                        gorputza.get(i).setX(finishX-gorputza.get(i).getWidth());
+                        gorputza.get(i).setY(finishY);
                     }
                 }
                 if(valido) {

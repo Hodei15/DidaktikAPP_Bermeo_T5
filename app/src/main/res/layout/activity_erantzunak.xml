@@ -9,36 +9,36 @@
 
     <EditText
         android:id="@+id/txt_izena"
-        android:layout_width="331dp"
+        android:layout_width="200dp"
         android:layout_height="67dp"
         android:layout_marginTop="50dp"
         android:ems="10"
+        android:hint="Izena"
         android:inputType="text"
-        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/txt_abizena"
-        android:layout_width="331dp"
+        android:layout_width="200dp"
         android:layout_height="67dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
+        android:hint="Abizena"
         android:inputType="text"
-        android:text="Abizena"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_izena" />
 
     <EditText
-        android:id="@+id/editTextText3"
-        android:layout_width="331dp"
+        android:id="@+id/txt_Klasea"
+        android:layout_width="200dp"
         android:layout_height="67dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
+        android:hint="Klasea"
         android:inputType="text"
-        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_abizena" />
@@ -47,18 +47,42 @@
         android:id="@+id/spinner_galderak"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_Klasea" />
 
     <Button
         android:id="@+id/btn_bilatu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="16dp"
         android:text="Bilatu"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_galderak" />
+
+    <TextView
+        android:id="@+id/txt_erantzuna"
+        android:layout_width="360dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_bilatu" />
+
+    <ImageView
+        android:id="@+id/btn_atzera_erantzun"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="148dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_bilatu"
+        app:layout_constraintVertical_bias="0.176"
+        app:srcCompat="@drawable/atzera" />
 </androidx.constraintlayout.widget.ConstraintLayout>

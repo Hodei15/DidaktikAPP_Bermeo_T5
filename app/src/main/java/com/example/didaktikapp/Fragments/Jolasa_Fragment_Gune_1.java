@@ -69,7 +69,7 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
 
     private DibujoView dibujoView;
     private int puntuazioa;
-    private TextView puntuazioaErakutsi;
+    private TextView txt_puntuazioa_1;
     private Handler handler = new Handler();
     private boolean todasImagenesJuntadas = false;
 
@@ -78,13 +78,13 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_jolasa_gune_1, container, false);
         //ikaslearen puntuaketa kalkulatzeko atributuak
         puntuazioa = 1000;
-        puntuazioaErakutsi = view.findViewById(R.id.txt_puntuazioa_1);
+        txt_puntuazioa_1 = view.findViewById(R.id.txt_puntuazioa_1);
 
         //atributuak deklaratu
         dibujoView = view.findViewById(R.id.dibujoView);
         ImageView img_correcto = view.findViewById(R.id.img_correcto);
         dibujoView.setImg_correcto(img_correcto);
-        puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
+        txt_puntuazioa_1.setText("Puntuazioa: "+String.valueOf(puntuazioa));
 
         //Argazkiak lortzen ditugu
         ImageView arrain_1 = view.findViewById(R.id.img_arrain_bikote_1);
@@ -126,7 +126,7 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
             public void run() {
                 if (puntuazioa > 0 && !dibujoView.isJolasa_amaituta()) {
                     puntuazioa -= 10;
-                    puntuazioaErakutsi.setText("Puntuazioa: "+String.valueOf(puntuazioa));
+                    txt_puntuazioa_1.setText("Puntuazioa: "+String.valueOf(puntuazioa));
                     handler.postDelayed(this, 1000);
                 }
             }

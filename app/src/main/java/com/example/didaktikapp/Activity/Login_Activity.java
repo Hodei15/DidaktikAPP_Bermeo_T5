@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
 import android.content.Context;
@@ -71,6 +72,7 @@ public class Login_Activity extends AppCompatActivity {
         //Errotazioa blokeatzen du
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         database = Datubasea.getDatabase(getApplicationContext());
 
         ErabiltzaileDao erabiltzaileDao = database.erabiltzaileDao();
@@ -87,6 +89,19 @@ public class Login_Activity extends AppCompatActivity {
         if(sharedpreferences.getInt(LEHEN_ALDIA, 0)==0) {
             lehenAldia = sharedpreferences.getInt(LEHEN_ALDIA, -1);
         }
+
+        if(lehenAldia!=0) {
+            //Datuak SharedPreferences-ean gordetzen ditugu
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putInt(LEHEN_ALDIA, 0);
+            guneak = Metodoak.guneakBete(database);
+            jardueak = Metodoak.jardueraBete(database);
+            galderak = Metodoak.GalderakBete(database);
+            editor.apply();
+        }
+
+        //Erantzunak eta erabiltzaileak kargatzen dira
+        Metodoak.erabiltzaileKargatu(db,database);
 
         //EditText deklarazio
         txt_login_erabiltzaile = findViewById(R.id.txt_login_erabiltzaile);
@@ -156,24 +171,12 @@ public class Login_Activity extends AppCompatActivity {
                             //Datuak SharedPreferences-ean gordetzen ditugu
                             SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                            if(lehenAldia!=0) {
-                                editor.putInt(LEHEN_ALDIA, 0);
-                                guneak = Metodoak.guneakBete(database);
-                                jardueak = Metodoak.jardueraBete(database);
-                                galderak = Metodoak.GalderakBete(database);
-                            }
-
-                            if(Metodoak.erabiltzaileaLortu(database,erabiltzaile_string)==null){
-                                Metodoak.erabiltzaileKargatu(database,erabiltzaile_string);
-                            }
-
                             editor.putString(EMAIL_KEY, erabiltzaile_string);
                             editor.putString(PASSWORD_KEY, pasahitza);
 
                             Erabiltzaile erabiltzaile = Metodoak.erabiltzaileaLortu(database,erabiltzaile_string);
                             String json = gson.toJson(erabiltzaile);
                             editor.putString("erabiltzaile", json);
-
 
                             editor.apply();
 
