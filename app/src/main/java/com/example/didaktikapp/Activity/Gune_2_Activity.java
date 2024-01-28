@@ -40,8 +40,7 @@ public class Gune_2_Activity extends AppCompatActivity {
         lbl_arrain = findViewById(R.id.lbl_arrain);
 
         sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        //Erabiltzaile erabiltzaile = (new Gson()).fromJson(sharedpreferences.getString("erabiltzailea",""), Erabiltzaile.class);
-
+        //Erabiltzailea sharedPref-etik lortzen du
         Gson gson = new Gson();
         String json = sharedpreferences.getString("erabiltzaile", "");
         Erabiltzaile erabiltzaile = gson.fromJson(json, Erabiltzaile.class);
@@ -69,7 +68,8 @@ public class Gune_2_Activity extends AppCompatActivity {
 
                 Fragment fragment_nuevo=null;
                 if (fragment instanceof Argazkiak_Fragment_Gune_2){
-                    //Falta por programar
+                    Intent i = new Intent(Gune_2_Activity.this, Menu_Gune_Activity.class);
+                    startActivity(i);
                 }else if(fragment instanceof Bideo_Fragment_Gune_2) {
                     fragment_nuevo = new Argazkiak_Fragment_Gune_2();
                 }
@@ -92,7 +92,6 @@ public class Gune_2_Activity extends AppCompatActivity {
                 }else if(fragment instanceof Bideo_Fragment_Gune_2){
                     Intent i = new Intent(Gune_2_Activity.this, Menu_Gune_Activity.class);
                     startActivity(i);
-                    //Falta por programar
                 }
                 if(fragment_nuevo!=null){
                     fragmentTransaction.replace(R.id.frag_container, fragment_nuevo);

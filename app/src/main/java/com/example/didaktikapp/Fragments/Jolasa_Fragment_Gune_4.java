@@ -166,7 +166,6 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
             viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
-
                     if(argazkiak.size()<6) {
                         int[] locationOnScreen = new int[2];
                         argazki.getLocationOnScreen(locationOnScreen);

@@ -1,5 +1,9 @@
 package com.example.didaktikapp.Fragments;
 
+import static com.example.didaktikapp.Activity.Login_Activity.SHARED_PREFS;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,11 +15,15 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.didaktikapp.Controler.Metodoak;
+import com.example.didaktikapp.Database.Datubasea;
+import com.example.didaktikapp.Database.Erabiltzaile;
 import com.example.didaktikapp.Model.Argazki;
 import com.example.didaktikapp.Model.DibujoView;
 import com.example.didaktikapp.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +80,8 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
     private TextView txt_puntuazioa_1;
     private Handler handler = new Handler();
     private boolean todasImagenesJuntadas = false;
+    private Datubasea database;
+    SharedPreferences sharedpreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,10 +91,16 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
         txt_puntuazioa_1 = view.findViewById(R.id.txt_puntuazioa_1);
 
         //atributuak deklaratu
+        sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        database = Datubasea.getDatabase(getActivity().getApplicationContext());
         dibujoView = view.findViewById(R.id.dibujoView);
         ImageView img_correcto = view.findViewById(R.id.img_correcto);
         dibujoView.setImg_correcto(img_correcto);
         txt_puntuazioa_1.setText("Puntuazioa: "+String.valueOf(puntuazioa));
+        //Erabiltzailea sharedPref-etik lortzen du
+        Gson gson = new Gson();
+        String json = sharedpreferences.getString("erabiltzaile", "");
+        Erabiltzaile erabiltzaile = gson.fromJson(json, Erabiltzaile.class);
 
         //Argazkiak lortzen ditugu
         ImageView arrain_1 = view.findViewById(R.id.img_arrain_bikote_1);
@@ -128,6 +144,11 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
                     puntuazioa -= 10;
                     txt_puntuazioa_1.setText("Puntuazioa: "+String.valueOf(puntuazioa));
                     handler.postDelayed(this, 1000);
+                }else if(dibujoView.isJolasa_amaituta()){
+                    if(Metodoak.erantzunaGordeRoom(database,String.valueOf(puntuazioa),1,erabiltzaile.getId())) {
+                        Metodoak.erantzunaFirebaseGorde(String.valueOf(puntuazioa), 1, erabiltzaile.getEmail());
+                        Toast.makeText(getActivity(), "Lortutako puntuazioa gorde egin da.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }, 1000);

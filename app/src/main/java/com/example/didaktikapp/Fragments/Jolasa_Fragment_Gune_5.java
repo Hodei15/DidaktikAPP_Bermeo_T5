@@ -1,7 +1,10 @@
 package com.example.didaktikapp.Fragments;
 
+import static com.example.didaktikapp.Activity.Login_Activity.SHARED_PREFS;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -19,13 +22,20 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.didaktikapp.Activity.Gune_1_Activity;
 import com.example.didaktikapp.Activity.Menu_Gune_Activity;
+import com.example.didaktikapp.Controler.Metodoak;
+import com.example.didaktikapp.Database.Datubasea;
+import com.example.didaktikapp.Database.Erabiltzaile;
 import com.example.didaktikapp.Model.Argazki;
 import com.example.didaktikapp.Model.Argazkiak_Ontziak;
+import com.example.didaktikapp.Model.EsperaGorantz;
 import com.example.didaktikapp.Model.EsperaImagen;
+import com.example.didaktikapp.Model.EsperaOntziak;
 import com.example.didaktikapp.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,15 +109,31 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
     private int puntuazioa;
     private TextView puntuazioaErakutsi;
     private Handler handler = new Handler();
+    ImageView img_correcto5;
+    boolean jolasa_amaituta;
+    List<Argazkiak_Ontziak> itsasontziak_argazkiak;
+    private Datubasea database;
+    SharedPreferences sharedpreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_jolasa_gune_5, container, false);
+
+        //atributuak deklaratu
+        sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        database = Datubasea.getDatabase(getActivity().getApplicationContext());
+
+        //Erabiltzailea sharedPref-etik lortzen du
+        Gson gson = new Gson();
+        String json = sharedpreferences.getString("erabiltzaile", "");
+        Erabiltzaile erabiltzaile = gson.fromJson(json, Erabiltzaile.class);
+
         //ikaslearen puntuaketa kalkulatzeko atributuak
         puntuazioa = 1000;
         puntuazioaErakutsi = view.findViewById(R.id.txt_puntuazioa_5);
 
+        img_correcto5 = view.findViewById(R.id.img_correcto5);
         //Irudiak deklaratu
         Arrantza_Ontzia_C1 = view.findViewById(R.id.Arrantza_Ontzia_C1);
         Arrantza_Ontzia_C2 = view.findViewById(R.id.Arrantza_Ontzia_C2);
@@ -124,7 +150,7 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
 
 
         //Itsasontzien argazkiak gordetzen ditugu
-        List<Argazkiak_Ontziak> itsasontziak_argazkiak = new ArrayList<Argazkiak_Ontziak>();
+        itsasontziak_argazkiak = new ArrayList<Argazkiak_Ontziak>();
 
         //Itsasontziak Kargatu
         itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,1, carta, drArrantzaOntzia,Arrantza_Ontzia_C1);
@@ -140,20 +166,21 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
         itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,6, carta, drArraunOntzia,Arraun_Ontzia_C1);
         itsasontziak_argazkiak=argazkiaKargatu(itsasontziak_argazkiak,6, carta, drArraunOntzia,Arraun_Ontzia_C2);
 
-        Arrantza_Ontzia_C1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                //aukeraBalidatu();
-            }
-        });
 
         //puntuaketari segunduro 10 puntu kentzeko metodoa
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                puntuazioa -= 10;
-                puntuazioaErakutsi.setText(String.valueOf(puntuazioa));
-                handler.postDelayed(this, 1000);
+                if(puntuazioa>0 && !amaitutaBalidatu()) {
+                    puntuazioa -= 10;
+                    puntuazioaErakutsi.setText("Puntuazioa: " + puntuazioa);
+                    handler.postDelayed(this, 1000);
+                }else if(amaitutaBalidatu()){
+                    if(Metodoak.erantzunaGordeRoom(database,String.valueOf(puntuazioa),5,erabiltzaile.getId())) {
+                        Metodoak.erantzunaFirebaseGorde(String.valueOf(puntuazioa), 5, erabiltzaile.getEmail());
+                        Toast.makeText(getActivity(), "Lortutako puntuazioa gorde egin da.", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         }, 1000);
         // Inflate the layout for this fragment
@@ -178,11 +205,11 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
                     argazki_obj.getErakutsi().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (!argazki_obj.isGorantz()) {
+                            if (!argazki_obj.isGorantz() && !eguneratzenBegiratu()) {
                                 argazki_obj.setGorantz(true);
                                 argazki_obj.getErakutsi().setImageResource(argazki_obj.getItsasontzia());
 
-                                aukeraBalidatu(itsasontziak_argazkiak);
+                                aukeraBalidatu();
                             }
                         }
                     });
@@ -193,11 +220,9 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
         return itsasontziak_argazkiak;
     }
 
-    public boolean aukeraBalidatu(List<Argazkiak_Ontziak> itsasontziak_argazkiak){
-        boolean jolasa_amaituta = true;
+    public void aukeraBalidatu(){
         int index_1 = -1;
         int index_2 = -1;
-
         for (int j=0;j<itsasontziak_argazkiak.size() && index_2==-1;j++){
             if(itsasontziak_argazkiak.get(j).isGorantz() && !itsasontziak_argazkiak.get(j).isLotuta() && index_1==-1){
                 index_1 = j;
@@ -209,20 +234,53 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
         if(index_1!=-1 && index_2!=-1 && itsasontziak_argazkiak.get(index_1).getBikote()==itsasontziak_argazkiak.get(index_2).getBikote()){
             itsasontziak_argazkiak.get(index_1).setLotuta(true);
             itsasontziak_argazkiak.get(index_2).setLotuta(true);
-        }else if(index_1!=-1 && index_2!=-1 && itsasontziak_argazkiak.get(index_1).getBikote()!=itsasontziak_argazkiak.get(index_2).getBikote()){
-            itsasontziak_argazkiak.get(index_1).setGorantz(false);
-            itsasontziak_argazkiak.get(index_2).setGorantz(false);
             //Falta asignar la imagen de la carta
-            itsasontziak_argazkiak.get(index_1).getErakutsi().setImageResource(itsasontziak_argazkiak.get(index_1).getImgCarta());
-            itsasontziak_argazkiak.get(index_2).getErakutsi().setImageResource(itsasontziak_argazkiak.get(index_2).getImgCarta());
-        }
-
-        //Jolasa amaitu bada balidatzen du
-        for(int i=0;i<itsasontziak_argazkiak.size() && jolasa_amaituta;i++){
-            if(!itsasontziak_argazkiak.get(i).isLotuta()){
-                jolasa_amaituta = false;
+            try {
+                this.img_correcto5.setImageResource(R.drawable.tick);
+                EsperaImagen espera_correcto = new EsperaImagen(this.img_correcto5);
+                this.img_correcto5.setVisibility(View.VISIBLE);
+            }catch(Exception e){
             }
+        }else if(index_1!=-1 && index_2!=-1 && itsasontziak_argazkiak.get(index_1).getBikote()!=itsasontziak_argazkiak.get(index_2).getBikote()){
+            try {
+                this.img_correcto5.setImageResource(R.drawable.cruz);
+                EsperaImagen espera_correcto = new EsperaImagen(this.img_correcto5);
+                img_correcto5.setVisibility(View.VISIBLE);
+                EsperaOntziak espera_1 = new EsperaOntziak(itsasontziak_argazkiak.get(index_1));
+                EsperaOntziak espera_2 = new EsperaOntziak(itsasontziak_argazkiak.get(index_2));
+                EsperaGorantz gorantz_1 = new EsperaGorantz(itsasontziak_argazkiak.get(index_1));
+                EsperaGorantz gorantz_2 = new EsperaGorantz(itsasontziak_argazkiak.get(index_2));
+            }catch(Exception e){
+            }
+        }
+    }
+
+    public boolean amaitutaBalidatu(){
+        boolean amaituta_prob = true;
+        //Jolasa amaitu bada balidatzen du
+        for(int i=0;i<itsasontziak_argazkiak.size() && amaituta_prob;i++){
+            if(!itsasontziak_argazkiak.get(i).isLotuta()){
+                amaituta_prob = false;
+            }
+        }
+        if(amaituta_prob){
+            jolasa_amaituta=true;
         }
         return jolasa_amaituta;
     }
+    public boolean eguneratzenBegiratu(){
+        boolean eguneratzen=false;
+        int index_1 = -1;
+        int index_2 = -1;
+        for (int j=0;j<itsasontziak_argazkiak.size() && index_2==-1;j++){
+            if(itsasontziak_argazkiak.get(j).isGorantz() && !itsasontziak_argazkiak.get(j).isLotuta() && index_1==-1){
+                index_1 = j;
+            }else if (itsasontziak_argazkiak.get(j).isGorantz() && !itsasontziak_argazkiak.get(j).isLotuta() && index_1!=-1){
+                index_2 = j;
+                eguneratzen = true;
+            }
+        }
+        return eguneratzen;
+    }
+
 }

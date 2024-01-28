@@ -3,6 +3,7 @@ package com.example.didaktikapp.Controler;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.util.Log;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 
@@ -22,12 +23,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Metodoak {
     static int kantitatea =0;
@@ -159,12 +164,44 @@ public class Metodoak {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                String email = document.get("email").toString();
-                                String erantzun_1 = document.get("galdera_1").toString();
-                                String erantzun_2 = document.get("galdera_2").toString();
-                                String erantzun_3 = document.get("galdera_3").toString();
-                                String erantzun_4 = document.get("galdera_4").toString();
-                                String erantzun_5 = document.get("galdera_5").toString();
+
+
+                                String email = "";
+                                String erantzun_1 = "";
+                                String erantzun_2 = "";
+                                String erantzun_3 = "";
+                                String erantzun_4 = "";
+                                String erantzun_5 = "";
+
+                                try {
+                                    email = document.get("email").toString();
+                                }catch (Exception e){
+                                    Log.d(TAG, "Ez dago erabiltzailearen erregistrorik.");}
+                                try {
+                                erantzun_1 = document.get("galdera_1").toString();
+                                }catch (Exception e){
+                                    Log.d(TAG, "Ez dago gune honen erantzunik.");
+                                }
+                                try {
+                                erantzun_2 = document.get("galdera_2").toString();
+                                }catch (Exception e){
+                                    Log.d(TAG, "Ez dago gune honen erantzunik.");
+                                }
+                                try {
+                                erantzun_3 = document.get("galdera_3").toString();
+                                }catch (Exception e){
+                                    Log.d(TAG, "Ez dago gune honen erantzunik.");
+                                }
+                                try {
+                                erantzun_4 = document.get("galdera_4").toString();
+                                }catch (Exception e){
+                                    Log.d(TAG, "Ez dago gune honen erantzunik.");
+                                }
+                                try {
+                                erantzun_5 = document.get("galdera_5").toString();
+                                }catch (Exception e){
+                                    Log.d(TAG, "Ez dago gune honen erantzunik.");
+                                }
 
                                 int erabiltzaile_id = erabiltzaileKontroler.getErabiltzaileId(email);
 
@@ -230,6 +267,84 @@ public class Metodoak {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d(TAG, "Errorea Erantzunak  ezin izan dira gorde");
+                    }
+                });
+    }
+
+    /**
+     * Erabiltzaileak lortutako erantzuna gordetzen du room datubasean
+     * @param database Room datubasea
+     * @param erantzuna Lortutako erantzuna
+     * @param id_galdera Gunearen id
+     * @param id_erabiltzaile Erabiltzailearen id
+     */
+    public static boolean erantzunaGordeRoom (Datubasea database, String erantzuna, int id_galdera, int id_erabiltzaile){
+        boolean gordeta = false;
+        int erantzun_id = 0;
+
+        ErantzunaDao erantzunaKontroler = database.erantzunaDao();
+        int count = 1+erantzunaKontroler.getErantzunCount();
+        erantzun_id = erantzunaKontroler.getErantzunId(id_erabiltzaile,id_galdera);
+
+        //Erabiltzailea erantzunik gorde ez badu gune horretan gordetzen du
+        if(erantzun_id==0) {
+            Erantzuna erantzun_obj = new Erantzuna(count, erantzuna, id_galdera, id_erabiltzaile);
+            erantzunaKontroler.insertErantzuna(erantzun_obj);
+            gordeta = true;
+        }
+        return gordeta;
+    }
+
+    /**
+     * Erabiltzailea lortutako erantzuna gordetzen du
+     * @param erantzuna Erantzuna edo puntuazioa
+     * @param id_galdera Gunearen id
+     * @param erabiltzaile_email Eranbiltzailearen email
+     */
+    public static void erantzunaFirebaseGorde(String erantzuna, int id_galdera, String erabiltzaile_email){
+        String galdera_url="";
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        switch(id_galdera){
+            case 1:
+                galdera_url="galdera_1";
+                break;
+            case 2:
+                galdera_url="galdera_2";
+                break;
+            case 3:
+                galdera_url="galdera_3";
+                break;
+            case 4:
+                galdera_url="galdera_4";
+                break;
+            case 5:
+                galdera_url="galdera_5";
+                break;
+        }
+
+        // Construye la referencia al documento
+        DocumentReference docRef = db.collection("erantzunak").document(erabiltzaile_email);
+
+        // Crea un mapa para almacenar el campo que deseas actualizar o crear
+        Map<String, Object> actualizacion = new HashMap<>();
+        actualizacion.put(galdera_url, erantzuna);
+        actualizacion.put("email", erabiltzaile_email);
+
+        // Actualiza el campo específico en el documento
+        docRef.set(actualizacion, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // La operación fue exitosa
+                        Log.d("TAG", "Documento actualizado o creado correctamente");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Error al intentar actualizar o crear el documento
+                        Log.e("TAG", "Error al actualizar o crear el documento", e);
                     }
                 });
     }

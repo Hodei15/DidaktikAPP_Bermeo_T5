@@ -156,7 +156,7 @@ public class Menu_Gune_Activity extends AppCompatActivity {
                             break;
 
                         default:
-                            intent = new Intent(Menu_Gune_Activity.this, Main_Activity.class);
+                            intent = new Intent(Menu_Gune_Activity.this, Login_Activity.class);
                             break;
                     }
                     startActivity(intent);
@@ -255,9 +255,8 @@ public class Menu_Gune_Activity extends AppCompatActivity {
                                 intent = new Intent(Menu_Gune_Activity.this, Gune_1_Activity.class);
                                 break;
 
-
                             default:
-                                intent = new Intent(Menu_Gune_Activity.this, Main_Activity.class);
+                                intent = new Intent(Menu_Gune_Activity.this, Login_Activity.class);
                                 break;
                         }
                         startActivity(intent);

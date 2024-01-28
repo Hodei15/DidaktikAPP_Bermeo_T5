@@ -37,7 +37,6 @@ public class Gune_3_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Gune_3_Activity.this, Menu_Gune_Activity.class);
-
                 startActivity(intent);
             }
         });
@@ -52,7 +51,6 @@ public class Gune_3_Activity extends AppCompatActivity {
 
                 Fragment fragment_nuevo=null;
                 if (fragment instanceof Audio_Fragment_Gune_3){
-                    //Falta por programar
                     Intent i = new Intent(Gune_3_Activity.this, Menu_Gune_Activity.class);
                     startActivity(i);
                 }else if(fragment instanceof Jolasa_Fragment_Gune_3) {

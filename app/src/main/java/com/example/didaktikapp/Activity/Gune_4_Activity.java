@@ -53,7 +53,8 @@ public class Gune_4_Activity extends AppCompatActivity {
 
                 Fragment fragment_nuevo=null;
                 if (fragment instanceof Bideo_Fragment_Gune_4){
-                    //Falta por programar
+                    Intent intent = new Intent(Gune_4_Activity.this, Menu_Gune_Activity.class);
+                    startActivity(intent);
                 }else if(fragment instanceof Jolasa_Fragment_Gune_4) {
                     fragment_nuevo = new Bideo_Fragment_Gune_4();
                 }
@@ -76,7 +77,6 @@ public class Gune_4_Activity extends AppCompatActivity {
                     fragment_nuevo = new Bideo_Fragment_Gune_4();
                     Intent i = new Intent(Gune_4_Activity.this, Menu_Gune_Activity.class);
                     startActivity(i);
-                    //Falta por programar
                 }
                 fragmentTransaction.replace(R.id.frag_container, fragment_nuevo);
                 fragmentTransaction.commit();

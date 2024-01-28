@@ -13,10 +13,11 @@
 
         <TextView
             android:id="@+id/txt_puntuazioa_5"
-            android:layout_width="23dp"
-            android:layout_height="18dp"
-            android:layout_marginStart="352dp"
-            android:layout_marginTop="116dp"
+            android:layout_width="150dp"
+            android:layout_height="17dp"
+            android:layout_marginTop="96dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.862"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -172,5 +173,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Arraun_Ontzia_C2"
             app:layout_constraintVertical_bias="0.106" />
+
+        <ImageView
+            android:id="@+id/img_correcto5"
+            android:layout_width="200px"
+            android:layout_height="200px"
+            android:src="@drawable/tick"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.554" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

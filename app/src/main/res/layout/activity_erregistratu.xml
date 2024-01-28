@@ -8,7 +8,7 @@
     tools:context=".Activity.Erregistratu_Activity">
 
     <EditText
-        android:id="@+id/txt_klasea"
+        android:id="@+id/txt_erregistro_klasea"
         android:layout_width="200sp"
         android:layout_height="49dp"
         android:layout_marginTop="30dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_erregistro_pass_ber" />
 
     <EditText
-        android:id="@+id/txt_abizen"
+        android:id="@+id/txt_erregistro_abizen"
         android:layout_width="200sp"
         android:layout_height="48sp"
         android:layout_marginTop="30dp"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_erregistro_erabiltzaile" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_erregistro_izena" />
 
     <Button
         android:id="@+id/btn_erregistratu"
@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_klasea" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_erregistro_klasea" />
 
     <EditText
         android:id="@+id/txt_erregistro_pass_ber"
@@ -83,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_abizen" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_erregistro_abizen" />
 
     <TextView
         android:id="@+id/lbl_erregistratu"
@@ -102,7 +102,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txt_erregistro_erabiltzaile"
+        android:id="@+id/txt_erregistro_izena"
         android:layout_width="200sp"
         android:layout_height="48sp"
         android:layout_marginTop="40dp"

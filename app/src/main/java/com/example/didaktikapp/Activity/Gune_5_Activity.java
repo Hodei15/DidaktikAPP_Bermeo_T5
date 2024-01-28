@@ -37,7 +37,6 @@ public class Gune_5_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Gune_5_Activity.this, Menu_Gune_Activity.class);
-
                 startActivity(intent);
             }
         });
@@ -51,7 +50,8 @@ public class Gune_5_Activity extends AppCompatActivity {
 
                 Fragment fragment_nuevo=null;
                 if (fragment instanceof Audio_Fragment_Gune_5){
-                    //Falta por programar
+                    Intent intent = new Intent(Gune_5_Activity.this, Menu_Gune_Activity.class);
+                    startActivity(intent);
                 }else if(fragment instanceof Jolasa_Fragment_Gune_5) {
                     fragment_nuevo = new Audio_Fragment_Gune_5();
                 }
@@ -75,7 +75,6 @@ public class Gune_5_Activity extends AppCompatActivity {
                     fragment_nuevo = new Audio_Fragment_Gune_5();
                     Intent i = new Intent(Gune_5_Activity.this, Menu_Gune_Activity.class);
                     startActivity(i);
-                    //Falta por programar
                 }
                 fragmentTransaction.replace(R.id.frag_container, fragment_nuevo);
                 fragmentTransaction.commit();

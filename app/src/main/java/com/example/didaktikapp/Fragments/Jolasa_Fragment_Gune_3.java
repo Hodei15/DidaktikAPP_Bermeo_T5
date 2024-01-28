@@ -2,6 +2,10 @@ package com.example.didaktikapp.Fragments;
 
 import static android.service.controls.ControlsProviderService.TAG;
 
+import static com.example.didaktikapp.Activity.Login_Activity.SHARED_PREFS;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,7 +20,11 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.didaktikapp.Controler.Metodoak;
+import com.example.didaktikapp.Database.Datubasea;
+import com.example.didaktikapp.Database.Erabiltzaile;
 import com.example.didaktikapp.Model.EsperaImagen;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +35,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.example.didaktikapp.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -106,12 +115,27 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
     private TextView puntuazioaErakutsi;
     private Handler handler = new Handler();
     boolean jolasa_amaituta = false;
+    SharedPreferences sharedpreferences;
+    private Datubasea database;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
+
+
+        //Room datubasearen instantzia lortu
+        database = Datubasea.getDatabase(getActivity().getApplicationContext());
+        //atributuak deklaratu
+        sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        //Erabiltzailea sharedPref-etik lortzen du
+        Gson gson = new Gson();
+        String json = sharedpreferences.getString("erabiltzaile", "");
+        Erabiltzaile erabiltzaile = gson.fromJson(json, Erabiltzaile.class);
+
         //ikaslearen puntuaketa kalkulatzeko atributuak
         puntuazioa = 1000;
         puntuazioaErakutsi = view.findViewById(R.id.txt_puntuazioa_3);
+
+
         //atributuak deklaratu
         mural = (ImageView) view.findViewById(R.id.Murala);
         lbl_galdera_jolasa_3 = view.findViewById(R.id.lbl_galdera_jolasa_3);
@@ -207,6 +231,11 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
                     puntuazioa -= 10;
                     puntuazioaErakutsi.setText("Puntuazioa: "+String.valueOf(puntuazioa));
                     handler.postDelayed(this, 1000);
+                }else if(jolasa_amaituta){
+                    if(Metodoak.erantzunaGordeRoom(database,String.valueOf(puntuazioa),3,erabiltzaile.getId())) {
+                        Metodoak.erantzunaFirebaseGorde(String.valueOf(puntuazioa), 3, erabiltzaile.getEmail());
+                        Toast.makeText(getActivity(), "Lortutako puntuazioa gorde egin da.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }, 1000);
