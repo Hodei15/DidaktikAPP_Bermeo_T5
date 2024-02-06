@@ -10,9 +10,11 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.didaktikapp.Database.Erabiltzaile;
@@ -29,15 +31,16 @@ public class Gune_2_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gune_2);
+        //Errotazioa blokeatzen du
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        Button btn_atzera =findViewById(R.id.btn_atzera);
-        Button btn_aurrera = findViewById(R.id.btn_aurrera);
+        ImageView img_atzera =findViewById(R.id.img_atzera2);
+        ImageView img_aurrera = findViewById(R.id.img_aurrera2);
         btn_home_gune2 = findViewById(R.id.g2_boton_home);
         lbl_arrain = findViewById(R.id.lbl_arrain);
 
         sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        //Erabiltzaile erabiltzaile = (new Gson()).fromJson(sharedpreferences.getString("erabiltzailea",""), Erabiltzaile.class);
-
+        //Erabiltzailea sharedPref-etik lortzen du
         Gson gson = new Gson();
         String json = sharedpreferences.getString("erabiltzaile", "");
         Erabiltzaile erabiltzaile = gson.fromJson(json, Erabiltzaile.class);
@@ -46,6 +49,7 @@ public class Gune_2_Activity extends AppCompatActivity {
         btn_home_gune2.bringToFront();
         lbl_arrain.bringToFront();
 
+        //Etxe botoia
         btn_home_gune2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -55,7 +59,8 @@ public class Gune_2_Activity extends AppCompatActivity {
             }
         });
 
-        btn_atzera.setOnClickListener(new View.OnClickListener() {
+        //Atzera botoia
+        img_atzera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Fragment Manager
@@ -65,7 +70,8 @@ public class Gune_2_Activity extends AppCompatActivity {
 
                 Fragment fragment_nuevo= new Argazkiak_Fragment_Gune_2();
                 if (fragment instanceof Argazkiak_Fragment_Gune_2){
-                    //Falta por programar
+                    Intent i = new Intent(Gune_2_Activity.this, Menu_Gune_Activity.class);
+                    startActivity(i);
                 }else if(fragment instanceof Bideo_Fragment_Gune_2) {
                     fragment_nuevo = new Argazkiak_Fragment_Gune_2();
                 }
@@ -74,7 +80,8 @@ public class Gune_2_Activity extends AppCompatActivity {
             }
         });
 
-        btn_aurrera.setOnClickListener(new View.OnClickListener() {
+        //Aurrera botoia
+        img_aurrera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Fragment Manager
@@ -88,7 +95,6 @@ public class Gune_2_Activity extends AppCompatActivity {
                 }else if(fragment instanceof Bideo_Fragment_Gune_2){
                     Intent i = new Intent(Gune_2_Activity.this, Menu_Gune_Activity.class);
                     startActivity(i);
-                    //Falta por programar
                 }
                 if(fragment_nuevo!=null){
                     fragmentTransaction.replace(R.id.frag_container, fragment_nuevo);

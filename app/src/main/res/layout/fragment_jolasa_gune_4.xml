@@ -12,12 +12,21 @@
         android:background="#58718B"
         android:backgroundTint="#58718B">
 
+        <com.example.didaktikapp.Model.ZatiTxo
+            android:id="@+id/zatiTxo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#58718B"
+            android:backgroundTint="#58718B"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="0dp" />
+
         <ImageView
             android:id="@+id/brazo_IZQ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="456dp"
-            android:layout_marginEnd="360dp"
+            android:layout_marginTop="360dp"
+            android:layout_marginEnd="324dp"
             android:src="@drawable/txo_brazo_derecho"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +35,7 @@
             android:id="@+id/brazo_IZQ_Ondo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="236dp"
+            android:layout_marginTop="204dp"
             android:layout_marginEnd="118dp"
             android:alpha="0.5"
             android:src="@drawable/txo_brazo_derecho"
@@ -37,8 +46,8 @@
             android:id="@+id/brazo_DER"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="76dp"
-            android:layout_marginEnd="72dp"
+            android:layout_marginTop="68dp"
+            android:layout_marginEnd="40dp"
             android:src="@drawable/txo_brazo_izquierdo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,8 +56,8 @@
             android:id="@+id/brazo_DER_Ondo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="237dp"
-            android:layout_marginEnd="249dp"
+            android:layout_marginTop="204dp"
+            android:layout_marginEnd="248dp"
             android:alpha="0.5"
             android:src="@drawable/txo_brazo_izquierdo"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,8 +67,8 @@
             android:id="@+id/cabeza"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="476dp"
-            android:layout_marginEnd="252dp"
+            android:layout_marginTop="568dp"
+            android:layout_marginEnd="268dp"
             android:src="@drawable/txo_cabeza"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -68,7 +77,7 @@
             android:id="@+id/cabeza_Ondo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="112dp"
+            android:layout_marginTop="80dp"
             android:layout_marginEnd="148dp"
             android:alpha="0.5"
             android:src="@drawable/txo_cabeza"
@@ -79,8 +88,8 @@
             android:id="@+id/pierna_IZQ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="448dp"
-            android:layout_marginEnd="60dp"
+            android:layout_marginTop="480dp"
+            android:layout_marginEnd="72dp"
             android:src="@drawable/txo_pierna_derecha"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -89,7 +98,7 @@
             android:id="@+id/pierna_IZQ_Ondo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="384dp"
+            android:layout_marginTop="350dp"
             android:layout_marginEnd="137dp"
             android:alpha="0.5"
             android:src="@drawable/txo_pierna_derecha"
@@ -100,8 +109,8 @@
             android:id="@+id/pierna_DER"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="208dp"
-            android:layout_marginEnd="340dp"
+            android:layout_marginTop="124dp"
+            android:layout_marginEnd="304dp"
             android:src="@drawable/txo_pierna_izquierda"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -110,7 +119,7 @@
             android:id="@+id/pierna_DER_Ondo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="392dp"
+            android:layout_marginTop="360dp"
             android:layout_marginEnd="204dp"
             android:alpha="0.5"
             android:src="@drawable/txo_pierna_izquierda"
@@ -131,11 +140,42 @@
             android:id="@+id/torso_Ondo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="236dp"
+            android:layout_marginTop="204dp"
             android:layout_marginEnd="164dp"
             android:alpha="0.5"
             android:src="@drawable/txo_torso"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_correcto"
+            android:layout_width="200px"
+            android:layout_height="200px"
+            android:src="@drawable/tick"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_puntuazioa_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

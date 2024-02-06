@@ -3,38 +3,46 @@ package com.example.didaktikapp.Model;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
-public class Argazki {
-
-    protected ImageView img;
+public class Argazkiak_Ontziak {
+    protected int imgCarta;
+    protected int itsasontzia;
+    protected ImageView erakutsi;
     protected int bikote;
     float width;
     float height;
-    float x;
-    float y;
+    int x;
+    int y;
     boolean lotuta;
-    boolean drag;
+    boolean gorantz;
     private ViewTreeObserver viewTreeObserver;
 
-    public Argazki(){
+    public Argazkiak_Ontziak(){
     }
 
-    public Argazki(ImageView img, int bikote, float height, float width,float x, float y){
-        this.img=img;
+    public Argazkiak_Ontziak(int imgCarta,int itsasontzia,ImageView erakutsi, int bikote, float height, float width,int x, int y){
+        this.imgCarta=imgCarta;
+        this.itsasontzia=itsasontzia;
+        this.erakutsi=erakutsi;
         this.bikote=bikote;
         this.height=height;
         this.width=width;
         this.x = x;
         this.y = y;
         this.lotuta = false;
-        this.drag = false;
+        this.gorantz = false;
     }
 
-    public ImageView getImg() {
-        return img;
+    public int getImgCarta() {
+        return imgCarta;
     }
-
-    public void setImg(ImageView img) {
-        this.img = img;
+    public void setImg(int imgCarta) {
+        this.imgCarta = imgCarta;
+    }
+    public int getItsasontzia() {
+        return itsasontzia;
+    }
+    public void setItsasontzia(int itsasontzia) {
+        this.itsasontzia = itsasontzia;
     }
 
     public int getBikote() {
@@ -47,6 +55,18 @@ public class Argazki {
 
     public ViewTreeObserver getViewTreeObserver() {
         return viewTreeObserver;
+    }
+
+    public void setImgCarta(int imgCarta) {
+        this.imgCarta = imgCarta;
+    }
+
+    public ImageView getErakutsi() {
+        return erakutsi;
+    }
+
+    public void setErakutsi(ImageView erakutsi) {
+        this.erakutsi = erakutsi;
     }
 
     public void setViewTreeObserver(ViewTreeObserver viewTreeObserver) {
@@ -69,19 +89,19 @@ public class Argazki {
         this.height = height;
     }
 
-    public float getX() {
+    public int getX() {
         return x;
     }
 
-    public void setX(float x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public float getY() {
+    public int getY() {
         return y;
     }
 
-    public void setY(float y) {
+    public void setY(int y) {
         this.y = y;
     }
 
@@ -93,11 +113,11 @@ public class Argazki {
         this.lotuta = lotuta;
     }
 
-    public boolean isDrag() {
-        return drag;
+    public boolean isGorantz() {
+        return gorantz;
     }
 
-    public void setDrag(boolean drag) {
-        this.drag = drag;
+    public void setGorantz(boolean gorantz) {
+        this.gorantz = gorantz;
     }
 }

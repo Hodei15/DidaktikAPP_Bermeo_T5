@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,25 +13,31 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.didaktikapp.Database.Erabiltzaile;
 import com.example.didaktikapp.R;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
-import android.util.Log;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Erregistratu_Activity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private EditText txt_erregistro_erabiltzaile;
+    private
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private EditText txt_erregistro_izena;
     private EditText txt_erregistro_mail;
     private EditText txt_erregistro_pass;
     private EditText txt_erregistro_pass_ber;
     private Button btn_erregistratu;
     private TextView lbl_login_nav;
+    private  TextView txt_erregistro_klasea;
+    private  TextView txt_erregistro_abizen;
 
     //SharedPreferences
     SharedPreferences sharedpreferences;
@@ -42,6 +49,8 @@ public class Erregistratu_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_erregistratu);
+        //Errotazioa blokeatzen du
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //firebase
         mAuth = FirebaseAuth.getInstance();
@@ -49,10 +58,13 @@ public class Erregistratu_Activity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
 
         //EditText deklarazio
-        txt_erregistro_erabiltzaile = findViewById(R.id.txt_erregistro_erabiltzaile);
+        txt_erregistro_izena = findViewById(R.id.txt_erregistro_izena);
         txt_erregistro_mail = findViewById(R.id.txt_erregistro_mail);
         txt_erregistro_pass = findViewById(R.id.txt_erregistro_pass);
         txt_erregistro_pass_ber = findViewById(R.id.txt_erregistro_pass_ber);
+        txt_erregistro_klasea = findViewById(R.id.txt_erregistro_klasea);
+        txt_erregistro_abizen = findViewById(R.id.txt_erregistro_abizen);
+
 
         //Botoiak
         btn_erregistratu = findViewById(R.id.btn_erregistratu);
@@ -61,7 +73,7 @@ public class Erregistratu_Activity extends AppCompatActivity {
         btn_erregistratu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!txt_erregistro_erabiltzaile.getText().toString().isEmpty() && !txt_erregistro_mail.getText().toString().isEmpty() && !txt_erregistro_pass.getText().toString().isEmpty() && !txt_erregistro_pass_ber.getText().toString().isEmpty()){
+                if(!txt_erregistro_izena.getText().toString().isEmpty() && !txt_erregistro_abizen.getText().toString().isEmpty() && !txt_erregistro_mail.getText().toString().isEmpty() && !txt_erregistro_pass.getText().toString().isEmpty() && !txt_erregistro_pass_ber.getText().toString().isEmpty() && !txt_erregistro_klasea.getText().toString().isEmpty()){
                     if(!txt_erregistro_pass.getText().toString().equals(txt_erregistro_pass_ber.getText().toString())){
                         Toast.makeText(Erregistratu_Activity.this, "Pasahitzak ez dira berdinak.", Toast.LENGTH_SHORT).show();
                     }else{
@@ -82,6 +94,11 @@ public class Erregistratu_Activity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Erabiltzailea erregistratuta ez badago, firebase eta room datubaseetan erregistratzen ditu
+     * @param erabiltzaile Erabiltzaile email
+     * @param pasahitza Erabiltzaile pasahitza
+     */
     private void erregistratu(String erabiltzaile, String pasahitza) {
 
         mAuth.createUserWithEmailAndPassword(erabiltzaile, pasahitza)
@@ -92,6 +109,14 @@ public class Erregistratu_Activity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
 
+                            Erabiltzaile erabiltzaile_objetu = new Erabiltzaile();
+                            erabiltzaile_objetu.setNombre(txt_erregistro_izena.getText().toString());
+                            erabiltzaile_objetu.setApellido(txt_erregistro_abizen.getText().toString());
+                            erabiltzaile_objetu.setEmail(txt_erregistro_mail.getText().toString());
+                            erabiltzaile_objetu.setKlasea(txt_erregistro_klasea.getText().toString());
+
+                            db.collection("erabiltzaileak").document(erabiltzaile).set(erabiltzaile_objetu);
+
                             //Datuak SharedPreferences-ean gordetzen ditugu
                             SharedPreferences.Editor editor = sharedpreferences.edit();
                             editor.putString(EMAIL_KEY, erabiltzaile);
@@ -101,7 +126,7 @@ public class Erregistratu_Activity extends AppCompatActivity {
                             Toast.makeText(Erregistratu_Activity.this, "Erabiltzailea erregistratu da.",
                                     Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(Erregistratu_Activity.this, Menu_Gune_Activity.class);
+                            Intent intent = new Intent(Erregistratu_Activity.this, Login_Activity.class);
                             startActivity(intent);
                             finish();
                         }else {

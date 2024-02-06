@@ -6,9 +6,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.didaktikapp.Fragments.Audio_Fragment_Gune_5;
@@ -23,13 +25,18 @@ public class Gune_4_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gune_4);
-        Button btn_atzera =findViewById(R.id.btn_atzera);
-        Button btn_aurrera = findViewById(R.id.btn_aurrera);
+        //Errotazioa blokeatzen du
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        ImageView img_atzera =findViewById(R.id.img_atzera4);
+        ImageView img_aurrera = findViewById(R.id.img_aurrera4);
         Button g4_boton_home = findViewById(R.id.g2_boton_home);
         TextView lbl_portua = findViewById(R.id.lbl_portua);
 
         g4_boton_home.bringToFront();
         lbl_portua.bringToFront();
+
+        //Etxe botoia
         g4_boton_home.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -38,7 +45,8 @@ public class Gune_4_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        btn_atzera.setOnClickListener(new View.OnClickListener() {
+        //Atzera botoia
+        img_atzera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Fragment Manager
@@ -48,7 +56,8 @@ public class Gune_4_Activity extends AppCompatActivity {
 
                 Fragment fragment_nuevo= new Bideo_Fragment_Gune_4();
                 if (fragment instanceof Bideo_Fragment_Gune_4){
-                    //Falta por programar
+                    Intent intent = new Intent(Gune_4_Activity.this, Menu_Gune_Activity.class);
+                    startActivity(intent);
                 }else if(fragment instanceof Jolasa_Fragment_Gune_4) {
                     fragment_nuevo = new Bideo_Fragment_Gune_4();
                 }
@@ -56,8 +65,8 @@ public class Gune_4_Activity extends AppCompatActivity {
                 fragmentTransaction.commit();
             }
         });
-
-        btn_aurrera.setOnClickListener(new View.OnClickListener() {
+        //Aurrera botoia
+        img_aurrera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Fragment Manager
@@ -72,7 +81,6 @@ public class Gune_4_Activity extends AppCompatActivity {
                     fragment_nuevo = new Bideo_Fragment_Gune_4();
                     Intent i = new Intent(Gune_4_Activity.this, Menu_Gune_Activity.class);
                     startActivity(i);
-                    //Falta por programar
                 }
                 fragmentTransaction.replace(R.id.frag_container, fragment_nuevo);
                 fragmentTransaction.commit();

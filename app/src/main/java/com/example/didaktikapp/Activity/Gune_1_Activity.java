@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,8 @@ public class Gune_1_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gune_1);
+        //Errotazioa blokeatzen du
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         ImageView img_atzera =findViewById(R.id.img_atzera);
         ImageView img_aurrera = findViewById(R.id.img_aurrera);
@@ -34,14 +37,15 @@ public class Gune_1_Activity extends AppCompatActivity {
 
         btn_home_gune1.bringToFront();
         lbl_kontserba.bringToFront();
+        //Etxe botoia
         btn_home_gune1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Gune_1_Activity.this, Menu_Gune_Activity.class);
-
                 startActivity(intent);
             }
         });
+        //Aurrera nabegazio botoia
         img_atzera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +56,6 @@ public class Gune_1_Activity extends AppCompatActivity {
 
                 Fragment fragment_nuevo= new Bideo_Fragment_Gune_1();
                 if (fragment instanceof Bideo_Fragment_Gune_1){
-                    //Falta por programar
                     Intent i = new Intent(Gune_1_Activity.this, Menu_Gune_Activity.class);
                     startActivity(i);
                 }else if(fragment instanceof Audio_Fragment_Gune_1) {
@@ -65,6 +68,7 @@ public class Gune_1_Activity extends AppCompatActivity {
             }
         });
 
+        //Atzera nabegazio botoia
         img_aurrera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

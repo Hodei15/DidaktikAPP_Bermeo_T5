@@ -7,15 +7,22 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.didaktikapp.Controler.Metodoak;
+import com.example.didaktikapp.Model.Argazki;
+import com.example.didaktikapp.Model.ZatiTxo;
 import com.example.didaktikapp.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,12 +71,6 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_jolasa_gune_4, container, false);
-    }
 
     private ImageView cabeza;
     private ImageView pierna_DER;
@@ -83,170 +84,102 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
     private ImageView brazo_DER_Ondo;
     private ImageView brazo_IZQ_Ondo;
     private ImageView torso_Ondo;
-    private float xDelta, yDelta;
-
+    private int puntuazioa;
+    private TextView puntuazioaErakutsi;
+    private Handler handler = new Handler();
+    private ZatiTxo zatiTxo;
+    List<Argazki> gorputza;
+    List<Argazki> goruptzaOndo;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_jolasa_gune_4, container, false);
+        // Inflate the layout for this fragment
+        //ikaslearen puntuaketa kalkulatzeko atributuak
+        puntuazioa = 1000;
+        puntuazioaErakutsi = view.findViewById(R.id.txt_puntuazioa_4);
+
+        //irudiak deklaratu
         cabeza = view.findViewById(R.id.cabeza);
         pierna_DER = view.findViewById(R.id.pierna_DER);
         pierna_IZQ = view.findViewById(R.id.pierna_IZQ);
         brazo_DER = view.findViewById(R.id.brazo_DER);
         brazo_IZQ = view.findViewById(R.id.brazo_IZQ);
         torso = view.findViewById(R.id.torso);
+
         cabeza_Ondo = view.findViewById(R.id.cabeza_Ondo);
         pierna_DER_Ondo = view.findViewById(R.id.pierna_DER_Ondo);
         pierna_IZQ_Ondo = view.findViewById(R.id.pierna_IZQ_Ondo);
         brazo_DER_Ondo = view.findViewById(R.id.brazo_DER_Ondo);
         brazo_IZQ_Ondo = view.findViewById(R.id.brazo_IZQ_Ondo);
         torso_Ondo = view.findViewById(R.id.torso_Ondo);
-        boolean cabezaDrag = false;
-        boolean brazoIZQDrag = false;
-        boolean brazoDERDrag = false;
-        boolean piernaIZQDrag = false;
-        boolean piernaDERDrag = false;
-        boolean torsoDrag = false;
+
+        gorputza = new ArrayList<Argazki>(6);
+        goruptzaOndo = new ArrayList<Argazki>(6);
 
 
-/*
-        cabeza.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                // ... (otros códigos)
+        gorputza.clear();
+        agazkiakKargatu(gorputza,1, cabeza);
+        agazkiakKargatu(gorputza,2, pierna_DER);
+        agazkiakKargatu(gorputza,3, pierna_IZQ);
+        agazkiakKargatu(gorputza,4, brazo_DER);
+        agazkiakKargatu(gorputza,5, brazo_IZQ);
+        agazkiakKargatu(gorputza,6, torso);
+        goruptzaOndo.clear();
+        agazkiakKargatu(goruptzaOndo, 1, cabeza_Ondo);
+        agazkiakKargatu(goruptzaOndo, 2, pierna_DER_Ondo);
+        agazkiakKargatu(goruptzaOndo, 3, pierna_IZQ_Ondo);
+        agazkiakKargatu(goruptzaOndo, 4, brazo_DER_Ondo);
+        agazkiakKargatu(goruptzaOndo, 5, brazo_IZQ_Ondo);
+        agazkiakKargatu(goruptzaOndo, 6, torso_Ondo);
 
-                switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                    case MotionEvent.ACTION_DOWN:
-                        // ... (otros códigos)
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        // Mover la imagen solo si el arrastre está habilitado
-                        if (cabezaDrag) {
-                            cabeza.setX(x - xDelta);
-                            cabeza.setY(y - yDelta);
-                        }
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        // Al soltar la imagen, verifica si está sobre la imagen "Cabeza_Ondo"
-                        if (isViewOverlapping(cabeza, cabeza_Ondo)) {
-                            // La cabeza está sobre "Cabeza_Ondo", deshabilita el arrastre
-                            cabezaDrag = false;
-                        }
-                        break;
-                }
-                return true;
-            }
-        });
-        pierna_DER.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                final int x = (int) event.getRawX();
-                final int y = (int) event.getRawY();
-                switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                    case MotionEvent.ACTION_DOWN:
-                        // Guardar la posición inicial al tocar la imagen
-                        xDelta = x - pierna_DER.getX();
-                        yDelta = y - pierna_DER.getY();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        // Mover la imagen según la posición del dedo
-                        pierna_DER.setX(x - xDelta);
-                        pierna_DER.setY(y - yDelta);
-                        break;
-                }
-                return true;
-            }
-        });
-        pierna_IZQ.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                final int x = (int) event.getRawX();
-                final int y = (int) event.getRawY();
-                switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                    case MotionEvent.ACTION_DOWN:
-                        // Guardar la posición inicial al tocar la imagen
-                        xDelta = x - pierna_IZQ.getX();
-                        yDelta = y - pierna_IZQ.getY();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        // Mover la imagen según la posición del dedo
-                        pierna_IZQ.setX(x - xDelta);
-                        pierna_IZQ.setY(y - yDelta);
-                        break;
-                }
-                return true;
-            }
-        });
-        brazo_DER.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                final int x = (int) event.getRawX();
-                final int y = (int) event.getRawY();
-                switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                    case MotionEvent.ACTION_DOWN:
-                        // Guardar la posición inicial al tocar la imagen
-                        xDelta = x - brazo_DER.getX();
-                        yDelta = y - brazo_DER.getY();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        // Mover la imagen según la posición del dedo
-                        brazo_DER.setX(x - xDelta);
-                        brazo_DER.setY(y - yDelta);
-                        break;
-                }
-                return true;
-            }
-        });
-        brazo_IZQ.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                final int x = (int) event.getRawX();
-                final int y = (int) event.getRawY();
-                switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                    case MotionEvent.ACTION_DOWN:
-                        // Guardar la posición inicial al tocar la imagen
-                        xDelta = x - brazo_IZQ.getX();
-                        yDelta = y - brazo_IZQ.getY();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        // Mover la imagen según la posición del dedo
-                        brazo_IZQ.setX(x - xDelta);
-                        brazo_IZQ.setY(y - yDelta);
-                        break;
-                }
-                return true;
-            }
-        });
-        torso.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                final int x = (int) event.getRawX();
-                final int y = (int) event.getRawY();
-                switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                    case MotionEvent.ACTION_DOWN:
-                        // Guardar la posición inicial al tocar la imagen
-                        xDelta = x - torso.getX();
-                        yDelta = y - torso.getY();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        // Mover la imagen según la posición del dedo
-                        torso.setX(x - xDelta);
-                        torso.setY(y - yDelta);
-                        break;
-                }
-                return true;
-            }
-        });
+        zatiTxo = view.findViewById(R.id.zatiTxo);
+        ImageView img_correcto = view.findViewById(R.id.img_correcto);
+        zatiTxo.setImg_correcto(img_correcto);
 
+        zatiTxo.setGorputza(gorputza);
+        zatiTxo.setGorputzaOndo(goruptzaOndo);
+
+        //puntuaketari segunduro 10 puntu kentzeko metodoa
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(!zatiTxo.isJolasa_amaituta() && puntuazioa>0){
+                    puntuazioa -= 10;
+                    puntuazioaErakutsi.setText("Puntuazioa: "+String.valueOf(puntuazioa));
+                    handler.postDelayed(this, 1000);
+                }
+            }
+        }, 1000);
+
+        return view;
     }
-    private boolean isViewOverlapping(View firstView, View secondView) {
-        Rect rectFirstView = new Rect();
-        firstView.getHitRect(rectFirstView);
 
-        Rect rectSecondView = new Rect();
-        secondView.getHitRect(rectSecondView);
+    /**
+     * Jolasaren argazkiak kargatzen dira zerrendan
+     * @param argazkiak Argazki zerrenda
+     * @param bikote Argazkairen bikote id
+     * @param argazki Argazkia
+     * @return Zerrenda argazkiarekin
+     */
+    private void agazkiakKargatu(List<Argazki> argazkiak,int bikote, ImageView argazki){
 
-        return Rect.intersects(rectFirstView, rectSecondView);
-    }
-*/
-    }
+            ViewTreeObserver viewTreeObserver = argazki.getViewTreeObserver();
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    if(argazkiak.size()<6) {
+                        int[] locationOnScreen = new int[2];
+                        argazki.getLocationOnScreen(locationOnScreen);
+                        Argazki argazki_obj = new Argazki(argazki, bikote, argazki.getHeight(), argazki.getWidth(), locationOnScreen[0], locationOnScreen[1]);
+                        argazkiak.add(argazki_obj);
+                    }
+                }
+            });
+        }
 }

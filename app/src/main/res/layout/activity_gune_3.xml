@@ -65,23 +65,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-            <Button
-                android:id="@+id/btn_atzera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1sp"
+            <ImageView
+                android:id="@+id/img_atzera3"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_weight="1"
-                android:backgroundTint="#092635"
-                android:text="Atzera" />
+                app:srcCompat="@drawable/atzera" />
 
-            <Button
-                android:id="@+id/btn_aurrera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1sp"
+            <ImageView
+                android:id="@+id/img_aurrera3"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_weight="1"
-                android:backgroundTint="#092635"
-                android:text="Aurrera" />
+                app:srcCompat="@drawable/aurrera" />
 
         </LinearLayout>
 

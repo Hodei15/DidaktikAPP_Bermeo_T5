@@ -2,11 +2,16 @@ package com.example.didaktikapp.Fragments;
 
 import static android.service.controls.ControlsProviderService.TAG;
 
+import static com.example.didaktikapp.Activity.Login_Activity.SHARED_PREFS;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,7 +20,11 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.didaktikapp.Controler.Metodoak;
+import com.example.didaktikapp.Database.Datubasea;
+import com.example.didaktikapp.Database.Erabiltzaile;
 import com.example.didaktikapp.Model.EsperaImagen;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +35,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.example.didaktikapp.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -101,12 +111,33 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
     ImageView img_borobil_3;
     ImageView img_borobil_4;
     ImageView img_borobil_5;
-
+    private int puntuazioa;
+    private TextView puntuazioaErakutsi;
+    private Handler handler = new Handler();
+    boolean jolasa_amaituta = false;
+    SharedPreferences sharedpreferences;
+    private Datubasea database;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-        mural = (ImageView) view.findViewById(R.id.Murala);
 
+
+        //Room datubasearen instantzia lortu
+        database = Datubasea.getDatabase(getActivity().getApplicationContext());
+        //atributuak deklaratu
+        sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        //Erabiltzailea sharedPref-etik lortzen du
+        Gson gson = new Gson();
+        String json = sharedpreferences.getString("erabiltzaile", "");
+        Erabiltzaile erabiltzaile = gson.fromJson(json, Erabiltzaile.class);
+
+        //ikaslearen puntuaketa kalkulatzeko atributuak
+        puntuazioa = 1000;
+        puntuazioaErakutsi = view.findViewById(R.id.txt_puntuazioa_3);
+
+
+        //atributuak deklaratu
+        mural = (ImageView) view.findViewById(R.id.Murala);
         lbl_galdera_jolasa_3 = view.findViewById(R.id.lbl_galdera_jolasa_3);
         img_tick_jolasa3 = view.findViewById(R.id.img_tick_jolasa3);
         img_borobil_1 = view.findViewById(R.id.img_borobil_1);
@@ -114,7 +145,6 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
         img_borobil_3 = view.findViewById(R.id.img_borobil_3);
         img_borobil_4 = view.findViewById(R.id.img_borobil_4);
         img_borobil_5 = view.findViewById(R.id.img_borobil_5);
-
 
         mAuth = FirebaseAuth.getInstance();
         db.collection("guneak").document("gune_3").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -140,6 +170,7 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
                 Log.d(TAG,"Finish y: "+ argazkiZabalera);
             }
         });
+        //Muralaren touch event
         mural.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -173,6 +204,7 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
                                     break;
                                 case 4:
                                     img_borobil_5.setVisibility(View.VISIBLE);
+                                    jolasa_amaituta = true;
                                     break;
                             }
 
@@ -192,6 +224,21 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
                 return true;
             }
         });
-
+        //puntuaketari segunduro 10 puntu kentzeko metodoa
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (puntuazioa > 0 && !jolasa_amaituta) {
+                    puntuazioa -= 10;
+                    puntuazioaErakutsi.setText("Puntuazioa: "+String.valueOf(puntuazioa));
+                    handler.postDelayed(this, 1000);
+                }else if(jolasa_amaituta){
+                    if(Metodoak.erantzunaGordeRoom(database,String.valueOf(puntuazioa),3,erabiltzaile.getId())) {
+                        Metodoak.erantzunaFirebaseGorde(String.valueOf(puntuazioa), 3, erabiltzaile.getEmail());
+                        Toast.makeText(getActivity(), "Lortutako puntuazioa gorde egin da.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }, 1000);
     }
 }

@@ -8,6 +8,7 @@ import androidx.core.content.res.ResourcesCompat;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,7 +17,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
@@ -35,7 +35,6 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 
-import java.io.File;
 import java.util.List;
 
 public class Menu_Gune_Activity extends AppCompatActivity {
@@ -53,6 +52,8 @@ public class Menu_Gune_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_gune);
+        //Errotazioa blokeatzen du
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         btn_saioItxi = findViewById(R.id.btn_saioItxi);
 
@@ -154,7 +155,7 @@ public class Menu_Gune_Activity extends AppCompatActivity {
                             break;
 
                         default:
-                            intent = new Intent(Menu_Gune_Activity.this, MainActivity.class);
+                            intent = new Intent(Menu_Gune_Activity.this, Login_Activity.class);
                             break;
                     }
                     startActivity(intent);
@@ -198,7 +199,6 @@ public class Menu_Gune_Activity extends AppCompatActivity {
                 // Ubikazio berria lortu aldatzerakoan
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
-
 
                 System.out.println(latitude);
                 System.out.println(longitude);
@@ -251,9 +251,8 @@ public class Menu_Gune_Activity extends AppCompatActivity {
                                 intent = new Intent(Menu_Gune_Activity.this, Gune_1_Activity.class);
                                 break;
 
-
                             default:
-                                intent = new Intent(Menu_Gune_Activity.this, MainActivity.class);
+                                intent = new Intent(Menu_Gune_Activity.this, Login_Activity.class);
                                 break;
                         }
                         startActivity(intent);

@@ -4,6 +4,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+
+import java.time.chrono.Era;
+
 @Entity(
         tableName = "erantzunak",
         foreignKeys = {
@@ -28,6 +31,8 @@ public class Erantzuna {
                 this.id_galdera = id_galdera;
                 this.id_erabiltzaile = id_erabiltzaile;
         }
+
+
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "id")
         public int id;

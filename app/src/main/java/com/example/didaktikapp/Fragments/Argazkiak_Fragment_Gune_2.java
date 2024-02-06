@@ -2,6 +2,8 @@ package com.example.didaktikapp.Fragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import static com.example.didaktikapp.Activity.Login_Activity.SHARED_PREFS;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,9 +17,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.didaktikapp.Activity.Erregistratu_Activity;
+import com.example.didaktikapp.Controler.Metodoak;
+import com.example.didaktikapp.Database.Datubasea;
 import com.example.didaktikapp.Database.Erabiltzaile;
 import com.example.didaktikapp.R;
 import com.google.gson.Gson;
@@ -75,20 +80,34 @@ public class Argazkiak_Fragment_Gune_2 extends Fragment {
         return inflater.inflate(R.layout.fragment_argazkiak_gune_2, container, false);
 
     }
-    private ImageView Eskultura1;
-    private ImageView Eskultura2;
-    private ScrollView textua;
     Button btn_gorde_erantzuna;
+    SharedPreferences sharedpreferences;
+    private Datubasea database;
+    TextView txt_Argazkiak_Gune2;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
+
+        //Room datubasearen instantzia lortu
+        database = Datubasea.getDatabase(getActivity().getApplicationContext());
+        //atributuak deklaratu
+        sharedpreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        //Erabiltzailea sharedPref-etik lortzen du
+        Gson gson = new Gson();
+        String json = sharedpreferences.getString("erabiltzaile", "");
+        Erabiltzaile erabiltzaile = gson.fromJson(json, Erabiltzaile.class);
+
+        txt_Argazkiak_Gune2 = view.findViewById(R.id.txt_Argazkiak_Gune2);
         btn_gorde_erantzuna = view.findViewById(R.id.btn_gorde_erantzuna);
-        Activity a = getActivity();
 
         btn_gorde_erantzuna.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Idatzitako erantzuna gorde egin da.", Toast.LENGTH_SHORT).show();
+                String erantzuna = txt_Argazkiak_Gune2.getText().toString();
+                if(Metodoak.erantzunaGordeRoom(database,erantzuna,2,erabiltzaile.getId())) {
+                    Metodoak.erantzunaFirebaseGorde(erantzuna, 2, erabiltzaile.getEmail());
+                    Toast.makeText(getActivity(), "Lortutako puntuazioa gorde egin da.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

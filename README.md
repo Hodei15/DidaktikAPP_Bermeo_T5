@@ -8,5 +8,6 @@
 # Andoni Fernandez
 # Ibai Alvarez
 
-# emaila = pepe@gmail.com
-# pasahitza = contra
+#Erabiltzaile: pepe@gmail.com
+#Pasahitza: contra
+Erregistratu ahal zarete beste erabiltzaile bat erabiltzeko
