@@ -7,3 +7,6 @@
 # Iker Gorostiaga
 # Andoni Fernandez
 # Ibai Alvarez
+
+# emaila = pepe@gamil.com
+# pasahitza = contra
