@@ -35,6 +35,8 @@ public class Gune_4_Activity extends AppCompatActivity {
 
         g4_boton_home.bringToFront();
         lbl_portua.bringToFront();
+
+        //Etxe botoia
         g4_boton_home.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -43,6 +45,7 @@ public class Gune_4_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //Atzera botoia
         img_atzera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +65,7 @@ public class Gune_4_Activity extends AppCompatActivity {
                 fragmentTransaction.commit();
             }
         });
+        //Aurrera botoia
         img_aurrera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

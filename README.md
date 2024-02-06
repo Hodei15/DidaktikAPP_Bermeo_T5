@@ -7,3 +7,7 @@
 # Iker Gorostiaga
 # Andoni Fernandez
 # Ibai Alvarez
+
+#Erabiltzaile: pepe@gmail.com
+#Pasahitza: contra
+Erregistratu ahal zarete beste erabiltzaile bat erabiltzeko

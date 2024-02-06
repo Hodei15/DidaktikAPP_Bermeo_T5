@@ -171,6 +171,13 @@ public class Jolasa_Fragment_Gune_1 extends Fragment {
         dibujoView.limpiarDibujo();
     }
 
+    /**
+     * Jolasaren argazkiak kargatzen dira zerrendan
+     * @param argazkiak Argazki zerrenda
+     * @param bikote Argazkairen bikote id
+     * @param argazki Argazkia
+     * @return Zerrenda argazkiarekin
+     */
     private List<Argazki> agazkiakKargatu(List<Argazki> argazkiak,int bikote, ImageView argazki){
 
         ViewTreeObserver viewTreeObserver = argazki.getViewTreeObserver();

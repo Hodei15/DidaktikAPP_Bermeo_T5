@@ -94,6 +94,11 @@ public class Erregistratu_Activity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Erabiltzailea erregistratuta ez badago, firebase eta room datubaseetan erregistratzen ditu
+     * @param erabiltzaile Erabiltzaile email
+     * @param pasahitza Erabiltzaile pasahitza
+     */
     private void erregistratu(String erabiltzaile, String pasahitza) {
 
         mAuth.createUserWithEmailAndPassword(erabiltzaile, pasahitza)

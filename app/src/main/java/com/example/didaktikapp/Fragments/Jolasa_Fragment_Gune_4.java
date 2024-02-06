@@ -160,6 +160,13 @@ public class Jolasa_Fragment_Gune_4 extends Fragment {
         return view;
     }
 
+    /**
+     * Jolasaren argazkiak kargatzen dira zerrendan
+     * @param argazkiak Argazki zerrenda
+     * @param bikote Argazkairen bikote id
+     * @param argazki Argazkia
+     * @return Zerrenda argazkiarekin
+     */
     private void agazkiakKargatu(List<Argazki> argazkiak,int bikote, ImageView argazki){
 
             ViewTreeObserver viewTreeObserver = argazki.getViewTreeObserver();

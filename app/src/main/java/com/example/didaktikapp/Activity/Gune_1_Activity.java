@@ -37,6 +37,7 @@ public class Gune_1_Activity extends AppCompatActivity {
 
         btn_home_gune1.bringToFront();
         lbl_kontserba.bringToFront();
+        //Etxe botoia
         btn_home_gune1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -44,6 +45,7 @@ public class Gune_1_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //Aurrera nabegazio botoia
         img_atzera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +68,7 @@ public class Gune_1_Activity extends AppCompatActivity {
             }
         });
 
+        //Atzera nabegazio botoia
         img_aurrera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

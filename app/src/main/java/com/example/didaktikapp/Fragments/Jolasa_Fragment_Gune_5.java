@@ -191,7 +191,21 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-
+/**
+ * @param argazkiak Argazki zerrenda
+ * @param bikote Argazkairen bikote id
+ * @param argazki Argazkia
+ * @return Zerrenda argazkiarekin
+ */
+    /**
+     * Jolasaren argazkiak kargatzen dira zerrendan
+     * @param itsasontziak_argazkiak Argazki zerrenda
+     * @param bikote Argazkairen bikote id
+     * @param carta Cartaren atzeko aldea drawable
+     * @param ontziak Ontzi drawable
+     * @param erakutsi Argazkairen ImageView
+     * @return Zerrenda objetua kargatuta
+     */
     public List<Argazkiak_Ontziak> argazkiaKargatu(List<Argazkiak_Ontziak> itsasontziak_argazkiak, int bikote, int carta, int ontziak, ImageView erakutsi){
 
         ViewTreeObserver viewTreeObserver = erakutsi.getViewTreeObserver();
@@ -220,6 +234,9 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
         return itsasontziak_argazkiak;
     }
 
+    /**
+     * Argazkiaren bikotea zuzen baden ala ez balidatzen du
+     */
     public void aukeraBalidatu(){
         int index_1 = -1;
         int index_2 = -1;
@@ -255,6 +272,10 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
         }
     }
 
+    /**
+     * Jolasa amaitu bada balidatzen du
+     * @return True amaitu bada, False amaitu ez bada
+     */
     public boolean amaitutaBalidatu(){
         boolean amaituta_prob = true;
         //Jolasa amaitu bada balidatzen du
@@ -268,6 +289,11 @@ public class Jolasa_Fragment_Gune_5 extends Fragment {
         }
         return jolasa_amaituta;
     }
+
+    /**
+     * Martzan badagoen balidatzen du
+     * @return True martzan badago operazioa, False martzan ez badago
+     */
     public boolean eguneratzenBegiratu(){
         boolean eguneratzen=false;
         int index_1 = -1;

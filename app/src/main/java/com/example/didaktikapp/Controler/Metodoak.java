@@ -36,6 +36,12 @@ import java.util.Map;
 
 public class Metodoak {
     static int kantitatea =0;
+
+    /**
+     * Gure room datubasean guneen informazioa kargatzen du
+     * @param database Room datubase instantzia
+     * @return Guneen zerrenda
+     */
     public static List<Gunea> guneakBete (Datubasea database){
         GuneaDao kontserbaGune = database.guneaDao();
         Gunea kontserbak = new Gunea(1, "Kontserbak",43.42105,-2.73617);
@@ -55,6 +61,12 @@ public class Metodoak {
 
         return guneak;
     }
+
+    /**
+     * Guneen galderak room datubasean gordetzen dira
+     * @param database  Room datubase instantzia
+     * @return Galdera zerrenda
+     */
     public static List<Galdera> GalderakBete(Datubasea database){
         GalderaDao GalderaKontroladore = database.galderaDao();
         Galdera Orratza = new Galdera(1,"Zer erabiltzen zuten saregileak sarea egiteko?", 3);
@@ -72,6 +84,12 @@ public class Metodoak {
 
         return galderak;
     }
+
+    /**
+     * Room datubasean jarduerak kargatzen dira
+     * @param database Room datubase instantzia
+     * @return Jarduera zerrenda
+     */
     public static List<Jarduera> jardueraBete(Datubasea database){
         JardueraDao jardueraKontroladore = database.jardueraDao();
         Jarduera kontserba = new Jarduera(1, "Kontserba Fabrika");

@@ -49,6 +49,7 @@ public class Gune_2_Activity extends AppCompatActivity {
         btn_home_gune2.bringToFront();
         lbl_arrain.bringToFront();
 
+        //Etxe botoia
         btn_home_gune2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -58,6 +59,7 @@ public class Gune_2_Activity extends AppCompatActivity {
             }
         });
 
+        //Atzera botoia
         img_atzera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +80,7 @@ public class Gune_2_Activity extends AppCompatActivity {
             }
         });
 
+        //Aurrera botoia
         img_aurrera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

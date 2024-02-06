@@ -89,7 +89,7 @@ public class Login_Activity extends AppCompatActivity {
         if(sharedpreferences.getInt(LEHEN_ALDIA, 0)==0) {
             lehenAldia = sharedpreferences.getInt(LEHEN_ALDIA, -1);
         }
-
+        //Lehen exekuzioa bada konprobatzen du
         if(lehenAldia!=0) {
             //Datuak SharedPreferences-ean gordetzen ditugu
             SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -155,6 +155,12 @@ public class Login_Activity extends AppCompatActivity {
         });
     }
     //METODOS
+
+    /**
+     * Erabiltzailea zuzena bada logeatzen da
+     * @param erabiltzaile_string Erabiltzaile email
+     * @param pasahitza Erabiltzaile pasahitza
+     */
     private void saioaHasi(String erabiltzaile_string, String pasahitza) {
 
         mAuth.signInWithEmailAndPassword(erabiltzaile_string, pasahitza)

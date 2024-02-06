@@ -170,6 +170,7 @@ public class Jolasa_Fragment_Gune_3 extends Fragment {
                 Log.d(TAG,"Finish y: "+ argazkiZabalera);
             }
         });
+        //Muralaren touch event
         mural.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

@@ -33,6 +33,8 @@ public class Gune_5_Activity extends AppCompatActivity {
 
         g5_boton_home.bringToFront();
         lbl_itsasontzi.bringToFront();
+
+        //Etxe botoia
         g5_boton_home.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -40,6 +42,7 @@ public class Gune_5_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //Atzera botoia
         img_atzera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +63,7 @@ public class Gune_5_Activity extends AppCompatActivity {
             }
         });
 
+        //Aurrera botoia
         img_aurrera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
