@@ -54,7 +54,7 @@ public class Gune_4_Activity extends AppCompatActivity {
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 Fragment fragment = fm.findFragmentById(R.id.frag_container);
 
-                Fragment fragment_nuevo=null;
+                Fragment fragment_nuevo= new Bideo_Fragment_Gune_4();
                 if (fragment instanceof Bideo_Fragment_Gune_4){
                     Intent intent = new Intent(Gune_4_Activity.this, Menu_Gune_Activity.class);
                     startActivity(intent);
@@ -74,7 +74,7 @@ public class Gune_4_Activity extends AppCompatActivity {
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
                 Fragment fragment = fm.findFragmentById(R.id.frag_container);
 
-                Fragment fragment_nuevo=null;
+                Fragment fragment_nuevo= new Bideo_Fragment_Gune_4();
                 if (fragment instanceof Bideo_Fragment_Gune_4){
                     fragment_nuevo = new Jolasa_Fragment_Gune_4();
                 }else if(fragment instanceof Jolasa_Fragment_Gune_4){

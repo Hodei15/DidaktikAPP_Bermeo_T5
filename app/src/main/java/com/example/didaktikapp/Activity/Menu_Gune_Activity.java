@@ -40,7 +40,6 @@ import java.util.List;
 public class Menu_Gune_Activity extends AppCompatActivity {
 
     Button btn_saioItxi;
-    TextView prueba;
     MapView mapa;
     private Datubasea database;
     private List<Gunea> guneak;
@@ -200,9 +199,6 @@ public class Menu_Gune_Activity extends AppCompatActivity {
                 // Ubikazio berria lortu aldatzerakoan
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
-
-
-                //prueba.setText("latitude:" +latitude+ ", longitude: "+longitude);
 
                 System.out.println(latitude);
                 System.out.println(longitude);
