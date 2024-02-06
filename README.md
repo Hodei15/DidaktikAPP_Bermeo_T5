@@ -8,5 +8,5 @@
 # Andoni Fernandez
 # Ibai Alvarez
 
-# emaila = pepe@gamil.com
+# emaila = pepe@gmail.com
 # pasahitza = contra
